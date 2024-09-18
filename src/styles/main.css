@@ -1,0 +1,10 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* @import "./_main-menu.css";
+@import "./landing/faq-section.module.css";
+@import "./quill.css"; */
+@import "react-toastify/dist/ReactToastify.css";
+@import "react-loading-skeleton/dist/skeleton.css";
+@import "react-quill/dist/quill.snow.css";
