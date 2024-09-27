@@ -1,21 +1,19 @@
 import { FunctionComponent } from "react";
-import { Outlet } from "react-router-dom";
-// import useGlobalStore from "@/store/useStore";
+
+import useGlobalStore from "@/store/useStore";
 import DefaultSidebar from "./DefaultSidebar";
-import DefaultNavbar from "./DefaultNavbar";
+import DefaultPage from "./DefaultPage";
 
 const DefaultLayout: FunctionComponent = () => {
-  // const { isSidebarExpand } = useGlobalStore((state) => ({
-  //   isSidebarExpand: state.isSidebarExpand,
-  // }));
+  const { isSidebarExpand } = useGlobalStore((state) => ({
+    isSidebarExpand: state.isSidebarExpand,
+  }));
 
   return (
-    <div className="main-layout">
-      <DefaultNavbar />
+    <div className="drawer lg:drawer-open">
+      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <DefaultSidebar />
-      <div className="container max-w-full p-5">
-        <Outlet />
-      </div>
+      <DefaultPage />
     </div>
   );
 };

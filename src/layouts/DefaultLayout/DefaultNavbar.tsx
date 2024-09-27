@@ -1,8 +1,8 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import clsx from "clsx";
-import { UilUser, UilSignOutAlt } from "@iconscout/react-unicons";
+import { UilSignOutAlt } from "@iconscout/react-unicons";
 import ToggleThemeNavbar from "./ToggleThemeNavbar";
-import Avatar from "@assets/icons/avatar.png";
+// import Avatar from "@assets/icons/avatar.png";
 import Spinner from "@/components/reusable/Spinner";
 import useGlobalStore from "@/store/useStore";
 import Cookies from "js-cookie";
@@ -98,15 +98,14 @@ const DefaultNavbar: FunctionComponent = () => {
   }, [location]);
 
   return (
-    <div className="navbar bg-base-200 sticky top-0 z-10">
-      <div className="flex-none">
+    <div className="navbar sticky top-0 bg-base-100 z-10 shadow-md">
+      <div className="flex-1">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col items-center justify-center">
           {/* Page content here */}
           <label
             htmlFor="my-drawer-2"
-            onClick={() => setIsSidebarExpand(!isSidebarExpand)}
-            className="btn btn-square btn-ghost drawer-button lg:hidden"
+            className="btn btn-square btn-ghost drawer-button lg:hidden "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -123,10 +122,9 @@ const DefaultNavbar: FunctionComponent = () => {
             </svg>
           </label>
         </div>
+        <a className="btn btn-ghost text-xl lg:hidden">Eklinik</a>
       </div>
-      <div className="flex-1">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
-      </div>
+
       <div className="flex-none">
         <div className="mx-4">
           <ToggleThemeNavbar />
@@ -149,85 +147,38 @@ const DefaultNavbar: FunctionComponent = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <div className="px-4 py-3">
-              <span className="block text-sm font-semibold">Bonnie Green</span>
-              <span className="block text-sm truncate">name@flowbite.com</span>
+              <span className="block text-sm font-semibold"> {user?.name}</span>
+              <span className="block text-sm truncate"> {user?.email}</span>
             </div>
+            <div className="divider mt-0 mb-0"></div>
+            <a className="px-4 py-2" href="">
+              Profile
+            </a>
+            <div className="divider mt-0 mb-0"></div>
             <li>
-              <a href="#" className="block px-4 py-2 text-sm text-red-500">
-                Sign out
-              </a>
+              <button
+                type="button"
+                className={clsx([
+                  "block px-4 py-2 rounded-md text-md font-medium text-center text-red-500 flex items-center gap-2",
+                  isLoading ? "bg-base-100" : "",
+                ])}
+                onClick={() => {
+                  if (userRole === "admin") {
+                    onHandleAdminLogout();
+                  } else {
+                    onHandleLogout();
+                  }
+                }}
+                disabled={isLoading}
+              >
+                <UilSignOutAlt size="15" />
+                {!isLoading ? "Sign Out" : <Spinner />}
+              </button>
             </li>
           </ul>
         </div>
       </div>
     </div>
-    // <nav className="flex items-center justify-between px-4 py-3 border-b">
-    //   <div />
-    //   <div className="flex items-center">
-    //     <div className="relative">
-    //       <button
-    //         onClick={() => setActiveDropdown(!activeDropdown)}
-    //         className="flex items-center px-3 py-1 rounded-full border border-[#E2E8F0] w-auto"
-    //       >
-    //         <img src={Avatar} alt="avatar" className="mr-2" loading="lazy" />
-    //         <div className="flex flex-col items-center justify-center pe-3">
-    //           <p className="w-full text-sm font-semibold text-gray-800">
-    //             {user?.name}
-    //           </p>
-    //           <div className="text-sm font-semibold text-[#64748B] uppercase">
-    //             {accountRole}
-    //           </div>
-    //         </div>
-    //       </button>
-
-    //       {activeDropdown && (
-    //         <div
-    //           ref={wrapperRef}
-    //           className="absolute right-0 z-10 w-48 bg-white rounded shadow-md top-14"
-    //         >
-    //           <ul className="flex flex-col">
-    //             {isShowProfileButton && (
-    //               <li className="p-3 shadow-sm">
-    //                 <button
-    //                   type="button"
-    //                   className={clsx([
-    //                     "block w-full px-4 py-2 rounded-md text-md font-medium text-center text-neutral-900 hover:bg-neutral-200 flex items-center gap-2",
-    //                   ])}
-    //                   onClick={onNavigateToProfile}
-    //                 >
-    //                   <UilUser size="20" color="#171717" />
-    //                   Profil
-    //                 </button>
-    //               </li>
-    //             )}
-    //             <li className="p-3 shadow-sm rounded-lg">
-    //               <button
-    //                 type="button"
-    //                 className={clsx([
-    //                   "block w-full px-4 py-2 rounded-md text-md font-medium text-center text-white flex items-center gap-2",
-    //                   isLoading
-    //                     ? "bg-green-700"
-    //                     : "bg-[#006C1C] hover:bg-green-700",
-    //                 ])}
-    //                 onClick={() => {
-    //                   if (userRole === "admin") {
-    //                     onHandleAdminLogout();
-    //                   } else {
-    //                     onHandleLogout();
-    //                   }
-    //                 }}
-    //                 disabled={isLoading}
-    //               >
-    //                 <UilSignOutAlt size="20" color="white" />
-    //                 {!isLoading ? "Logout" : <Spinner />}
-    //               </button>
-    //             </li>
-    //           </ul>
-    //         </div>
-    //       )}
-    //     </div>
-    //   </div>
-    // </nav>
   );
 };
 

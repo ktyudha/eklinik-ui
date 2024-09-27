@@ -1,10 +1,10 @@
 import { FunctionComponent, useState, useEffect } from "react";
 import useGlobalStore from "@/store/useStore";
-import { UilAngleDown, UilAngleUp } from "@iconscout/react-unicons";
+import { UilAngleDown } from "@iconscout/react-unicons";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
-  icon: string;
+  icon: React.ElementType;
   name: string;
   url: string;
   isActiveMenu: boolean;
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const SidebarMenuItem: FunctionComponent<Props> = ({
-  icon,
+  icon: Icon,
   name,
   url,
   isActiveMenu,
@@ -47,53 +47,48 @@ const SidebarMenuItem: FunctionComponent<Props> = ({
 
   return (
     <div
-      className={`${
-        isActiveMenu && "bg-base-100 rounded-lg"
-      } hover:bg-white hover:text-[#006C1C] cursor-pointer`}
+      className={`flex flex-col ${isActiveMenu && "bg-base-200 rounded-lg"}`}
       onClick={onSidebarClick}
     >
-      <div
-        className={`flex items-center ${
-          !isSidebarExpand && "justify-center"
-        } py-2 px-1`}
-      >
-        <div className="flex items-center gap-3 px-3 py-1 text-center">
-          <img
+      <div className="w-full block">
+        <div className="inline-flex items-center gap-2">
+          {/* <img
             src={icon}
             alt="Icon"
             loading="lazy"
             width={22}
             className="hover:fill-blue-500"
-          />
-
-          {isSidebarExpand && (
-            <p className="text-base font-medium leading-4 text-left">{name}</p>
-          )}
+          /> */}
+          <Icon size={30} loading="lazy" />
+          <span className="font-semibold text-md">{name}</span>
         </div>
         {isSidebarExpand && isDropdown && (
-          <div className="flex items-center text-white">
-            {!activeDropdown ? (
-              <UilAngleDown size={30} />
-            ) : (
-              <UilAngleUp size={30} />
-            )}
-          </div>
+          <UilAngleDown
+            size={30}
+            className={` float-right delay-400 duration-500 transition-all ${
+              activeDropdown ? "rotate-180" : ""
+            }`}
+          />
         )}
       </div>
 
       {isSidebarExpand && hasSubmenu && (
-        <>
-          {activeDropdown &&
-            submenuLinks?.map((subMenu, idx) => (
-              <div
+        <div
+          className={`w-full transition-all duration-500 ease-in-out overflow-hidden ${
+            !activeDropdown ? "hidden" : "max-h-screen"
+          }`}
+        >
+          <ul className="menu menu-compact">
+            {submenuLinks?.map((subMenu, idx) => (
+              <li
                 key={`sub-menu-${idx}`}
-                className="hover:bg-[#75ba88] hover:text-white cursor-pointer flex flex-col gap-5 px-5 py-3"
                 onClick={() => navigate(subMenu.subUrl)}
               >
-                <div className="px-8 font-medium">{subMenu.label}</div>
-              </div>
+                <div className="font-medium">{subMenu.label}</div>
+              </li>
             ))}
-        </>
+          </ul>
+        </div>
       )}
     </div>
   );

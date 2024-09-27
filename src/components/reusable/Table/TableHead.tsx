@@ -1,19 +1,13 @@
-import { FunctionComponent, PropsWithChildren } from 'react'
+import { FunctionComponent, PropsWithChildren } from "react";
 
-export type Props = PropsWithChildren
+export type Props = PropsWithChildren;
 
-const TableHead: FunctionComponent<Props> = ({
-  children,
-  ...restProps
-}) => {
+const TableHead: FunctionComponent<Props> = ({ children, ...restProps }) => {
   return (
-    <thead
-      className="bg-gray-100 border-b"
-      {...restProps}
-    >
+    <thead {...restProps}>
       <tr>{children}</tr>
     </thead>
-  )
-}
+  );
+};
 
-export default TableHead
+export default TableHead;

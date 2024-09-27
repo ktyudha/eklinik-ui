@@ -1,19 +1,17 @@
-import { FunctionComponent, ReactNode } from 'react'
+import { FunctionComponent, ReactNode } from "react";
 
 export interface Props {
-  children: ReactNode[]
+  children: ReactNode[];
 }
 
-const TableWrapper: FunctionComponent<Props> = ({
-  children,
-}) => (
+const TableWrapper: FunctionComponent<Props> = ({ children }) => (
   <>
-    <div className="w-full overflow-auto h-auto py-3">
-      <table className="table-auto w-full">
+    <div className="overflow-x-auto">
+      <table className="table rounded-lg bg-base-100">
         {children.map((node) => node)}
       </table>
     </div>
   </>
-)
+);
 
-export default TableWrapper
+export default TableWrapper;

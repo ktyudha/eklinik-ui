@@ -6,6 +6,7 @@ import * as Admin from "@/pages/admin";
 // Middleware
 import AdminMiddleware from "./middlewares/AdminMiddleware";
 import UserMiddleware from "./middlewares/UserMiddleware";
+import Patient from "@/modules/admin/patient";
 
 // Layout
 const LandingLayout = lazy(() => import("@/layouts/LandingLayout"));
@@ -59,6 +60,7 @@ export default function GetBrowserRoutes() {
       children: [
         { index: true, element: <Navigate to="dashboard" /> },
         { path: "dashboard", element: <Admin.DashboardPage /> },
+        { path: "patient", element: <Admin.PatientPage /> },
       ],
     },
   ];
