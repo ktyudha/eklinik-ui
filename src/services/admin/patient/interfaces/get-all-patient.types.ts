@@ -1,18 +1,26 @@
 export interface IGetAllPatientResponse {
   patients: Patients[];
-  //   pagination: Pagination;
+  pagination: Pagination;
 }
 
 export interface Patients {
   id: string;
-  no_medical_record: string;
+  medical_record_number: string;
   name: string;
-  date_of_birth: string;
+  username: string;
+  email: string;
+  phone_number: string;
+  birth_place: string;
+  birth_date: string;
   nik: string;
+  religion: string;
   education: string;
   job: string;
   gender: string;
-  address: string;
+  village: string;
+  province: Province;
+  city: City;
+  sub_district: SubDistrict;
 }
 
 export interface Pagination {
@@ -28,6 +36,21 @@ export interface Pagination {
   prev_page_url: null;
   to: number;
   total: number;
+}
+
+export interface Province {
+  id: string;
+  name: string;
+}
+
+export interface City {
+  id: string;
+  name: string;
+}
+
+export interface SubDistrict {
+  id: string;
+  name: string;
 }
 
 export interface Link {

@@ -2,6 +2,9 @@ import { FunctionComponent } from "react";
 // import { useNavigate } from "react-router-dom";
 import { UilEye, UilPen, UilTrashAlt } from "@iconscout/react-unicons";
 import { Patients } from "@/services/admin/patient/interfaces/get-all-patient.types";
+import { id } from "date-fns/locale";
+
+import PatientModal from "../PatientModal";
 
 interface Props {
   number: number;
@@ -12,21 +15,26 @@ const PatientTableItem: FunctionComponent<Props> = ({ number, patient }) => {
   return (
     <tr>
       <td className="mx-auto text-center">{number}</td>
-      <td className="px-6">{patient.no_medical_record}</td>
+      <td className="px-6">{patient.medical_record_number}</td>
       <td className="px-6">{patient.name}</td>
       <td className="px-6">{patient.nik}</td>
-      <td className="px-6">{patient.gender}</td>
-      <td className="px-6">{patient.education}</td>
+      <td className="px-6 text-center">{patient.gender}</td>
+      {/* <td className="px-6">{patient.education}</td>
       <td className="px-6">{patient.job}</td>
-      <td className="px-6">{patient.address}</td>
+      <td className="px-6">
+        {patient.village}, {patient.sub_district.name}, {patient.city.name},
+        {patient.province.name}
+      </td> */}
       <td className="flex flex-row gap-3">
-        <button
-          type="button"
+        <label
+          htmlFor={`patient-modal-${number}`}
           className="flex items-center justify-center gap-1 hover:bg-gray-400 hover:text-white border border-gray-400 text-gray-400 rounded-md w-full p-1"
         >
           <UilEye size="15" />
           <span className="text-xs ">Detail</span>
-        </button>
+        </label>
+
+        <PatientModal number={number} patient={patient} />
 
         <button
           type="button"

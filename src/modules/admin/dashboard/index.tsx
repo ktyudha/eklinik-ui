@@ -3,7 +3,7 @@ import useAdminStore from "../_store/useAdminStore";
 // import useGetInformation from "@/services/admin/information/hooks/useGetInformation";
 // import DashboardContentCard from "./DashboardContent/DashboardContentCard";
 import DashboardHeader from "./DashboardHeader";
-import DashboardTab from "./DashboardContent/DashboardContentTab";
+// import DashboardTab from "./DashboardContent/DashboardContentTab";
 // import DashboardContentProgress from "./DashboardContent/DashboardContentProgress";
 // import DashboardSkeleton from "./DashboardSkeleton";
 
@@ -27,7 +27,7 @@ const Dashboard: FunctionComponent = () => {
       <DashboardHeader />
       <div className="flex flex-col gap-5">
         {/* <DashboardContentCard information={information} /> */}
-        <DashboardTab />
+        {/* <DashboardTab /> */}
 
         {/* {activeDashboardTab === "dashboard-education-unit" && (
           <>

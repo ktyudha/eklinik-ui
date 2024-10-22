@@ -1,17 +1,29 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { isEmpty } from "lodash";
+import usePagination from "@/hooks/usePagination";
 import TableWrapper from "@/components/reusable/Table/TableWrapper";
 import TableHead from "@/components/reusable/Table/TableHead";
 import TableBody from "@/components/reusable/Table/TableBody";
 import TableNotFound from "@/components/reusable/Table/TableNotFound";
 import PatientTableSkeleton from "./PatientTableSkeleton";
-// import TablePagination from "@/components/reusable/Table/TablePagination";
+import TablePagination from "@/components/reusable/Table/TablePagination";
 import PatientTableItem from "./PatientTableItem";
 
 import useGetAllPatient from "@/services/admin/patient/hooks/useGetAllPatient";
 
 const PatientTable: FunctionComponent = () => {
-  const { patients, loading } = useGetAllPatient();
+  // const { patients, loading } = useGetAllPatient();
+
+  const { patients, loading, pagination, pageLimit, setPageLimit, setPageNum } =
+    useGetAllPatient();
+
+  const { currentPage, goNextPage, goPrevPage, goPageNum } = usePagination(
+    pagination?.last_page || 1
+  );
+
+  useEffect(() => {
+    setPageNum(currentPage);
+  }, [currentPage]);
 
   return (
     <div className="flex flex-col">
@@ -35,7 +47,7 @@ const PatientTable: FunctionComponent = () => {
           <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
             Jenis Kelamin
           </th>
-          <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
+          {/* <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
             Pendidikan
           </th>
           <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
@@ -43,11 +55,8 @@ const PatientTable: FunctionComponent = () => {
           </th>
           <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
             Alamat
-          </th>
-          <th
-            scope="col"
-            className="px-6 py-3 text-sm font-medium text-left w-72"
-          >
+          </th> */}
+          <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
             Action
           </th>
         </TableHead>
@@ -58,11 +67,11 @@ const PatientTable: FunctionComponent = () => {
             <TableNotFound />
           ) : (
             patients?.map((patient, idx) => {
-              const number = idx + 1;
+              const number = idx + pagination?.from!;
 
               return (
                 <PatientTableItem
-                  key={`university-table-item-${idx}`}
+                  key={`patient-table-item-${idx}`}
                   number={number}
                   patient={patient}
                 />
@@ -71,6 +80,17 @@ const PatientTable: FunctionComponent = () => {
           )}
         </TableBody>
       </TableWrapper>
+      <TablePagination
+        goNextPage={goNextPage}
+        goPrevPage={goPrevPage}
+        perPage={pagination?.per_page ?? 10}
+        total={pagination?.total ?? 10}
+        pageLimit={pageLimit}
+        setPageLimit={(limit) => setPageLimit(limit)}
+        goPageNum={(limit) => goPageNum(limit)}
+        currentPage={currentPage}
+        lastPage={pagination?.last_page || 1}
+      />
     </div>
   );
 };

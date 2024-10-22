@@ -73,13 +73,13 @@ const Input: FunctionComponent<Props> = ({
         </label>
       )}
       <div
-        className={`border-2 py-2 px-3 rounded-lg flex flex-wrap items-stretch w-full ${
+        className={`border-2 py-2 px-3 rounded-lg flex flex-wrap items-stretch w-full  ${
           isReadOnly && "bg-base-200"
         }`}
       >
         <input
           {...restProps}
-          className={`flex-shrink flex-grow flex-auto leading-normal w-px border-0 outline-none font-normal ${
+          className={`flex-shrink flex-grow flex-auto leading-normal w-px border-0 outline-none font-normal bg-base-200 ${
             isReadOnly && "bg-base-200"
           }`}
           name={name}
