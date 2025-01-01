@@ -1,9 +1,9 @@
 export interface IGetAllPatientResponse {
-  patients: Patients[];
+  patients: Patient[];
   pagination: Pagination;
 }
 
-export interface Patients {
+export interface Patient {
   id: string;
   medical_record_number: string;
   name: string;
