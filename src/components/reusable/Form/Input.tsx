@@ -79,7 +79,7 @@ const Input: FunctionComponent<Props> = ({
       >
         <input
           {...restProps}
-          className={`flex-shrink flex-grow flex-auto leading-normal w-px border-0 outline-none font-normal bg-base-200 ${
+          className={`flex-shrink flex-grow flex-auto leading-normal w-px border-0 outline-none font-normal bg-white ${
             isReadOnly && "bg-base-200"
           }`}
           name={name}

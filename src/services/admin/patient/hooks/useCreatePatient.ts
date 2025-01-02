@@ -6,14 +6,46 @@ export default function useCreatePatient() {
   const revalidateMutationsByKey = useRevalidateMutation();
 
   const createPatient = async (payload: ICreatePatientPayload) => {
-    // const { name } = payload;
+    const {
+      name,
+      username,
+      birth_place,
+      birth_date,
+      nik,
+      email,
+      phone_number,
+      religion,
+      gender,
+      marital_status,
+      education,
+      job,
+      province_id,
+      sub_district_id,
+      city_id,
+      village,
+    } = payload;
 
     try {
       const res = await axiosInstance({
         withToken: true,
         tokenType: "admin",
       }).post("/admin/patients", {
-        payload,
+        name,
+        username,
+        birth_place,
+        birth_date,
+        nik,
+        email,
+        phone_number,
+        religion,
+        gender,
+        marital_status,
+        education,
+        job,
+        province_id,
+        sub_district_id,
+        city_id,
+        village,
       });
 
       if (res.status === 200) {
