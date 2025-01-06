@@ -117,7 +117,7 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
             />
             <Input
               label="Tanggal Lahir"
-              type="text"
+              type="date"
               placeholder="Mojokerto"
               name="birth_date"
               isRequired
