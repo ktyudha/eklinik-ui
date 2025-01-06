@@ -23,7 +23,7 @@ const PatientModal: FunctionComponent<Props> = ({
         modalSize="sm"
         onClose={onClose}
       >
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="form-input">
             <label
               htmlFor={`patient-modal-detail-${id}`}
@@ -92,7 +92,7 @@ const PatientModal: FunctionComponent<Props> = ({
           </div>
         </div>
         <hr className="mt-6 mb-3" />
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {/* Email */}
           <div className="form-input">
             <label
@@ -116,7 +116,7 @@ const PatientModal: FunctionComponent<Props> = ({
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Phone Number / WhatsApp
+              Phone Number
             </label>
             <input
               type="text"
@@ -196,7 +196,7 @@ const PatientModal: FunctionComponent<Props> = ({
           </div>
         </div>
         <hr className="mt-6 mb-3" />
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {/* Province */}
           <div className="form-input">
             <label

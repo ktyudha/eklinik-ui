@@ -14,7 +14,7 @@ const PatientTableHeader: FunctionComponent<Props> = ({ setNameCallback }) => {
       <CreatePatientModal onOpen={open} onClose={() => setOpen(false)} />
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
-          <h1 className="font-medium text-lg">Patient</h1>
+          <h1 className="font-medium text-lg">Pasien</h1>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <div className="w-full lg:w-60 md:w-60">

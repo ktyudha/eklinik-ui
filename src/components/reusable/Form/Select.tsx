@@ -16,6 +16,7 @@ interface Props {
   textTransform?: string;
   fontSizeLabel?: string;
   fontWeightLabel?: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const Select: FunctionComponent<Props> = ({
@@ -30,6 +31,7 @@ const Select: FunctionComponent<Props> = ({
   textTransform,
   fontSizeLabel = "text-md",
   fontWeightLabel = "font-normal",
+  onChange,
   ...restProps
 }) => {
   const { register, unregister } = useFormContext();
@@ -69,6 +71,7 @@ const Select: FunctionComponent<Props> = ({
         defaultValue={defaultValue ?? undefined}
         required={isRequired}
         disabled={isDisabled}
+        onChange={onChange}
       >
         <option value="" selected>
           Pilih {label}

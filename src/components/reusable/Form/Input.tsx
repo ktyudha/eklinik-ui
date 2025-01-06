@@ -73,7 +73,7 @@ const Input: FunctionComponent<Props> = ({
         </label>
       )}
       <div
-        className={`border-2 py-2 px-3 rounded-lg flex flex-wrap items-stretch w-full  ${
+        className={`border-2 py-2 px-3 rounded-lg flex flex-wrap items-stretch w-full bg-white ${
           isReadOnly && "bg-base-200"
         }`}
       >

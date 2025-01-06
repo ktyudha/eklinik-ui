@@ -15,12 +15,6 @@ const PatientTableItem: FunctionComponent<Props> = ({ number, patient }) => {
       <td className="px-6 capitalize">{patient.name}</td>
       <td className="px-6">{patient.nik}</td>
       <td className="px-6 text-center">{patient.gender}</td>
-      {/* <td className="px-6">{patient.education}</td>
-      <td className="px-6">{patient.job}</td>
-      <td className="px-6">
-        {patient.village}, {patient.sub_district.name}, {patient.city.name},
-        {patient.province.name}
-      </td> */}
       <td className="flex flex-row gap-3">
         {/* <label
           htmlFor={`patient-modal-${number}`}

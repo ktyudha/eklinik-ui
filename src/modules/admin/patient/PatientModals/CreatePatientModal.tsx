@@ -1,82 +1,48 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Modal from "@/components/reusable/Modal";
 import Input from "@/components/reusable/Form/Input";
 import Select from "@/components/reusable/Form/Select";
-import SelectTwo from "@/components/reusable/Form/SelectTwo";
 import Spinner from "@/components/reusable/Spinner";
+import {
+  religionOptions,
+  maritalStatusOptions,
+  genderOptions,
+  educationOptions,
+  jobOptions,
+} from "./create-or-update-patient.constant";
 import useCreatePatient from "@/services/admin/patient/hooks/useCreatePatient";
 import { ICreatePatientPayload } from "@/services/admin/patient/interfaces/create-patient.types";
 import useGetAllProvince from "@/services/global/region/province/hooks/useGetAllProvince";
 import useGetProvince from "@/services/global/region/province/hooks/useGetProvince";
 import useGetCity from "@/services/global/region/city/hooks/useGetCity";
-import useGetAllSubDistrict from "@/services/global/region/sub-district/hooks/useGetAllSubDistrict";
+import useMapInputOptions from "@/hooks/useMapInputOptions";
 
 interface Props {
   onOpen: boolean;
   onClose: () => void;
 }
-export interface OptionValue {
-  label: string;
-  value: string;
-}
+
 type FormFields = ICreatePatientPayload;
 
 const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
-  const religionOptions = [
-    { label: "Islam", value: "Islam" },
-    { label: "Kristen", value: "kristen" },
-    { label: "Katolik", value: "katolik" },
-    { label: "Hindu", value: "hindu" },
-    { label: "Budha", value: "budha" },
-    { label: "Khonghucu", value: "khonghucu" },
-  ];
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedSubDistrict, setSelectedSubDistrict] = useState("");
 
-  const maritalStatusOptions = [
-    { label: "Belum Menikah", value: "single" },
-    { label: "Menikah", value: "menikah" },
-    { label: "Janda/Duda", value: "janda/duda" },
-  ];
+  const { provinces } = useGetAllProvince();
+  const { province } = useGetProvince(selectedProvince || "");
+  const { city } = useGetCity(selectedCity || "");
 
-  const genderOptions = [
-    { label: "Laki-laki", value: "L" },
-    { label: "Perempuan", value: "P" },
-  ];
+  const provinceOptions = useMapInputOptions(provinces);
+  const cityOptions = useMapInputOptions(province?.cities);
+  const subDistrictOptions = useMapInputOptions(city?.sub_districts);
 
-  const educationOptions = [
-    { label: "TK/KB", value: "TK/KB" },
-    { label: "SD/MI", value: "SD/MI" },
-    { label: "SMP/MTS", value: "SMP/MTS" },
-    { label: "SMA/SMK/MA/MAK", value: "SMA/SMK/MA/MAK" },
-    { label: "D1/D2/D3", value: "D1/D2/D3" },
-    { label: "D4/S1", value: "D4/S1" },
-    { label: "S2", value: "S2" },
-    { label: "S3", value: "S3" },
-    { label: "--Lainnya--", value: "--Lainnya--" },
-  ];
-
-  const jobOptions = [
-    { label: "Belum/Tidak Bekerja", value: "Belum/Tidak Bekerja" },
-    { label: "Pelajar/Mahasiswa", value: "Pelajar/Mahasiswa" },
-    { label: "PNS/POLRI/TNI", value: "PNS/POLRI/TNI" },
-    { label: "Pensiunan", value: "Pensiunan" },
-    { label: "Wirausaha", value: "Wirausaha" },
-    { label: "Karyawan Swasta", value: "Karyawan Swasta" },
-    { label: "--Lainnya--", value: "--Lainnya--" },
-  ];
-
-  // const [selectedProvince, setSelectedProvince] = useState<OptionValue | null>(
-  //   null
-  // );
-  // const [selectedCity, setSelectedCity] = useState<OptionValue | null>(null);
-  // const [selectSubDistrict, setSelectedSubDistrict] =
-  //   useState<OptionValue | null>(null);
-
-  // const { provinces } = useGetAllProvince();
-  // const { province } = useGetProvince(selectedProvince?.value || "");
-  // const { city } = useGetCity(selectedCity?.value || "");
-  // console.log(city);
+  useEffect(() => {
+    setSelectedCity("");
+    setSelectedSubDistrict("");
+  }, [selectedProvince]);
 
   const methods = useForm<FormFields>({ mode: "onChange" });
   const { isSubmitting } = methods.formState;
@@ -84,9 +50,14 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
 
   const { createPatient } = useCreatePatient();
   const onSubmit: SubmitHandler<FormFields> = async (state) => {
-    const { error, response } = await createPatient({
+    const payload = {
       ...state,
-    });
+      province_id: selectedProvince,
+      city_id: selectedCity,
+      sub_district_id: selectedSubDistrict,
+    };
+
+    const { error, response } = await createPatient(payload);
     if (error || response) {
       if (error) {
         toast.error("Gagal Menambahkan Pasien", {
@@ -121,7 +92,7 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
             name="name"
             isRequired
           />
-          <div className="grid grid-cols-4 gap-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
             <Input
               label="NIK"
               type="text"
@@ -137,7 +108,6 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
               name="username"
               isRequired
             />
-
             <Input
               label="Tempat Lahir"
               type="text"
@@ -154,7 +124,7 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
             />
           </div>
           <hr className="mt-6 mb-3" />
-          <div className="grid grid-cols-4 gap-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
             <Input
               label="E-mail"
               type="email"
@@ -203,31 +173,72 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
             />
           </div>
           <hr className="mt-6 mb-3" />
-          <div className="grid grid-cols-4 gap-4 mt-4">
-            <Input
-              label="Provinsi"
-              type="text"
-              placeholder="628xxxxxxxx"
-              name="province_id"
-              defaultValue={"050000"}
-              isRequired
-            />
-            <Input
-              label="Kabupaten/Kota"
-              type="text"
-              placeholder="628xxxxxxxx"
-              name="city_id"
-              defaultValue={"050200"}
-              isRequired
-            />
-            <Input
-              label="Kecamatan"
-              type="text"
-              placeholder="628xxxxxxxx"
-              name="sub_district_id"
-              defaultValue={"050203"}
-              isRequired
-            />
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+            <div className="flex flex-col">
+              <label
+                htmlFor={"province_id"}
+                className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
+              >
+                Provinsi <div className="text-red-500">*</div>
+              </label>
+              <select
+                className={`flex gap-1 border-2 py-2 px-3 rounded-lg outline-none bg-white text-md font-normal`}
+                required
+                onChange={(e) => setSelectedProvince(e.target.value)}
+              >
+                <option value="" selected>
+                  Pilih Provinsi
+                </option>
+                {provinceOptions.map((province) => (
+                  <option value={province.value}>{province.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex flex-col">
+              <label
+                htmlFor={"city_id"}
+                className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
+              >
+                Kabupaten/Kota <div className="text-red-500">*</div>
+              </label>
+              <select
+                className={`flex gap-1 border-2 py-2 px-3 rounded-lg outline-none bg-white text-md font-normal`}
+                required
+                onChange={(e) => setSelectedCity(e.target.value)}
+              >
+                <option value="" selected>
+                  Pilih Kabupaten/Kota
+                </option>
+                {cityOptions.map((city) => (
+                  <option value={city.value}>{city.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex flex-col">
+              <label
+                htmlFor={"city_id"}
+                className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
+              >
+                Kecamatan <div className="text-red-500">*</div>
+              </label>
+              <select
+                className={`flex gap-1 border-2 py-2 px-3 rounded-lg outline-none bg-white text-md font-normal`}
+                required
+                onChange={(e) => setSelectedSubDistrict(e.target.value)}
+              >
+                <option value="" selected>
+                  Pilih Kecamatan
+                </option>
+                {subDistrictOptions.map((sub_district) => (
+                  <option value={sub_district.value}>
+                    {sub_district.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <Input
               label="Desa"
               type="text"
@@ -236,49 +247,6 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
               defaultValue={"Kandangan"}
               isRequired
             />
-
-            {/* <SelectTwo
-                  label="Provinsi"
-                  name="province_id"
-                  selectOptions={provinces}
-                  isRequired
-                  isSearchable
-                  isClearable
-                  value={selectedProvince}
-                  onChange={(value) => {
-                    setSelectedProvince(value); // Update provinsi
-                    setSelectedCity(null); // Reset city ketika provinsi berubah
-                    setSelectedSubDistrict(null); // Update provinsi
-                    console.log(value);
-                  }}
-                />
-                <SelectTwo
-                  label="Kabupaten/Kota"
-                  name="city_id"
-                  selectOptions={province?.cities}
-                  isRequired
-                  isSearchable
-                  isClearable
-                  value={selectedCity}
-                  onChange={(value) => {
-                    setSelectedCity(value); // Update provinsi
-                    setSelectedSubDistrict(null);
-                    console.log(value);
-                  }}
-                />
-                <SelectTwo
-                  label="Kecamatan"
-                  name="sub_district_id"
-                  selectOptions={city?.sub_districts}
-                  value={selectSubDistrict}
-                  isRequired
-                  isSearchable
-                  isClearable
-                  onChange={(value) => {
-                    setSelectedSubDistrict(value); // Update provinsi
-                    console.log(value);
-                  }}
-                /> */}
           </div>
 
           <div className="w-full mt-6 mb-3 flex gap-5 justify-center">

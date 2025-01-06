@@ -36,14 +36,15 @@ const SelectTwo: FunctionComponent<Props> = ({
     value || null
   );
 
-  const onChangeSelectTwo = (selectedValue: OptionValue | null) => {
-    setValueSelected(value); // Perbarui nilai lokal
-    if (onChange) {
-      onChange(selectedValue); // Panggil onChange eksternal jika tersedia
-    } else {
-      setValue(name, selectedValue?.value || ""); // Sinkronisasi ke react-hook-form
-    }
-  };
+  console.log(valueSelected);
+  // const onChangeSelectTwo = (selectedValue: OptionValue | null) => {
+  //   setValueSelected(value); // Perbarui nilai lokal
+  //   if (onChange) {
+  //     onChange(selectedValue); // Panggil onChange eksternal jika tersedia
+  //   } else {
+  //     setValue(name, selectedValue?.value || ""); // Sinkronisasi ke react-hook-form
+  //   }
+  // };
 
   useEffect(
     () => () => {
@@ -87,7 +88,7 @@ const SelectTwo: FunctionComponent<Props> = ({
         isSearchable={isSearchable}
         isClearable={isClearable}
         value={valueSelected}
-        onChange={onChangeSelectTwo}
+        onChange={(e) => setValueSelected(e)}
         required={isRequired}
       />
     </div>
