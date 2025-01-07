@@ -244,7 +244,6 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
               type="text"
               placeholder="628xxxxxxxx"
               name="village"
-              defaultValue={"Kandangan"}
               isRequired
             />
           </div>

@@ -1,4 +1,6 @@
 import { FunctionComponent } from "react";
+import { format } from "date-fns";
+import { id as localeId } from "date-fns/locale";
 import { Patient } from "@/services/admin/patient/interfaces/get-all-patient.types";
 import Modal from "@/components/reusable/Modal";
 
@@ -15,6 +17,12 @@ const PatientModal: FunctionComponent<Props> = ({
   onOpen,
   onClose,
 }) => {
+  const formattedBirthDate = patient.birth_date
+    ? format(new Date(patient.birth_date), "eeee, dd MMMM yyyy", {
+        locale: localeId,
+      })
+    : "";
+
   return (
     <>
       <Modal
@@ -87,7 +95,7 @@ const PatientModal: FunctionComponent<Props> = ({
               id={`patient-modal-detail-${id}`}
               className="input input-bordered w-full"
               disabled
-              value={patient.birth_date}
+              value={formattedBirthDate}
             />
           </div>
         </div>

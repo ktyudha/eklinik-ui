@@ -15,6 +15,7 @@ export interface Patient {
   nik: string;
   religion: string;
   education: string;
+  marital_status: string;
   job: string;
   gender: string;
   village: string;

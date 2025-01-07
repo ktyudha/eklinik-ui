@@ -3,7 +3,7 @@ import { UilTrashAlt, UilEye, UilEdit } from "@iconscout/react-unicons";
 import { Patient } from "@/services/admin/patient/interfaces/get-all-patient.types";
 import DeletePatientModal from "../PatientModals/DeletePatientModal";
 import DetailPatientModal from "../PatientModals/DetailPatientModal";
-// import EditUniversityModal from "../UniversityModals//EditUniversityModal";
+import EditPatientModal from "../PatientModals//EditPatientModal";
 
 interface Props {
   patient: Patient;
@@ -29,11 +29,11 @@ const PatientTableItemMenu: FunctionComponent<Props> = ({ patient }) => {
         onOpen={openDeleteModal}
         onClose={() => setOpenDeleteModal(false)}
       />
-      {/* <EditUniversityModal
-        university={university}
+      <EditPatientModal
+        patient={patient}
         onOpen={openEditModal}
         onClose={() => setOpenEditModal(false)}
-      /> */}
+      />
 
       <div className="flex items-center justify-center gap-3">
         <button
