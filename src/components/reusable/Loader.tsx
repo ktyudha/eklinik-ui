@@ -1,5 +1,5 @@
-import { FunctionComponent } from "react";
-import { BeatLoader } from "react-spinners";
+import { FunctionComponent } from "react"
+import { BeatLoader } from "react-spinners"
 
 const Loader: FunctionComponent = () => {
   return (
@@ -12,10 +12,12 @@ const Loader: FunctionComponent = () => {
         <span className="sr-only">Loading...</span>
       </div> */}
       <div className="sweet-loading">
-        <BeatLoader color="#006C1C" />
+        <BeatLoader
+          color="#006C1C"
+        />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Loader;
+export default Loader
