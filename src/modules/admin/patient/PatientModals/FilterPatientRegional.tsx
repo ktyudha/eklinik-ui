@@ -101,7 +101,6 @@
 // export default FilterPatientRegional;
 
 import { FunctionComponent, useState, useEffect } from "react";
-import { useFormContext } from "react-hook-form";
 import useGetAllProvince from "@/services/global/region/province/hooks/useGetAllProvince";
 import useGetProvince from "@/services/global/region/province/hooks/useGetProvince";
 import useGetCity from "@/services/global/region/city/hooks/useGetCity";
@@ -121,8 +120,6 @@ const FilterPatientRegional: FunctionComponent = () => {
   const cityOptions = useMapInputOptions(province?.cities);
   const subDistrictOptions = useMapInputOptions(city?.sub_districts);
 
-  const { errors } = useFormContext();
-
   useEffect(() => {
     setSelectedCity("");
     setSelectedSubDistrict("");
@@ -137,7 +134,6 @@ const FilterPatientRegional: FunctionComponent = () => {
         selectOptions={provinceOptions}
         defaultValue={selectedProvince}
         onChange={(e) => setSelectedProvince(e.target.value)}
-        error={errors?.province_id?.message} // Passing error message
       />
 
       <Select
@@ -148,7 +144,6 @@ const FilterPatientRegional: FunctionComponent = () => {
         defaultValue={selectedCity}
         onChange={(e) => setSelectedCity(e.target.value)}
         isDisabled={!selectedProvince}
-        error={errors?.city_id?.message} // Passing error message
       />
 
       <Select
@@ -159,7 +154,6 @@ const FilterPatientRegional: FunctionComponent = () => {
         defaultValue={selectSubDistrict}
         onChange={(e) => setSelectedSubDistrict(e.target.value)}
         isDisabled={!selectedCity}
-        error={errors?.sub_district_id?.message} // Passing error message
       />
     </>
   );

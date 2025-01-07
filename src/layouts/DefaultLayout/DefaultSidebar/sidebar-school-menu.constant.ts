@@ -1,7 +1,7 @@
-import homeIcon from "@/assets/icons/home.svg";
-import usersIcon from "@/assets/icons/users.svg";
+import homeIcon from "@/assets/icons/university.svg";
+import usersIcon from "@/assets/icons/university.svg";
 import universityIcon from "@/assets/icons/university.svg";
-import chartIcon from "@/assets/icons/chart-pie-alt.svg";
+import chartIcon from "@/assets/icons/university.svg";
 import progressIcon from "@/assets/icons/chart-line.svg";
 
 const sidebarSchoolMenus = [

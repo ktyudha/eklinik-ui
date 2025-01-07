@@ -26,9 +26,7 @@ const AdminLoginForm: FunctionComponent = () => {
   const methods = useForm<FormFields>({ mode: "onChange" });
   const { isSubmitting, isValid } = methods.formState;
 
-  const year = new Date().getFullYear();
-
-  const onOpenWhatsapp = () => window.open("https://wa.me/+628115208925");
+  const onOpenWhatsapp = () => window.open("https://wa.me/+6285848250548");
 
   const onHandleLogin: SubmitHandler<FormFields> = async (state) => {
     const { data, status } = await useAdminLogin(

@@ -30,13 +30,12 @@ const SelectTwo: FunctionComponent<Props> = ({
   onChange,
   ...restProps
 }) => {
-  const { register, unregister, setValue } = useFormContext();
+  const { register, unregister } = useFormContext();
   const selectTwoOptions = useMapInputOptions(selectOptions);
   const [valueSelected, setValueSelected] = useState<OptionValue | null>(
     value || null
   );
 
-  console.log(valueSelected);
   // const onChangeSelectTwo = (selectedValue: OptionValue | null) => {
   //   setValueSelected(value); // Perbarui nilai lokal
   //   if (onChange) {

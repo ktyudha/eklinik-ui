@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import clsx from "clsx";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
 import ToggleThemeNavbar from "./ToggleThemeNavbar";
@@ -9,40 +9,37 @@ import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { useAdminLogout } from "@/services/auth/admin-login/hooks/useAdminLogout";
 import { useLogout } from "@/services/auth/login/hooks/useLogout";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { useNavigate } from "react-router-dom";
+// import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 const DefaultNavbar: FunctionComponent = () => {
-  const { user, userRole, isSidebarExpand, setIsSidebarExpand } =
-    useGlobalStore((state) => ({
-      user: state.user,
-      userRole: state.userRole,
-      isSidebarExpand: state.isSidebarExpand,
-      setIsSidebarExpand: state.setIsSidebarExpand,
-    }));
+  const { user, userRole } = useGlobalStore((state) => ({
+    user: state.user,
+    userRole: state.userRole,
+  }));
   const navigate = useNavigate();
-  const location = useLocation();
-  const [activeDropdown, setActiveDropdown] = useState(false);
+  // const location = useLocation();
+  // const [activeDropdown, setActiveDropdown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const accountRole =
-    userRole === "school"
-      ? "Sekolah"
-      : userRole === "agency"
-      ? "Dinas"
-      : userRole === "sub-agency"
-      ? "Cabang Dinas"
-      : "Admin";
-  const isShowProfileButton =
-    userRole === "agency" || userRole === "sub-agency" ? true : false;
+  // const accountRole =
+  //   userRole === "school"
+  //     ? "Sekolah"
+  //     : userRole === "agency"
+  //     ? "Dinas"
+  //     : userRole === "sub-agency"
+  //     ? "Cabang Dinas"
+  //     : "Admin";
+  // const isShowProfileButton =
+  //   userRole === "agency" || userRole === "sub-agency" ? true : false;
 
-  const wrapperRef = useOutsideClick(() => {
-    setActiveDropdown(false);
-  });
+  // const wrapperRef = useOutsideClick(() => {
+  //   setActiveDropdown(false);
+  // });
 
-  const onNavigateToProfile = () => {
-    navigate(`/${userRole}/profile`);
-  };
+  // const onNavigateToProfile = () => {
+  //   navigate(`/${userRole}/profile`);
+  // };
 
   const onHandleAdminLogout = async () => {
     setIsLoading(true);
@@ -93,9 +90,9 @@ const DefaultNavbar: FunctionComponent = () => {
     }
   };
 
-  useEffect(() => {
-    setActiveDropdown(false);
-  }, [location]);
+  // useEffect(() => {
+  //   setActiveDropdown(false);
+  // }, [location]);
 
   return (
     <div className="navbar sticky top-0 bg-base-100 z-10 shadow-md">

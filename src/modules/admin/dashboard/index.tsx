@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import useAdminStore from "../_store/useAdminStore";
+// import useAdminStore from "../_store/useAdminStore";
 // import useGetInformation from "@/services/admin/information/hooks/useGetInformation";
 // import DashboardContentCard from "./DashboardContent/DashboardContentCard";
 import DashboardHeader from "./DashboardHeader";
@@ -8,9 +8,9 @@ import DashboardHeader from "./DashboardHeader";
 // import DashboardSkeleton from "./DashboardSkeleton";
 
 const Dashboard: FunctionComponent = () => {
-  const { activeDashboardTab } = useAdminStore((state) => ({
-    activeDashboardTab: state.activeDashboardTab,
-  }));
+  // const { activeDashboardTab } = useAdminStore((state) => ({
+  //   activeDashboardTab: state.activeDashboardTab,
+  // }));
 
   //   const { information, loading } = useGetInformation();
   //   const progress_sma = information?.students_progress.find(

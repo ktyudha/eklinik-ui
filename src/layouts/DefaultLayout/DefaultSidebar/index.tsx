@@ -9,7 +9,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useGlobalStore from "@/store/useStore";
 import sidebarMenus from "./sidebar-menu.constant";
 import sidebarAgencyMenus from "./sidebar-agency-menu.constant";
-import sidebarSchoolMenus from "./sidebar-school-menu.constant";
 import sidebarSubAgencyMenus from "./sidebar-sub-agency-menu.constant";
 import SidebarItem from "./SidebarItem";
 
@@ -21,42 +20,21 @@ const DefaultSidebar: FunctionComponent = () => {
   }));
 
   const menuList = useMemo(() => {
-    if (userRole === "school") {
-      if (
-        user?.grade?.name !== "SMK" &&
-        user?.grade?.name !== "SMA" &&
-        user?.grade?.name !== "MA"
-      ) {
-        return sidebarSchoolMenus.filter(
-          (menu) => menu.url !== "/school/alumni-snbp"
-        );
-      }
-      return sidebarSchoolMenus;
-    } else if (userRole === "agency") {
+    if (userRole === "agency") {
       return sidebarAgencyMenus;
     } else if (userRole === "sub-agency") {
       return sidebarSubAgencyMenus;
     } else {
       return sidebarMenus;
     }
-  }, [
-    userRole,
-    sidebarSchoolMenus,
-    sidebarAgencyMenus,
-    sidebarSubAgencyMenus,
-    sidebarMenus,
-  ]);
+  }, [userRole, sidebarAgencyMenus, sidebarMenus]);
 
   const { pathname } = useLocation();
   const pathnameSegments = pathname.split("/").slice(1);
 
   useEffect(() => {
     // Check School Grade
-    if (
-      user?.grade?.name !== "SMK" &&
-      user?.grade?.name !== "SMA" &&
-      user?.grade?.name !== "MA"
-    ) {
+    {
       if (
         pathnameSegments.length > 1 &&
         pathnameSegments[1] === "alumni-snbp"

@@ -1,32 +1,147 @@
-import homeIcon from "@/assets/icons/home.svg";
-import chartIcon from "@/assets/icons/chart-pie-alt.svg";
-import universityIcon from "@/assets/icons/university.svg";
-import usersIcon from "@/assets/icons/users.svg";
+import {
+  UilAccessibleIconAlt,
+  UilSetting,
+  UilSilence,
+  UilBed,
+  UilMedkit,
+  UilCapsule,
+  UilInvoice,
+  UilFileMedicalAlt,
+  UilSchedule,
+  UilClinicMedical,
+} from "@iconscout/react-unicons";
 
 const sidebarSubAgencyMenus = [
   {
-    icon: homeIcon,
-    name: "Dashboard",
+    icon: UilClinicMedical,
+    name: "Beranda",
     isDropdown: false,
-    url: "/sub-agency/dashboard",
+    url: "/admin/dashboard",
+  },
+
+  {
+    icon: UilSetting,
+    name: "Pengaturan",
+    isDropdown: true,
+    url: "/admin/surveys",
+    hasSubmenu: true,
+    submenuLinks: [
+      {
+        subUrl: "/admin/surveys/academic-year",
+        label: "Master Tahun Pelajaran",
+        forceShow: true,
+      },
+    ],
   },
   {
-    icon: universityIcon,
-    name: "Satuan Pendidikan",
-    isDropdown: false,
-    url: "/sub-agency/education-units",
+    icon: UilSchedule,
+    name: "Jadwal Bidan",
+    isDropdown: true,
+    url: "/admin/surveys",
+    hasSubmenu: true,
+    submenuLinks: [
+      {
+        subUrl: "/admin/surveys/academic-year",
+        label: "Master Tahun Pelajaran",
+        forceShow: true,
+      },
+    ],
   },
   {
-    icon: usersIcon,
-    name: "Peserta Didik",
+    icon: UilSilence,
+    name: "Pasien",
     isDropdown: false,
-    url: "/sub-agency/student-cities",
+    url: "/admin/patient",
   },
   {
-    icon: chartIcon,
-    name: "Report Tracer",
+    icon: UilAccessibleIconAlt,
+    name: "Rawat Jalan",
+    isDropdown: true,
+    url: "/admin/surveys",
+    hasSubmenu: true,
+    submenuLinks: [
+      {
+        subUrl: "/admin/surveys/academic-year",
+        label: "Booking",
+        forceShow: true,
+      },
+      {
+        subUrl: "/admin/surveys/academic-year",
+        label: "Rgistrasi",
+        forceShow: true,
+      },
+      {
+        subUrl: "/admin/surveys/academic-year",
+        label: "Antrian",
+        forceShow: true,
+      },
+    ],
+  },
+  {
+    icon: UilBed,
+    name: "Rawat Inap",
+    isDropdown: true,
+    url: "/admin/surveys",
+    hasSubmenu: true,
+    submenuLinks: [
+      {
+        subUrl: "/admin/surveys/academic-year",
+        label: "Booking",
+        forceShow: true,
+      },
+      {
+        subUrl: "/admin/surveys/academic-year",
+        label: "Rgistrasi",
+        forceShow: true,
+      },
+      {
+        subUrl: "/admin/surveys/academic-year",
+        label: "Antrian",
+        forceShow: true,
+      },
+    ],
+  },
+  {
+    icon: UilMedkit,
+    name: "Rekam Medis",
     isDropdown: false,
-    url: "/sub-agency/reports",
+    url: "/admin/medical-record",
+  },
+  {
+    icon: UilCapsule,
+    name: "Farmasi",
+    isDropdown: false,
+    url: "/admin/farmacy",
+  },
+  {
+    icon: UilInvoice,
+    name: "Pembayaran",
+    isDropdown: false,
+    url: "/admin/invoice",
+  },
+  {
+    icon: UilFileMedicalAlt,
+    name: "Laporan",
+    isDropdown: true,
+    url: "/admin/surveys",
+    hasSubmenu: true,
+    submenuLinks: [
+      {
+        subUrl: "/admin/surveys/academic-year",
+        label: "Booking",
+        forceShow: true,
+      },
+      {
+        subUrl: "/admin/surveys/academic-year",
+        label: "Rgistrasi",
+        forceShow: true,
+      },
+      {
+        subUrl: "/admin/surveys/academic-year",
+        label: "Antrian",
+        forceShow: true,
+      },
+    ],
   },
 ];
 

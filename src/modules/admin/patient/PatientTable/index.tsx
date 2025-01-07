@@ -23,7 +23,7 @@ const PatientTable: FunctionComponent = () => {
     setName,
   } = useGetAllPatient();
 
-  const { currentPage, goNextPage, goPrevPage, goPageNum } = usePagination(
+  const { currentPage, goNextPage, goPrevPage } = usePagination(
     pagination?.last_page || 1
   );
 
@@ -95,7 +95,6 @@ const PatientTable: FunctionComponent = () => {
           total={pagination?.total ?? 10}
           pageLimit={pageLimit}
           setPageLimit={(limit) => setPageLimit(limit)}
-          goPageNum={(limit) => goPageNum(limit)}
           currentPage={currentPage}
           lastPage={pagination?.last_page || 1}
         />
