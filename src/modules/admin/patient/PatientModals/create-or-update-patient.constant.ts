@@ -14,8 +14,8 @@ export const maritalStatusOptions = [
 ];
 
 export const genderOptions = [
-  { label: "Laki-laki", value: "L" },
-  { label: "Perempuan", value: "P" },
+  { label: "Laki-laki", value: "Laki-laki" },
+  { label: "Perempuan", value: "Perempuan" },
 ];
 
 export const educationOptions = [

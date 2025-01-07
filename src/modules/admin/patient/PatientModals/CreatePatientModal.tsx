@@ -242,7 +242,7 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
             <Input
               label="Desa"
               type="text"
-              placeholder="628xxxxxxxx"
+              placeholder="Nama Desa"
               name="village"
               isRequired
             />

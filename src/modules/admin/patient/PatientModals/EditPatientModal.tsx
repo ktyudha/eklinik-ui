@@ -75,10 +75,7 @@ const EditPatientModal: FunctionComponent<Props> = ({
       sub_district_id: selectedSubDistrict,
     };
 
-    console.log(payload);
-
     const { error, response } = await updatePatient(payload);
-    console.log(error);
     if (error || response) {
       if (error) {
         toast.error("Gagal Memperbarui Pasien", {
