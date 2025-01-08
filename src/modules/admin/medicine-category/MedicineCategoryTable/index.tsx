@@ -49,16 +49,6 @@ const MedicineCategoryTable: FunctionComponent = () => {
             <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
               Deskripsi
             </th>
-
-            {/* <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
-            Pendidikan
-          </th>
-          <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
-            Pekerjaan
-          </th>
-          <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
-            Alamat
-          </th> */}
             <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
               Action
             </th>
