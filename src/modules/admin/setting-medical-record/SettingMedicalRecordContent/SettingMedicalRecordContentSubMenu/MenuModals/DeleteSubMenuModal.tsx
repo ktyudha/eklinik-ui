@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import Modal from "@/components/reusable/Modal";
-import useDeleteMedicine from "@/services/admin/medicine/hooks/useDeleteMedicine";
+import useDeleteSubMenu from "@/services/admin/menu/hooks/useDeleteSubMenu";
 import { toast } from "react-toastify";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   onClose: () => void;
 }
 
-const DeleteMedicineModal: FunctionComponent<Props> = ({
+const DeleteSubMenuModal: FunctionComponent<Props> = ({
   id,
   name,
   onOpen,
@@ -18,17 +18,17 @@ const DeleteMedicineModal: FunctionComponent<Props> = ({
 }) => {
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-  const { deleteMedicine } = useDeleteMedicine();
+  const { deleteSubMenu } = useDeleteSubMenu();
   const onDelete = async () => {
     setIsSubmit(true);
-    const { error, response } = await deleteMedicine(id);
+    const { error, response } = await deleteSubMenu(id);
     if (error || response) {
       if (error) {
-        toast.error("Gagal Menghapus Obat", {
+        toast.error("Gagal Menghapus Pertanyaan", {
           position: toast.POSITION.TOP_CENTER,
         });
       } else {
-        toast.success("Sukses Menghapus Obat", {
+        toast.success("Sukses Menghapus Pertanyaan", {
           position: toast.POSITION.TOP_CENTER,
         });
 
@@ -39,10 +39,15 @@ const DeleteMedicineModal: FunctionComponent<Props> = ({
   };
 
   return (
-    <Modal onOpen={onOpen} title="Hapus Obat" modalSize="sm" onClose={onClose}>
+    <Modal
+      onOpen={onOpen}
+      title="Hapus Pertanyaan"
+      modalSize="sm"
+      onClose={onClose}
+    >
       <div className="flex flex-col items-center gap-3">
         <div className="font-base w-[200px] text-center mr-4">
-          Anda yakin menghapus Obat
+          Anda yakin menghapus Pertanyaan
           <span className="font-semibold capitalize"> {name}</span> ?
         </div>
       </div>
@@ -72,4 +77,4 @@ const DeleteMedicineModal: FunctionComponent<Props> = ({
   );
 };
 
-export default DeleteMedicineModal;
+export default DeleteSubMenuModal;

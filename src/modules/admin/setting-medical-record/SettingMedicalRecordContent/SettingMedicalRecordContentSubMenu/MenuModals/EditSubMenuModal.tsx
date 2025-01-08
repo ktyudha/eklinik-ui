@@ -5,39 +5,47 @@ import Modal from "@/components/reusable/Modal";
 import Input from "@/components/reusable/Form/Input";
 import Select from "@/components/reusable/Form/Select";
 import Spinner from "@/components/reusable/Spinner";
-import useUpdateMenu from "@/services/admin/menu/hooks/useUpdateMenu";
-import { Menu } from "@/services/admin/menu/interfaces/get-all-menu.types";
-import { ICreateOrUpdateMenuPayload } from "@/services/admin/menu/interfaces/create-or-update-menu.types";
-import { statusOptions } from "./create-or-update-menu.constant";
+import useUpdateSubMenu from "@/services/admin/menu/hooks/useUpdateSubMenu";
+import { SubMenu } from "@/services/admin/menu/interfaces/get-all-sub-menu.types";
+import { ICreateOrUpdateSubMenuPayload } from "@/services/admin/menu/interfaces/create-or-update-sub-menu.types";
+import useGetAllMenu from "@/services/admin/menu/hooks/useGetAllMenu";
+import useMapInputOptions from "@/hooks/useMapInputOptions";
+import {
+  statusOptions,
+  typeOptions,
+} from "./create-or-update-sub-menu.constant";
 
 interface Props {
-  menu: Menu;
+  sub_menu: SubMenu;
   onOpen: boolean;
   onClose: () => void;
 }
 
-type FormFields = ICreateOrUpdateMenuPayload;
+type FormFields = ICreateOrUpdateSubMenuPayload;
 
-const EditMedicineCategoryModal: FunctionComponent<Props> = ({
-  menu,
+const EditSubMenuModal: FunctionComponent<Props> = ({
+  sub_menu,
   onOpen,
   onClose,
 }) => {
+  const { menus } = useGetAllMenu();
+  const menuOptions = useMapInputOptions(menus);
+
   const methods = useForm<FormFields>({ mode: "onChange" });
   const { isSubmitting } = methods.formState;
   const isValid = methods.formState.isValid;
 
-  const { updateMenu } = useUpdateMenu(menu.id);
+  const { updateSubMenu } = useUpdateSubMenu(sub_menu.id);
 
   const onSubmit: SubmitHandler<FormFields> = async (state) => {
-    const { error, response } = await updateMenu({ ...state });
+    const { error, response } = await updateSubMenu({ ...state });
     if (error || response) {
       if (error) {
-        toast.error("Gagal Memperbarui Grup Pertanyaan", {
+        toast.error("Gagal Memperbarui Pertanyaan", {
           position: toast.POSITION.TOP_CENTER,
         });
       } else {
-        toast.success("Sukses Memperbarui Grup Pertanyaan", {
+        toast.success("Sukses Memperbarui Pertanyaan", {
           position: toast.POSITION.TOP_CENTER,
         });
 
@@ -52,7 +60,7 @@ const EditMedicineCategoryModal: FunctionComponent<Props> = ({
     <Modal
       onOpen={onOpen}
       modalSize="md"
-      title="Edit Grup Pertanyaan"
+      title="Edit Pertanyaan"
       onClose={onClose}
     >
       <FormProvider {...methods}>
@@ -65,15 +73,29 @@ const EditMedicineCategoryModal: FunctionComponent<Props> = ({
                   type="text"
                   placeholder="Nama"
                   name="name"
-                  defaultValue={menu.name}
+                  defaultValue={sub_menu.name}
                   isRequired
                 />
                 <Select
                   label="Status"
                   name="is_active"
                   isRequired
-                  defaultValue={menu.is_active}
+                  defaultValue={sub_menu.is_active}
                   selectOptions={statusOptions}
+                />
+                <Select
+                  label="Tipe Form"
+                  name="type"
+                  isRequired
+                  defaultValue={sub_menu.type}
+                  selectOptions={typeOptions}
+                />
+                <Select
+                  label="Grup Pertanyaan"
+                  name="menu_id"
+                  isRequired
+                  defaultValue={sub_menu.menu_id}
+                  selectOptions={menuOptions}
                 />
               </div>
             </div>
@@ -105,4 +127,4 @@ const EditMedicineCategoryModal: FunctionComponent<Props> = ({
   );
 };
 
-export default EditMedicineCategoryModal;
+export default EditSubMenuModal;

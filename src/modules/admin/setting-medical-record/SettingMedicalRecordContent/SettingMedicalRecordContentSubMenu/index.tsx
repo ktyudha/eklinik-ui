@@ -1,17 +1,12 @@
 import { FunctionComponent } from "react";
-import MedicineHeader from "./MedicineHeader";
-import MedicineTable from "./MedicineTable";
+import SubMenuTable from "./SubMenuTable";
 
-const Medicine: FunctionComponent = () => {
+const SubMenu: FunctionComponent = () => {
   return (
-    <div className="max-w-full px-3">
-      <MedicineHeader />
-
-      <div className="mt-10">
-        <MedicineTable />
-      </div>
+    <div className="max-w-full mt-4">
+      <SubMenuTable />
     </div>
   );
 };
 
-export default Medicine;
+export default SubMenu;

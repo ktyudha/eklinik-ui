@@ -39,7 +39,12 @@ const DeleteMenuModal: FunctionComponent<Props> = ({
   };
 
   return (
-    <Modal onOpen={onOpen} title="Hapus Obat" modalSize="sm" onClose={onClose}>
+    <Modal
+      onOpen={onOpen}
+      title="Hapus Grup Pertanyaan"
+      modalSize="sm"
+      onClose={onClose}
+    >
       <div className="flex flex-col items-center gap-3">
         <div className="font-base w-[200px] text-center mr-4">
           Anda yakin menghapus Grup Pertanyaan

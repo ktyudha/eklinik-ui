@@ -1,15 +1,15 @@
 import { FunctionComponent, useState } from "react";
 import { UilTrashAlt, UilEye, UilEdit } from "@iconscout/react-unicons";
-import { Medicine } from "@/services/admin/medicine/interfaces/get-all-medicine.types";
-import DeleteMedicineModal from "../MedicineModals/DeleteMedicineModal";
-import DetailMedicineModal from "../MedicineModals/DetailMedicineModal";
-import EditMedicineModal from "../MedicineModals/EditMedicineModal";
+import { SubMenu } from "@/services/admin/menu/interfaces/get-all-sub-menu.types";
+import DeleteSubMenuModal from "../MenuModals/DeleteSubMenuModal";
+import DetailSubMenuModal from "../MenuModals/DetailSubMenuModal";
+import EditSubMenuModal from "../MenuModals/EditSubMenuModal";
 
 interface Props {
-  medicine: Medicine;
+  sub_menu: SubMenu;
 }
 
-const MedicineTableItemMenu: FunctionComponent<Props> = ({ medicine }) => {
+const SubMenuTableItemMenu: FunctionComponent<Props> = ({ sub_menu }) => {
   const [openDetailModal, setOpenDetailModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
@@ -17,20 +17,20 @@ const MedicineTableItemMenu: FunctionComponent<Props> = ({ medicine }) => {
   return (
     <>
       {/* Modals */}
-      <DetailMedicineModal
-        id={medicine.id}
-        medicine={medicine}
+      <DetailSubMenuModal
+        id={sub_menu.id}
+        sub_menu={sub_menu}
         onOpen={openDetailModal}
         onClose={() => setOpenDetailModal(false)}
       />
-      <DeleteMedicineModal
-        id={medicine.id}
-        name={medicine.name}
+      <DeleteSubMenuModal
+        id={sub_menu.id}
+        name={sub_menu.name}
         onOpen={openDeleteModal}
         onClose={() => setOpenDeleteModal(false)}
       />
-      <EditMedicineModal
-        medicine={medicine}
+      <EditSubMenuModal
+        sub_menu={sub_menu}
         onOpen={openEditModal}
         onClose={() => setOpenEditModal(false)}
       />
@@ -68,4 +68,4 @@ const MedicineTableItemMenu: FunctionComponent<Props> = ({ medicine }) => {
   );
 };
 
-export default MedicineTableItemMenu;
+export default SubMenuTableItemMenu;
