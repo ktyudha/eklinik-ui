@@ -30,7 +30,7 @@ const MedicineTableHeader: FunctionComponent<Props> = (
             />
           </div> */}
           <button
-            className="bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-lg text-sm text-white font-semibold transition-all duration-200 ease-in-out flex items-center justify-center gap-1 w-full lg:w-auto md:w-auto"
+            className="bg-[#f28ec2] hover:bg-[#f28ec2] px-3 py-2 rounded-lg text-sm text-white font-semibold transition-all duration-200 ease-in-out flex items-center justify-center gap-1 w-full lg:w-auto md:w-auto"
             onClick={() => setOpen(true)}
           >
             <UilPlus size="20" color="white" />

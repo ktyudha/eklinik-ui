@@ -3,3 +3,4 @@ export { default as DashboardPage } from "./DashboardPage";
 export { default as PatientPage } from "./PatientPage";
 export { default as MedicineCategoryPage } from "./Medicine/MedicineCategoryPage";
 export { default as MedicinePage } from "./Medicine/MedicinePage";
+export { default as SettingMedicalRecordPage } from "./SettingPage/SettingMedicalRecordPage";

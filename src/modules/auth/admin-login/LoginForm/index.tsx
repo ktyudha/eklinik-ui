@@ -76,11 +76,11 @@ const AdminLoginForm: FunctionComponent = () => {
 
         {/* form */}
         <div className="flex flex-col w-full sm:w-[400px] md:w-[400px] lg:w-[400px] ">
-          <div className="px-6 py-3 flex flex-col items-center justify-center rounded-t-lg bg-base-200 mb-2">
-            <h1 className="text-2xl font-semibold leading-9">Login Admin</h1>
-          </div>
+          <div className="items-center justify-center bg-base-200 rounded-b-lg">
+            <div className="px-6 py-3 flex flex-col items-center justify-center rounded-t-lg bg-base-200">
+              <h1 className="text-2xl font-semibold leading-9">Admin</h1>
+            </div>
 
-          <div className="flex items-center justify-center bg-base-200 rounded-b-lg">
             <FormProvider {...methods}>
               <form
                 className="p-6 w-full"

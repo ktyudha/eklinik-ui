@@ -94,12 +94,7 @@ const EditPatientModal: FunctionComponent<Props> = ({
   if (!onOpen) return null;
 
   return (
-    <Modal
-      onOpen={onOpen}
-      modalSize="md"
-      title="Edit Perguruan Tinggi"
-      onClose={onClose}
-    >
+    <Modal onOpen={onOpen} modalSize="lg" title="Edit Pasien" onClose={onClose}>
       <FormProvider {...methods}>
         <form className="w-full" onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="flex gap-5 mb-3">
@@ -314,8 +309,8 @@ const EditPatientModal: FunctionComponent<Props> = ({
               type="submit"
               className={`w-full rounded-lg py-2 font-medium text-base text-white ${
                 !isValid || isSubmitting
-                  ? "bg-blue-300 cursor-not-allowed focus:outline-none disabled:opacity-100"
-                  : "bg-blue-500 hover:bg-blue-600"
+                  ? "bg-[#f9d1e8] cursor-not-allowed focus:outline-none disabled:opacity-100"
+                  : "bg-[#f28ec2] hover:bg-[#e64e99]"
               }`}
               disabled={!isValid || isSubmitting}
             >
