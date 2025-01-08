@@ -17,6 +17,9 @@ import createSubAgencySlice, {
 import createProfileTracerSlice, {
   type ProfileTracerState,
 } from "./slices/profile-tracer.slice";
+import createMedicalRecordSlice, {
+  type MedicalRecordState,
+} from "./slices/medical-record.slice";
 
 type BoundSliceTypes = { default: null } & SurveyState &
   QuestionState &
@@ -27,7 +30,8 @@ type BoundSliceTypes = { default: null } & SurveyState &
   ReportState &
   AgencyState &
   SubAgencyState &
-  ProfileTracerState;
+  ProfileTracerState &
+  MedicalRecordState;
 
 const useAdminStore = create<BoundSliceTypes>()((...setter) => ({
   default: null,
@@ -41,6 +45,7 @@ const useAdminStore = create<BoundSliceTypes>()((...setter) => ({
   ...createAgencySlice(...setter),
   ...createSubAgencySlice(...setter),
   ...createProfileTracerSlice(...setter),
+  ...createMedicalRecordSlice(...setter),
 }));
 
 export default useAdminStore;

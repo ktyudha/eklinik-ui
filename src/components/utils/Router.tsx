@@ -54,9 +54,13 @@ export default function GetBrowserRoutes() {
       children: [
         { index: true, element: <Navigate to="dashboard" /> },
         { path: "dashboard", element: <Admin.DashboardPage /> },
+        {
+          path: "settings/medical-record",
+          element: <Admin.SettingMedicalRecordPage />,
+        },
         { path: "patient", element: <Admin.PatientPage /> },
-        { path: "medicines", element: <Admin.MedicinePage /> },
-        { path: "medicine-category", element: <Admin.MedicineCategoryPage /> },
+        { path: "medicine/medicines", element: <Admin.MedicinePage /> },
+        { path: "medicine/category", element: <Admin.MedicineCategoryPage /> },
       ],
     },
   ];

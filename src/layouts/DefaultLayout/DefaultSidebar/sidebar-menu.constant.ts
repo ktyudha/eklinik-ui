@@ -31,12 +31,12 @@ const sidebarMenus = [
     icon: UilSetting,
     name: "Pengaturan",
     isDropdown: true,
-    url: "/admin/surveys",
+    url: "/admin/settings",
     hasSubmenu: true,
     submenuLinks: [
       {
-        subUrl: "/admin/surveys/academic-year",
-        label: "Master Tahun Pelajaran",
+        subUrl: "/admin/settings/medical-record",
+        label: "Master Rekam Medis",
         forceShow: true,
       },
     ],
@@ -120,20 +120,20 @@ const sidebarMenus = [
     name: "Farmasi",
     isDropdown: true,
     hasSubmenu: true,
-    url: "/admin/farmacy",
+    url: "/admin/medicine",
     submenuLinks: [
       {
-        subUrl: "/admin/medicine-category",
+        subUrl: "/admin/medicine/category",
         label: "Jenis Obat",
         forceShow: true,
       },
       {
-        subUrl: "/admin/medicines",
+        subUrl: "/admin/medicine/medicines",
         label: "Obat",
         forceShow: true,
       },
       {
-        subUrl: "/admin/recipes",
+        subUrl: "/admin/medicine/recipes",
         label: "Resep",
         forceShow: true,
       },
