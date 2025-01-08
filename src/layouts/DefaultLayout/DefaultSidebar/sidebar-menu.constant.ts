@@ -118,8 +118,26 @@ const sidebarMenus = [
   {
     icon: UilCapsule,
     name: "Farmasi",
-    isDropdown: false,
+    isDropdown: true,
+    hasSubmenu: true,
     url: "/admin/farmacy",
+    submenuLinks: [
+      {
+        subUrl: "/admin/medicine-category",
+        label: "Jenis Obat",
+        forceShow: true,
+      },
+      {
+        subUrl: "/admin/medicines",
+        label: "Obat",
+        forceShow: true,
+      },
+      {
+        subUrl: "/admin/recipes",
+        label: "Resep",
+        forceShow: true,
+      },
+    ],
   },
   {
     icon: UilInvoice,
