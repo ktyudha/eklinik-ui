@@ -28,7 +28,7 @@ const PatientModal: FunctionComponent<Props> = ({
       <Modal
         onOpen={onOpen}
         title={patient.medical_record_number + " - " + patient.username}
-        modalSize="sm"
+        modalSize="lg"
         onClose={onClose}
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

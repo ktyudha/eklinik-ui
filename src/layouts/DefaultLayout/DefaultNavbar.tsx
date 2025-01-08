@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import clsx from "clsx";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
 import ToggleThemeNavbar from "./ToggleThemeNavbar";
@@ -21,7 +21,26 @@ const DefaultNavbar: FunctionComponent = () => {
   // const location = useLocation();
   // const [activeDropdown, setActiveDropdown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentDateTime, setCurrentDateTime] = useState("");
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const formattedDateTime = `${new Intl.DateTimeFormat("id-ID", {
+        weekday: "long",
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      }).format(now)} ${now.toLocaleTimeString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })} WIB`;
+
+      setCurrentDateTime(formattedDateTime);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
   // const accountRole =
   //   userRole === "school"
   //     ? "Sekolah"
@@ -95,7 +114,7 @@ const DefaultNavbar: FunctionComponent = () => {
   // }, [location]);
 
   return (
-    <div className="navbar sticky top-0 bg-base-100 z-10 shadow-md">
+    <div className="navbar sticky top-0 bg-gradient-to-r from-[#7e2e9d] to-[#f6abd4] text-white z-10 shadow-md">
       <div className="flex-1">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col items-center justify-center">
@@ -123,6 +142,7 @@ const DefaultNavbar: FunctionComponent = () => {
       </div>
 
       <div className="flex-none">
+        <h3 className="md:block hidden">{currentDateTime}</h3>
         <div className="mx-4">
           <ToggleThemeNavbar />
         </div>
@@ -141,7 +161,7 @@ const DefaultNavbar: FunctionComponent = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-slate-900"
           >
             <div className="px-4 py-3">
               <span className="block text-sm font-semibold"> {user?.name}</span>
