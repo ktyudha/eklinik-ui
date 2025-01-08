@@ -5,23 +5,23 @@ import TableWrapper from "@/components/reusable/Table/TableWrapper";
 import TableHead from "@/components/reusable/Table/TableHead";
 import TableBody from "@/components/reusable/Table/TableBody";
 import TableNotFound from "@/components/reusable/Table/TableNotFound";
-import MedicineCategoryTableSkeleton from "./MedicineCategoryTableSkeleton";
+import MedicineTableSkeleton from "./MedicineTableSkeleton";
 // import TablePagination from "@/components/reusable/Table/TablePagination";
-import MedicineCategoryTableItem from "./MedicineCategoryTableItem";
-import MedicineCategoryTableHeader from "./MedicineCategoryTableHeader";
+import MedicineTableItem from "./MedicineTableItem";
+import MedicineCategoryTableHeader from "./MedicineTableHeader";
 
-import useGetAllMedicineCategory from "@/services/admin/medicine-category/hooks/useGetAllMedicineCategory";
+import useGetAllMedicine from "@/services/admin/medicine/hooks/useGetAllMedicine";
 
-const MedicineCategoryTable: FunctionComponent = () => {
+const MedicineTable: FunctionComponent = () => {
   const {
-    medicine_categories,
+    medicines,
     loading,
     // pagination,
     // pageLimit,
     // setPageLimit,
     // setPageNum,
     // setName,
-  } = useGetAllMedicineCategory();
+  } = useGetAllMedicine();
 
   // const { currentPage, goNextPage, goPrevPage } = usePagination(
   //   pagination?.last_page || 1
@@ -47,26 +47,32 @@ const MedicineCategoryTable: FunctionComponent = () => {
               Nama
             </th>
             <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
-              Deskripsi
+              Tanggal Kedaluwarsa
+            </th>
+            <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
+              Harga
+            </th>
+            <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
+              Stok
             </th>
             <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
               Action
             </th>
           </TableHead>
           <TableBody>
-            {loading || !medicine_categories ? (
-              <MedicineCategoryTableSkeleton />
-            ) : isEmpty(medicine_categories) ? (
+            {loading || !medicines ? (
+              <MedicineTableSkeleton />
+            ) : isEmpty(medicines) ? (
               <TableNotFound />
             ) : (
-              medicine_categories?.map((medicine_category, idx) => {
+              medicines?.map((medicine, idx) => {
                 const number = idx + 1;
 
                 return (
-                  <MedicineCategoryTableItem
-                    key={`medicine-category-table-item-${idx}`}
+                  <MedicineTableItem
+                    key={`medicine-table-item-${idx}`}
                     number={number}
-                    medicine_category={medicine_category}
+                    medicine={medicine}
                   />
                 );
               })
@@ -87,4 +93,4 @@ const MedicineCategoryTable: FunctionComponent = () => {
     </div>
   );
 };
-export default MedicineCategoryTable;
+export default MedicineTable;
