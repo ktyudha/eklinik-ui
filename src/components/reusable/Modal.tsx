@@ -37,7 +37,10 @@ const Modal: FunctionComponent<Props> = ({
         onOpen ? "backdrop-blur-sm" : "hidden"
       }`}
     >
-      <div className={`relative max-h-full w-[${size}]`}>
+      <div
+        className={`relative max-h-full w-[${size}]`}
+        style={{ width: size }}
+      >
         {/* Modal Content */}
         <div
           className={`relative bg-white rounded-lg drop-shadow-lg h-[${modalHeight}]`}
