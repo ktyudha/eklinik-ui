@@ -19,84 +19,56 @@ const DetailSubMenuModal: FunctionComponent<Props> = ({
     <>
       <Modal
         onOpen={onOpen}
-        title={"Detail Grup Pertanyaan"}
+        title={"Detail Pertanyaan"}
         modalSize="md"
         onClose={onClose}
       >
+        <div className="form-input">
+          <label
+            htmlFor={`submenu-modal-detail-${id}`}
+            className="flex gap-1 leading-4  mb-2"
+          >
+            Name
+          </label>
+          <input
+            type="text"
+            id={`submenu-modal-detail-${id}`}
+            className="input input-bordered w-full"
+            disabled
+            value={sub_menu.name}
+          />
+        </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="form-input">
             <label
-              htmlFor={`patient-modal-detail-${id}`}
-              className="flex gap-1 leading-4  mb-2"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id={`patient-modal-detail-${id}`}
-              className="input input-bordered w-full"
-              disabled
-              value={sub_menu.name}
-            />
-          </div>
-
-          <div className="form-input">
-            <label
-              htmlFor={`patient-modal-detail-${id}`}
+              htmlFor={`submenu-modal-detail-${id}`}
               className="flex gap-1 leading-4 mb-2"
             >
               Status
             </label>
             <input
               type="text"
-              id={`patient-modal-detail-${id}`}
+              id={`submenu-modal-detail-${id}`}
               className="input input-bordered w-full"
               disabled
               value={sub_menu.is_active ? "Active" : "Disabled"}
             />
           </div>
-
-          {/* <div className="form-input">
+          <div className="form-input">
             <label
               htmlFor={`patient-modal-detail-${id}`}
-              className="flex gap-1 leading-4  mb-2"
+              className="flex gap-1 leading-4 mb-2"
             >
-              Klasifikasi Grup
+              Tipe Form
             </label>
-            <div className="flex max-w-xs truncate gap-3">
-              {menu.classifications?.map((classification, idx) => {
-                return (
-                  <span
-                    key={idx}
-                    className="border border-[#7e2e9d] text-[#7e2e9d] px-1.5 py-0.5 rounded hover:bg-[#7e2e9d] hover:text-white cursor-pointer transition-colors ease-in-out duration-300"
-                  >
-                    {classification.name}
-                  </span>
-                );
-              })}
-            </div>
-          </div> */}
-
-          {/* <div className="form-input">
-            <label
-              htmlFor={`patient-modal-detail-${id}`}
-              className="flex gap-1 leading-4  mb-2"
-            >
-              Pertanyaan
-            </label>
-            <div className="flex max-w-xs truncate gap-3">
-              {menu.submenus?.map((submenu, idx) => {
-                return (
-                  <span
-                    key={idx}
-                    className="border border-[#7e2e9d] text-[#7e2e9d] px-1.5 py-0.5 rounded hover:bg-[#7e2e9d] hover:text-white cursor-pointer transition-colors ease-in-out duration-300"
-                  >
-                    {submenu.name}
-                  </span>
-                );
-              })}
-            </div>
-          </div> */}
+            <input
+              type="text"
+              id={`submenu-modal-detail-${id}`}
+              className="input input-bordered w-full capitalize"
+              disabled
+              value={sub_menu.type}
+            />
+          </div>
         </div>
       </Modal>
     </>
