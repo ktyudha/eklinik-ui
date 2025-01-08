@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import Modal from "@/components/reusable/Modal";
 import Input from "@/components/reusable/Form/Input";
 import Textarea from "@/components/reusable/Form/Textarea";
-import Select from "@/components/reusable/Form/Select";
 import Spinner from "@/components/reusable/Spinner";
 
 import useCreateMedicineCategory from "@/services/admin/medicine-category/hooks/useCreateMedicineCategory";
