@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect } from "react";
+import { FunctionComponent } from "react";
 import { isEmpty } from "lodash";
 // import usePagination from "@/hooks/usePagination";
 import TableWrapper from "@/components/reusable/Table/TableWrapper";
