@@ -55,6 +55,7 @@ export default function GetBrowserRoutes() {
         { index: true, element: <Navigate to="dashboard" /> },
         { path: "dashboard", element: <Admin.DashboardPage /> },
         { path: "patient", element: <Admin.PatientPage /> },
+        { path: "medicines", element: <Admin.MedicinePage /> },
         { path: "medicine-category", element: <Admin.MedicineCategoryPage /> },
       ],
     },
