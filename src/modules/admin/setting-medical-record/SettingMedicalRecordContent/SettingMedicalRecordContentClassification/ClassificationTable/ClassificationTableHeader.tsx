@@ -1,16 +1,14 @@
 import { FunctionComponent, useState } from "react";
 import { UilPlus } from "@iconscout/react-unicons";
-import CreateMedicineModal from "../MedicineModals/CreateMedicineModal";
+import CreateMedicineModal from "../ClassificationModals/CreateClassificationModal";
 
 interface Props {
-  setNameCallback?: (param: string) => void;
+  setNameCallback: (param: string) => void;
 }
 
-const MedicineTableHeader: FunctionComponent<Props> = (
-  {
-    // setNameCallback,
-  }
-) => {
+const ClassificationTableHeader: FunctionComponent<Props> = ({
+  setNameCallback,
+}) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -18,19 +16,19 @@ const MedicineTableHeader: FunctionComponent<Props> = (
       <CreateMedicineModal onOpen={open} onClose={() => setOpen(false)} />
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
-          <h1 className="font-medium text-lg">Obat</h1>
+          <h1 className="font-medium text-lg">Klasifikasi</h1>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          {/* <div className="w-full lg:w-60 md:w-60">
+          <div className="w-full lg:w-60 md:w-60">
             <input
               className="border-2 rounded-lg px-2 py-1.5 font-normal text-md w-full focus:outline-none"
               type="text"
-              placeholder="Cari Pasien..."
+              placeholder="Cari Klasifikasi..."
               onChange={(e) => setNameCallback(e.target.value)}
             />
-          </div> */}
+          </div>
           <button
-            className="bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-lg text-sm text-white font-semibold transition-all duration-200 ease-in-out flex items-center justify-center gap-1 w-full lg:w-auto md:w-auto"
+            className="bg-[#f28ec2] hover:bg-[#f28ec2] px-3 py-2 rounded-lg text-sm text-white font-semibold transition-all duration-200 ease-in-out flex items-center justify-center gap-1 w-full lg:w-auto md:w-auto"
             onClick={() => setOpen(true)}
           >
             <UilPlus size="20" color="white" />
@@ -42,4 +40,4 @@ const MedicineTableHeader: FunctionComponent<Props> = (
   );
 };
 
-export default MedicineTableHeader;
+export default ClassificationTableHeader;

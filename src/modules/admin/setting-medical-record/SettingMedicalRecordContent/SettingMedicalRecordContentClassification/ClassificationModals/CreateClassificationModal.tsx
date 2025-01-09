@@ -4,42 +4,43 @@ import { toast } from "react-toastify";
 import Modal from "@/components/reusable/Modal";
 import Input from "@/components/reusable/Form/Input";
 import Textarea from "@/components/reusable/Form/Textarea";
-import Select from "@/components/reusable/Form/Select";
+import SelectTwo from "@/components/reusable/Form/SelectTwo";
 import Spinner from "@/components/reusable/Spinner";
 import useMapInputOptions from "@/hooks/useMapInputOptions";
-import useCreateMedicine from "@/services/admin/medicine/hooks/useCreateMedicine";
-import useGetAllMedicineCategory from "@/services/admin/medicine-category/hooks/useGetAllMedicineCategory";
-import { ICreateOrUpdateMedicinePayload } from "@/services/admin/medicine/interfaces/create-or-update-medicine.types";
-import { unitOptions } from "./create-or-update-medicine.constant";
+import useCreateClassification from "@/services/admin/classification/hooks/useCreateClassification";
+import useGetAllMenu from "@/services/admin/menu/hooks/useGetAllMenu";
+import { ICreateOrUpdateClassificationPayload } from "@/services/admin/classification/interfaces/create-or-update-classification.types";
 
 interface Props {
   onOpen: boolean;
   onClose: () => void;
 }
 
-type FormFields = ICreateOrUpdateMedicinePayload;
+type FormFields = ICreateOrUpdateClassificationPayload;
 
-const CreateMedicineCategoryModal: FunctionComponent<Props> = ({
+const CreateClassificationModal: FunctionComponent<Props> = ({
   onOpen,
   onClose,
 }) => {
-  const { medicine_categories } = useGetAllMedicineCategory();
-  const medicineCategoryOptions = useMapInputOptions(medicine_categories);
+  const { menus } = useGetAllMenu();
+  const menuOptions = useMapInputOptions(menus);
 
   const methods = useForm<FormFields>({ mode: "onChange" });
   const { isSubmitting } = methods.formState;
   const isValid = methods.formState.isValid;
 
-  const { createMedicine } = useCreateMedicine();
+  const { createClassification } = useCreateClassification();
   const onSubmit: SubmitHandler<FormFields> = async (state) => {
-    const { error, response } = await createMedicine({ ...state });
+    console.log(state);
+    const { error, response } = await createClassification({ ...state });
     if (error || response) {
       if (error) {
-        toast.error("Gagal Menambahkan Obat", {
+        console.log(error);
+        toast.error("Gagal Menambahkan Klasifikasi", {
           position: toast.POSITION.TOP_CENTER,
         });
       } else {
-        toast.success("Sukses Menambahkan Obat", {
+        toast.success("Sukses Menambahkan Klasifikasi", {
           position: toast.POSITION.TOP_CENTER,
         });
 
@@ -52,7 +53,12 @@ const CreateMedicineCategoryModal: FunctionComponent<Props> = ({
   if (!onOpen) return null;
 
   return (
-    <Modal onOpen={onOpen} modalSize="md" title="Tambah Obat" onClose={onClose}>
+    <Modal
+      onOpen={onOpen}
+      modalSize="md"
+      title="Tambah Klasifikasi"
+      onClose={onClose}
+    >
       <FormProvider {...methods}>
         <form className="w-full" onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="flex gap-5 mb-3">
@@ -71,45 +77,23 @@ const CreateMedicineCategoryModal: FunctionComponent<Props> = ({
                   name="description"
                   isRequired
                 />
+
                 <Input
-                  label="Tanggal Kedaluwarsa"
-                  type="date"
-                  placeholder="Tanggal Kedaluwarsa"
-                  name="expired_date"
+                  label="Harga (ex:10000)"
+                  type="number"
+                  placeholder="Harga"
+                  name="price"
                   isRequired
                 />
 
-                <Select
+                <SelectTwo
                   label="Kategori"
-                  name="medicine_category_id"
+                  name="menu"
+                  isSearchable
                   isRequired
-                  selectOptions={medicineCategoryOptions}
+                  isMulti
+                  selectTwoOptions={menuOptions}
                 />
-
-                <div className="grid grid-cols-3 gap-4">
-                  <Select
-                    label="Unit"
-                    name="unit"
-                    isRequired
-                    selectOptions={unitOptions}
-                  />
-
-                  <Input
-                    label="Jumlah Stok"
-                    type="number"
-                    placeholder="Jumlah Stok"
-                    name="stock"
-                    isRequired
-                  />
-
-                  <Input
-                    label="Harga (ex:10000)"
-                    type="number"
-                    placeholder="Harga"
-                    name="price"
-                    isRequired
-                  />
-                </div>
               </div>
             </div>
           </div>
@@ -140,4 +124,4 @@ const CreateMedicineCategoryModal: FunctionComponent<Props> = ({
   );
 };
 
-export default CreateMedicineCategoryModal;
+export default CreateClassificationModal;

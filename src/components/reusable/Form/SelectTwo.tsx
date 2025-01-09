@@ -1,49 +1,45 @@
-import { FunctionComponent, useState, useEffect } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import ReactSelect from "react-select";
-import useMapInputOptions from "@/hooks/useMapInputOptions";
 import { useFormContext } from "react-hook-form";
-
-interface Props {
-  label?: string;
-  name: string;
-  isRequired?: boolean;
-  isSearchable?: boolean;
-  isClearable?: boolean;
-  value?: any;
-  selectOptions: any;
-  onChange?: (value: OptionValue | null) => void;
-}
 
 export interface OptionValue {
   label: string;
   value: string;
 }
+interface Props {
+  label?: string;
+  name: string;
+  isMulti?: boolean;
+  isRequired?: boolean;
+  isSearchable?: boolean;
+  isClearable?: boolean;
+  value?: any;
+  selectTwoOptions: {
+    label: string;
+    value: string | number;
+  }[];
+}
 
 const SelectTwo: FunctionComponent<Props> = ({
   label,
   name,
+  isMulti,
   isRequired,
   isSearchable = false,
   isClearable,
   value,
-  selectOptions,
-  onChange,
+  selectTwoOptions,
   ...restProps
 }) => {
-  const { register, unregister } = useFormContext();
-  const selectTwoOptions = useMapInputOptions(selectOptions);
-  const [valueSelected, setValueSelected] = useState<OptionValue | null>(
-    value || null
-  );
+  const { register, unregister, setValue } = useFormContext();
+  const [selectedValue, setSelectedValue] = useState<null | OptionValue>(null);
 
-  // const onChangeSelectTwo = (selectedValue: OptionValue | null) => {
-  //   setValueSelected(value); // Perbarui nilai lokal
-  //   if (onChange) {
-  //     onChange(selectedValue); // Panggil onChange eksternal jika tersedia
-  //   } else {
-  //     setValue(name, selectedValue?.value || ""); // Sinkronisasi ke react-hook-form
-  //   }
-  // };
+  useEffect(() => {
+    if (value) {
+      setSelectedValue(value);
+      setValue(name, value); // Sinkronkan nilai awal dengan react-hook-form
+    }
+  }, [value, name, setValue]);
 
   useEffect(
     () => () => {
@@ -66,9 +62,17 @@ const SelectTwo: FunctionComponent<Props> = ({
       <ReactSelect
         {...restProps}
         name={name}
-        className="basic-single"
+        className={`${isMulti ? "basic-multi-select" : "basic-single"}`}
         classNamePrefix={`select-${label}`}
         placeholder={`Pilih ${label}`}
+        {...(name &&
+          register(name, {
+            required: isRequired && {
+              value: false,
+              message: "Tidak Boleh Kosong",
+            },
+          }))}
+        key={name}
         options={[
           {
             label: `Pilih ${label}`,
@@ -76,19 +80,21 @@ const SelectTwo: FunctionComponent<Props> = ({
           },
           ...selectTwoOptions,
         ]}
-        {...(name &&
-          register(name, {
-            required: isRequired && {
-              value: true,
-              message: "Tidak Boleh Kosong",
-            },
-          }))}
-        key={name}
         isSearchable={isSearchable}
         isClearable={isClearable}
-        value={valueSelected}
-        onChange={(e) => setValueSelected(e)}
+        isMulti={isMulti}
+        defaultValue={selectedValue}
         required={isRequired}
+        onChange={(e: any) => {
+          // Ambil hanya nilai value jika multi-select, jika single-select, ambil langsung value
+          const selectedValues = isMulti
+            ? e.map((item: any) => item.value)
+            : e
+            ? [e.value]
+            : [];
+          setSelectedValue(selectedValues);
+          setValue(name, selectedValues);
+        }}
       />
     </div>
   );

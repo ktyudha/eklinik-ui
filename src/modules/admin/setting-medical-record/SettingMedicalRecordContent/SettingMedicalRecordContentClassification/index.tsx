@@ -1,17 +1,12 @@
 import { FunctionComponent } from "react";
-import MedicineHeader from "./MedicineHeader";
-import MedicineTable from "./MedicineTable";
+import ClassificationTable from "./ClassificationTable";
 
-const Medicine: FunctionComponent = () => {
+const Classification: FunctionComponent = () => {
   return (
-    <div className="max-w-full px-3">
-      <MedicineHeader />
-
-      <div className="mt-10">
-        <MedicineTable />
-      </div>
+    <div className="max-w-full mt-4">
+      <ClassificationTable />
     </div>
   );
 };
 
-export default Medicine;
+export default Classification;

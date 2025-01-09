@@ -8,7 +8,7 @@ const TAB_ITEMS = [
     value: "submenu-setting-medical-record",
   },
   {
-    label: "Klasifikasi Grup",
+    label: "Klasifikasi",
     value: "classification-setting-medical-record",
   },
 ];
