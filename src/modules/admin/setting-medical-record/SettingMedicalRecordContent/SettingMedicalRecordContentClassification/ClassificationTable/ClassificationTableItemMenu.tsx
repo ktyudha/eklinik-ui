@@ -1,15 +1,17 @@
 import { FunctionComponent, useState } from "react";
 import { UilTrashAlt, UilEye, UilEdit } from "@iconscout/react-unicons";
-import { Medicine } from "@/services/admin/medicine/interfaces/get-all-medicine.types";
-import DeleteMedicineModal from "../MedicineModals/DeleteMedicineModal";
-import DetailMedicineModal from "../MedicineModals/DetailMedicineModal";
-import EditMedicineModal from "../MedicineModals/EditMedicineModal";
+import { Classification } from "@/services/admin/classification/interfaces/get-all-classification.types";
+import DeleteClassificationModal from "../ClassificationModals/DeleteClassificationModal";
+import DetailClassificationModal from "../ClassificationModals/DetailClassificationModal";
+import EditClassificationModal from "../ClassificationModals/EditClassificationModal";
 
 interface Props {
-  medicine: Medicine;
+  classification: Classification;
 }
 
-const MedicineTableItemMenu: FunctionComponent<Props> = ({ medicine }) => {
+const ClassificationTableItemMenu: FunctionComponent<Props> = ({
+  classification,
+}) => {
   const [openDetailModal, setOpenDetailModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
@@ -17,20 +19,20 @@ const MedicineTableItemMenu: FunctionComponent<Props> = ({ medicine }) => {
   return (
     <>
       {/* Modals */}
-      <DetailMedicineModal
-        id={medicine.id}
-        medicine={medicine}
+      <DetailClassificationModal
+        id={classification.id}
+        classification={classification}
         onOpen={openDetailModal}
         onClose={() => setOpenDetailModal(false)}
       />
-      <DeleteMedicineModal
-        id={medicine.id}
-        name={medicine.name}
+      <DeleteClassificationModal
+        id={classification.id}
+        name={classification.name}
         onOpen={openDeleteModal}
         onClose={() => setOpenDeleteModal(false)}
       />
-      <EditMedicineModal
-        medicine={medicine}
+      <EditClassificationModal
+        classification={classification}
         onOpen={openEditModal}
         onClose={() => setOpenEditModal(false)}
       />
@@ -68,4 +70,4 @@ const MedicineTableItemMenu: FunctionComponent<Props> = ({ medicine }) => {
   );
 };
 
-export default MedicineTableItemMenu;
+export default ClassificationTableItemMenu;

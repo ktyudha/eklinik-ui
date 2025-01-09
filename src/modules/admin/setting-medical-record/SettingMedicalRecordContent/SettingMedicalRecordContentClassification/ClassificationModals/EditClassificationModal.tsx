@@ -6,48 +6,43 @@ import Input from "@/components/reusable/Form/Input";
 import Textarea from "@/components/reusable/Form/Textarea";
 import Select from "@/components/reusable/Form/Select";
 import Spinner from "@/components/reusable/Spinner";
-import useUpdateMedicine from "@/services/admin/medicine/hooks/useUpdateMedicine";
-import { Medicine } from "@/services/admin/medicine/interfaces/get-all-medicine.types";
-import { ICreateOrUpdateMedicinePayload } from "@/services/admin/medicine/interfaces/create-or-update-medicine.types";
+import useUpdateClassification from "@/services/admin/classification/hooks/useUpdateClassification";
+import { Classification } from "@/services/admin/classification/interfaces/get-all-classification.types";
+import { ICreateOrUpdateClassificationPayload } from "@/services/admin/classification/interfaces/create-or-update-classification.types";
 import useMapInputOptions from "@/hooks/useMapInputOptions";
-import useGetAllMedicineCategory from "@/services/admin/medicine-category/hooks/useGetAllMedicineCategory";
-import { unitOptions } from "./create-or-update-medicine.constant";
+import useGetAllMenu from "@/services/admin/menu/hooks/useGetAllMenu";
 
 interface Props {
-  medicine: Medicine;
+  classification: Classification;
   onOpen: boolean;
   onClose: () => void;
 }
 
-type FormFields = ICreateOrUpdateMedicinePayload;
+type FormFields = ICreateOrUpdateClassificationPayload;
 
 const EditMedicineCategoryModal: FunctionComponent<Props> = ({
-  medicine,
+  classification,
   onOpen,
   onClose,
 }) => {
-  const { medicine_categories } = useGetAllMedicineCategory();
-  const medicineCategoryOptions = useMapInputOptions(medicine_categories);
-
-  const formatExpiredDate = medicine.expired_date
-    ? new Date(medicine.expired_date).toISOString().split("T")[0]
-    : "";
+  const { menus } = useGetAllMenu();
+  const menuOptions = useMapInputOptions(menus);
 
   const methods = useForm<FormFields>({ mode: "onChange" });
   const { isSubmitting } = methods.formState;
   const isValid = methods.formState.isValid;
 
-  const { updateMedicine } = useUpdateMedicine(medicine.id);
+  const { updateClassification } = useUpdateClassification(classification.id);
 
   const onSubmit: SubmitHandler<FormFields> = async (state) => {
-    const { error, response } = await updateMedicine({ ...state });
+    const { error, response } = await updateClassification({ ...state });
     if (error || response) {
       if (error) {
-        toast.error("Gagal Memperbarui Kategori Obat", {
+        toast.error("Gagal Memperbarui Klasifikasi", {
           position: toast.POSITION.TOP_CENTER,
         });
       } else {
-        toast.success("Sukses Memperbarui Kategori Obat", {
+        toast.success("Sukses Memperbarui Klasifikasi", {
           position: toast.POSITION.TOP_CENTER,
         });
 
@@ -59,7 +54,12 @@ const EditMedicineCategoryModal: FunctionComponent<Props> = ({
   if (!onOpen) return null;
 
   return (
-    <Modal onOpen={onOpen} modalSize="md" title="Edit Obat" onClose={onClose}>
+    <Modal
+      onOpen={onOpen}
+      modalSize="md"
+      title="Edit Klasifikasi"
+      onClose={onClose}
+    >
       <FormProvider {...methods}>
         <form className="w-full" onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="flex gap-5 mb-3">
@@ -70,60 +70,33 @@ const EditMedicineCategoryModal: FunctionComponent<Props> = ({
                   type="text"
                   placeholder="Nama"
                   name="name"
-                  defaultValue={medicine.name}
+                  defaultValue={classification.name}
                   isRequired
                 />
                 <Textarea
                   label="Deskripsi"
                   placeholder="Deskripsi"
                   name="description"
-                  defaultValue={medicine.description}
+                  defaultValue={classification.description}
                   isRequired
                 />
+
                 <Input
-                  label="Tanggal Kedaluwarsa"
-                  type="date"
-                  placeholder="Tanggal Kedaluwarsa"
-                  name="expired_date"
-                  defaultValue={formatExpiredDate}
+                  label="Harga (ex:10000)"
+                  type="number"
+                  placeholder="Harga"
+                  name="price"
+                  defaultValue={classification.price}
                   isRequired
                 />
 
                 <Select
-                  label="Kategori"
-                  name="medicine_category_id"
+                  label="Grup Pertanyaan"
+                  name="menu"
                   isRequired
-                  defaultValue={medicine.medicine_category.id}
-                  selectOptions={medicineCategoryOptions}
+                  defaultValue={classification.menus}
+                  selectOptions={menuOptions}
                 />
-
-                <div className="grid grid-cols-3 gap-4">
-                  <Select
-                    label="Unit"
-                    name="unit"
-                    isRequired
-                    selectOptions={unitOptions}
-                    defaultValue={medicine.unit}
-                  />
-
-                  <Input
-                    label="Jumlah Stok"
-                    type="number"
-                    placeholder="Jumlah Stok"
-                    name="stock"
-                    defaultValue={medicine.stock}
-                    isRequired
-                  />
-
-                  <Input
-                    label="Harga (ex:10000)"
-                    type="number"
-                    placeholder="Harga"
-                    name="price"
-                    defaultValue={medicine.price}
-                    isRequired
-                  />
-                </div>
               </div>
             </div>
           </div>
