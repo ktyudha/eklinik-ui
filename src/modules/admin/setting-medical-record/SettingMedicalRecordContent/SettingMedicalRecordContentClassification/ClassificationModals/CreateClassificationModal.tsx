@@ -31,7 +31,6 @@ const CreateClassificationModal: FunctionComponent<Props> = ({
 
   const { createClassification } = useCreateClassification();
   const onSubmit: SubmitHandler<FormFields> = async (state) => {
-    console.log(state);
     const { error, response } = await createClassification({ ...state });
     if (error || response) {
       if (error) {
