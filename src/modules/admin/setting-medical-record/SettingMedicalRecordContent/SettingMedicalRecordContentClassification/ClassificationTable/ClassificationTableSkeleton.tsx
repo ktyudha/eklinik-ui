@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import Skeleton from "react-loading-skeleton";
 
-const MedicineTableSkeleton: FunctionComponent = () => {
+const ClassificationTableSkeleton: FunctionComponent = () => {
   return (
     <>
       {Array.from({ length: 5 }).map((_, i) => (
@@ -24,4 +24,4 @@ const MedicineTableSkeleton: FunctionComponent = () => {
   );
 };
 
-export default MedicineTableSkeleton;
+export default ClassificationTableSkeleton;

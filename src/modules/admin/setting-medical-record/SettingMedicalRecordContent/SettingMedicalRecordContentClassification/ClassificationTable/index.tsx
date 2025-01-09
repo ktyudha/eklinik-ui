@@ -1,39 +1,39 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { isEmpty } from "lodash";
-// import usePagination from "@/hooks/usePagination";
+import usePagination from "@/hooks/usePagination";
 import TableWrapper from "@/components/reusable/Table/TableWrapper";
 import TableHead from "@/components/reusable/Table/TableHead";
 import TableBody from "@/components/reusable/Table/TableBody";
 import TableNotFound from "@/components/reusable/Table/TableNotFound";
-import MedicineTableSkeleton from "./MedicineTableSkeleton";
-// import TablePagination from "@/components/reusable/Table/TablePagination";
-import MedicineTableItem from "./MedicineTableItem";
-import MedicineCategoryTableHeader from "./MedicineTableHeader";
+import ClassificationTableSkeleton from "./ClassificationTableSkeleton";
+import TablePagination from "@/components/reusable/Table/TablePagination";
+import ClassificationTableItem from "./ClassificationTableItem";
+import ClassificationTableHeader from "./ClassificationTableHeader";
 
-import useGetAllMedicine from "@/services/admin/medicine/hooks/useGetAllMedicine";
+import useGetAllClassification from "@/services/admin/classification/hooks/useGetAllClassification";
 
-const MedicineTable: FunctionComponent = () => {
+const ClassificationTable: FunctionComponent = () => {
   const {
-    medicines,
+    classifications,
     loading,
-    // pagination,
-    // pageLimit,
-    // setPageLimit,
-    // setPageNum,
-    // setName,
-  } = useGetAllMedicine();
+    pagination,
+    pageLimit,
+    setPageLimit,
+    setPageNum,
+    setName,
+  } = useGetAllClassification();
 
-  // const { currentPage, goNextPage, goPrevPage } = usePagination(
-  //   pagination?.last_page || 1
-  // );
+  const { currentPage, goNextPage, goPrevPage } = usePagination(
+    pagination?.last_page || 1
+  );
 
-  // useEffect(() => {
-  //   setPageNum(currentPage);
-  // }, [currentPage]);
+  useEffect(() => {
+    setPageNum(currentPage);
+  }, [currentPage]);
 
   return (
     <div>
-      <MedicineCategoryTableHeader />
+      <ClassificationTableHeader setNameCallback={(e) => setName(e)} />
       <div className="flex flex-col">
         <TableWrapper>
           <TableHead>
@@ -47,39 +47,39 @@ const MedicineTable: FunctionComponent = () => {
               Nama
             </th>
             <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
-              Tanggal Kedaluwarsa
+              Description
             </th>
             <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
               Harga
             </th>
             <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
-              Stok
+              Grup Pertanyaan
             </th>
             <th scope="col" className="px-6 py-3 text-sm font-medium text-left">
               Action
             </th>
           </TableHead>
           <TableBody>
-            {loading || !medicines ? (
-              <MedicineTableSkeleton />
-            ) : isEmpty(medicines) ? (
+            {loading || !classifications ? (
+              <ClassificationTableSkeleton />
+            ) : isEmpty(classifications) ? (
               <TableNotFound />
             ) : (
-              medicines?.map((medicine, idx) => {
+              classifications?.map((classification, idx) => {
                 const number = idx + 1;
 
                 return (
-                  <MedicineTableItem
+                  <ClassificationTableItem
                     key={`medicine-table-item-${idx}`}
                     number={number}
-                    medicine={medicine}
+                    classification={classification}
                   />
                 );
               })
             )}
           </TableBody>
         </TableWrapper>
-        {/* <TablePagination
+        <TablePagination
           goNextPage={goNextPage}
           goPrevPage={goPrevPage}
           perPage={pagination?.per_page ?? 10}
@@ -88,9 +88,9 @@ const MedicineTable: FunctionComponent = () => {
           setPageLimit={(limit) => setPageLimit(limit)}
           currentPage={currentPage}
           lastPage={pagination?.last_page || 1}
-        /> */}
+        />
       </div>
     </div>
   );
 };
-export default MedicineTable;
+export default ClassificationTable;

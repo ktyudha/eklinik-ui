@@ -4,6 +4,7 @@ import SettingMedicalRecordHeader from "./SettingMedicalRecordHeader";
 import SettingMedicalRecordTab from "./SettingMedicalRecordTab";
 import SettingMedicalRecordContentMenu from "./SettingMedicalRecordContent/SettingMedicalRecordContentMenu";
 import SettingMedicalRecordContentSubMenu from "./SettingMedicalRecordContent/SettingMedicalRecordContentSubMenu";
+import SettingMedicalRecordContentClassification from "./SettingMedicalRecordContent/SettingMedicalRecordContentClassification";
 
 const SettingMedicalRecord: FunctionComponent = () => {
   const { activeMedicalRecordTab } = useAdminStore((state) => ({
@@ -20,7 +21,7 @@ const SettingMedicalRecord: FunctionComponent = () => {
           ) : activeMedicalRecordTab === "submenu-setting-medical-record" ? (
             <SettingMedicalRecordContentSubMenu />
           ) : (
-            <SettingMedicalRecordContentMenu />
+            <SettingMedicalRecordContentClassification />
           )}
         </div>
       </div>
