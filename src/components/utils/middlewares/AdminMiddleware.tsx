@@ -54,12 +54,8 @@ const AdminMiddleware: FunctionComponent<PropsWithChildren> = ({
       }
       setMounted(true);
     } else if (!cookie) {
-      if (
-        pathname !== "/login" &&
-        pathname !== "/admin/login" &&
-        pathname !== "/alumni/login"
-      ) {
-        navigate("/alumni/login");
+      if (pathname !== "/login" && pathname !== "/admin/login") {
+        navigate("/login");
       }
       setMounted(true);
     }
