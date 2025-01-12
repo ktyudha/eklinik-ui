@@ -3,6 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Modal from "@/components/reusable/Modal";
 import Input from "@/components/reusable/Form/Input";
+import Textarea from "@/components/reusable/Form/Textarea";
 import Select from "@/components/reusable/Form/Select";
 import Spinner from "@/components/reusable/Spinner";
 import {
@@ -18,6 +19,7 @@ import useGetAllProvince from "@/services/global/region/province/hooks/useGetAll
 import useGetProvince from "@/services/global/region/province/hooks/useGetProvince";
 import useGetCity from "@/services/global/region/city/hooks/useGetCity";
 import useMapInputOptions from "@/hooks/useMapInputOptions";
+import useGetSubDistrict from "@/services/global/region/sub-district/hooks/useGetSubDistrict";
 
 interface Props {
   onOpen: boolean;
@@ -30,19 +32,28 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedSubDistrict, setSelectedSubDistrict] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
 
   const { provinces } = useGetAllProvince();
   const { province } = useGetProvince(selectedProvince || "");
   const { city } = useGetCity(selectedCity || "");
+  const { sub_district } = useGetSubDistrict(selectedSubDistrict || "");
 
   const provinceOptions = useMapInputOptions(provinces);
   const cityOptions = useMapInputOptions(province?.cities);
   const subDistrictOptions = useMapInputOptions(city?.sub_districts);
+  const villageOptions = useMapInputOptions(sub_district?.villages);
 
   useEffect(() => {
     setSelectedCity("");
     setSelectedSubDistrict("");
+    setSelectedVillage("");
   }, [selectedProvince]);
+
+  useEffect(() => {
+    setSelectedSubDistrict("");
+    setSelectedVillage("");
+  }, [selectedCity]);
 
   const methods = useForm<FormFields>({ mode: "onChange" });
   const { isSubmitting } = methods.formState;
@@ -52,9 +63,11 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
   const onSubmit: SubmitHandler<FormFields> = async (state) => {
     const payload = {
       ...state,
+      username: typeof state.name === "string" ? state.name.split(" ")[0] : "",
       province_id: selectedProvince,
       city_id: selectedCity,
       sub_district_id: selectedSubDistrict,
+      village_id: selectedVillage,
     };
 
     const { error, response } = await createPatient(payload);
@@ -85,14 +98,14 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
     >
       <FormProvider {...methods}>
         <form className="w-full" onSubmit={methods.handleSubmit(onSubmit)}>
-          <Input
-            label="Nama"
-            type="text"
-            placeholder="Nama Lengkap"
-            name="name"
-            isRequired
-          />
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+            <Input
+              label="Nama"
+              type="text"
+              placeholder="Nama Lengkap"
+              name="name"
+              isRequired
+            />
             <Input
               label="NIK"
               type="text"
@@ -101,13 +114,13 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
               isRequired
             />
 
-            <Input
+            {/* <Input
               label="Username"
               type="text"
               placeholder="Username"
               name="username"
               isRequired
-            />
+            /> */}
             <Input
               label="Tempat Lahir"
               type="text"
@@ -173,7 +186,7 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
             />
           </div>
           <hr className="mt-6 mb-3" />
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 my-4">
             <div className="flex flex-col">
               <label
                 htmlFor={"province_id"}
@@ -239,12 +252,32 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
               </select>
             </div>
 
-            <Input
-              label="Desa"
-              type="text"
-              placeholder="Nama Desa"
-              name="village"
-              isRequired
+            <div className="flex flex-col">
+              <label
+                htmlFor={"village_id"}
+                className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
+              >
+                Desa <div className="text-red-500">*</div>
+              </label>
+              <select
+                className={`flex gap-1 border-2 py-2 px-3 rounded-lg outline-none bg-white text-md font-normal`}
+                required
+                onChange={(e) => setSelectedVillage(e.target.value)}
+              >
+                <option value="" selected>
+                  Pilih Desa
+                </option>
+                {villageOptions.map((village) => (
+                  <option value={village.value}>{village.label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="grid grid-cols-2">
+            <Textarea
+              label="Alamat Tambahan"
+              placeholder=""
+              name="additional_address"
             />
           </div>
 
@@ -260,8 +293,8 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
               type="submit"
               className={`w-full rounded-lg py-2 font-medium text-base text-white ${
                 !isValid || isSubmitting
-                  ? "bg-[#f9d1e8] cursor-not-allowed focus:outline-none disabled:opacity-100"
-                  : "bg-[#f28ec2] hover:bg-[#e64e99]"
+                  ? "bg-[#9fe194] cursor-not-allowed focus:outline-none disabled:opacity-100"
+                  : "bg-[#4bb43a] hover:bg-[#379029]"
               }`}
               disabled={!isValid || isSubmitting}
             >

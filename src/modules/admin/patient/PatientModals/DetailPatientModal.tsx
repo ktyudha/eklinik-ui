@@ -54,7 +54,7 @@ const PatientModal: FunctionComponent<Props> = ({
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Name
+              Nama Lengkap
             </label>
             <input
               type="text"
@@ -71,7 +71,7 @@ const PatientModal: FunctionComponent<Props> = ({
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Birth Place
+              Tempat Lahir
             </label>
             <input
               type="text"
@@ -88,7 +88,7 @@ const PatientModal: FunctionComponent<Props> = ({
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Birth Date
+              Tanggal Lahir
             </label>
             <input
               type="text"
@@ -99,7 +99,7 @@ const PatientModal: FunctionComponent<Props> = ({
             />
           </div>
         </div>
-        <hr className="mt-6 mb-3" />
+        <hr className="mt-4 mb-3" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {/* Email */}
           <div className="form-input">
@@ -107,7 +107,7 @@ const PatientModal: FunctionComponent<Props> = ({
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Email
+              E-Mail
             </label>
             <input
               type="text"
@@ -124,7 +124,7 @@ const PatientModal: FunctionComponent<Props> = ({
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Phone Number
+              Nomor HP
             </label>
             <input
               type="text"
@@ -141,7 +141,7 @@ const PatientModal: FunctionComponent<Props> = ({
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Religion
+              Agama
             </label>
             <input
               type="text"
@@ -158,7 +158,7 @@ const PatientModal: FunctionComponent<Props> = ({
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Gender
+              Jenis Kelamin
             </label>
             <input
               type="text"
@@ -175,7 +175,7 @@ const PatientModal: FunctionComponent<Props> = ({
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Education
+              Pendidikan
             </label>
             <input
               type="text"
@@ -192,7 +192,7 @@ const PatientModal: FunctionComponent<Props> = ({
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Job
+              Pekerjaan
             </label>
             <input
               type="text"
@@ -202,16 +202,37 @@ const PatientModal: FunctionComponent<Props> = ({
               value={patient.job}
             />
           </div>
-        </div>
-        <hr className="mt-6 mb-3" />
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {/* Province */}
-          <div className="form-input">
+
+          <div className="form-input col-span-2">
             <label
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Province
+              Alamat
+            </label>
+            <textarea
+              id={`patient-modal-detail-${id}`}
+              className="textarea textarea-bordered w-full capitalize"
+              disabled
+              rows={3}
+              value={`Ds. ${patient.village.name}, Kec. ${
+                patient.sub_district.name
+              }, ${patient.city.name}, ${patient.province.name} ${
+                patient.village.postal_code
+              }\n${patient.additional_address ?? ""}`}
+            />
+          </div>
+          
+        </div>
+        {/* <hr className="mt-4 mb-1" /> */}
+        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4"> */}
+        {/* Province */}
+        {/* <div className="form-input">
+            <label
+              htmlFor={`patient-modal-detail-${id}`}
+              className="flex gap-1 leading-4  mb-2"
+            >
+              Provinsi
             </label>
             <input
               type="text"
@@ -220,15 +241,15 @@ const PatientModal: FunctionComponent<Props> = ({
               disabled
               value={patient.province.name}
             />
-          </div>
+          </div> */}
 
-          {/* City */}
-          <div className="form-input">
+        {/* City */}
+        {/* <div className="form-input">
             <label
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              City
+              Kabupaten/Kota
             </label>
             <input
               type="text"
@@ -237,15 +258,15 @@ const PatientModal: FunctionComponent<Props> = ({
               disabled
               value={patient.city.name}
             />
-          </div>
+          </div> */}
 
-          {/* Sub District */}
-          <div className="form-input">
+        {/* Sub District */}
+        {/* <div className="form-input">
             <label
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Sub District
+              Kecamatan
             </label>
             <input
               type="text"
@@ -254,25 +275,44 @@ const PatientModal: FunctionComponent<Props> = ({
               disabled
               value={patient.sub_district.name}
             />
-          </div>
+          </div> */}
 
-          {/* Village */}
-          <div className="form-input">
+        {/* Village */}
+        {/* <div className="form-input">
             <label
               htmlFor={`patient-modal-detail-${id}`}
               className="flex gap-1 leading-4  mb-2"
             >
-              Village
+              Desa
             </label>
             <input
               type="text"
               id={`patient-modal-detail-${id}`}
               className="input input-bordered w-full"
               disabled
-              value={patient.village}
+              value={patient.village.name}
             />
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
+
+        {/* <div className="grid grid-cols-2"> */}
+        {/* Job */}
+        {/* <div className="form-input">
+            <label
+              htmlFor={`patient-modal-detail-${id}`}
+              className="flex gap-1 leading-4  mb-2"
+            >
+              Alamat
+            </label>
+            <textarea
+              id={`patient-modal-detail-${id}`}
+              className="textarea textarea-bordered w-full capitalize"
+              disabled
+              rows={3}
+              value={`Ds. ${patient.village.name}, Kec. ${patient.sub_district.name}, ${patient.city.name}, ${patient.province.name} ${patient.village.postal_code}\n${patient.additional_address}`}
+            />
+          </div> */}
+        {/* </div> */}
       </Modal>
     </>
   );
