@@ -8,7 +8,6 @@ import Spinner from "@/components/reusable/Spinner";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { useAdminLogin } from "@/services/auth/admin-login/hooks/useAdminLogin";
-import ToggleThemeNavbar from "@/layouts/DefaultLayout/ToggleThemeNavbar";
 // import Logo from "@assets/images/logo-tracer.png";
 
 interface CredentialPayload {
@@ -52,7 +51,6 @@ const AdminLoginForm: FunctionComponent = () => {
     <div className="lg:h-screen">
       <div className="relative">
         <div className="absolute top-5 right-5 flex">
-          <ToggleThemeNavbar />
           <button
             type="button"
             className="flex items-center justify-center ml-3 gap-1 px-1 py-1 text-black bg-white rounded-full lg:px-2"

@@ -1,7 +1,6 @@
 import { FunctionComponent, useState, useEffect } from "react";
 import clsx from "clsx";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
-import ToggleThemeNavbar from "./ToggleThemeNavbar";
 // import Avatar from "@assets/icons/avatar.png";
 import Spinner from "@/components/reusable/Spinner";
 import useGlobalStore from "@/store/useStore";
@@ -142,10 +141,8 @@ const DefaultNavbar: FunctionComponent = () => {
       </div>
 
       <div className="flex-none">
-        <h3 className="md:block hidden">{currentDateTime}</h3>
-        <div className="mx-4">
-          <ToggleThemeNavbar />
-        </div>
+        <h3 className="md:block hidden mr-4">{currentDateTime}</h3>
+
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
