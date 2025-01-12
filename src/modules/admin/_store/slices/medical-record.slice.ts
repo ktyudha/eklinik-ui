@@ -6,7 +6,7 @@ export declare interface MedicalRecordState {
 }
 
 const createMedicalRecordSlice: StateCreator<MedicalRecordState> = (set) => ({
-  activeMedicalRecordTab: "menu-setting-medical-record",
+  activeMedicalRecordTab: "submenu-setting-medical-record",
   setActiveMedicalRecordTab: (param) => set({ activeMedicalRecordTab: param }),
 });
 
