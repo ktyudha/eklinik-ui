@@ -113,8 +113,8 @@ const EditSubMenuModal: FunctionComponent<Props> = ({
               type="submit"
               className={`w-full rounded-lg py-2 font-medium text-base text-white ${
                 !isValid || isSubmitting
-                  ? "bg-[#f9d1e8] cursor-not-allowed focus:outline-none disabled:opacity-100"
-                  : "bg-[#f28ec2] hover:bg-[#e64e99]"
+                  ? "bg-[#9fe194] cursor-not-allowed focus:outline-none disabled:opacity-100"
+                  : "bg-[#4bb43a] hover:bg-[#379029]"
               }`}
               disabled={!isValid || isSubmitting}
             >

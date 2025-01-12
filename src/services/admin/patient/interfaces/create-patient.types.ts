@@ -14,5 +14,6 @@ export interface ICreatePatientPayload {
   province_id: string;
   sub_district_id: string;
   city_id: string;
-  village: string;
+  village_id: string;
+  additional_address: string;
 }

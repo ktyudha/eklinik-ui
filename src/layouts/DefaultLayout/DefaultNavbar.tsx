@@ -114,7 +114,7 @@ const DefaultNavbar: FunctionComponent = () => {
   // }, [location]);
 
   return (
-    <div className="navbar sticky top-0 bg-gradient-to-r from-[#7e2e9d] to-[#f6abd4] text-white z-10 shadow-md">
+    <div className="navbar sticky top-0 bg-[#1c2674] text-white z-10 shadow-md">
       <div className="flex-1">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col items-center justify-center">
