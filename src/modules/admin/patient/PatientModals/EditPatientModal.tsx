@@ -48,8 +48,10 @@ const EditPatientModal: FunctionComponent<Props> = ({
   const { province } = useGetProvince(
     selectedProvince || patient.province.id || ""
   );
-  const { city } = useGetCity(selectedCity);
-  const { sub_district } = useGetSubDistrict(selectedSubDistrict || "");
+  const { city } = useGetCity(selectedCity || patient.city.id || "");
+  const { sub_district } = useGetSubDistrict(
+    selectedSubDistrict || patient.sub_district.id || ""
+  );
 
   const provinceOptions = useMapInputOptions(provinces);
   const cityOptions = useMapInputOptions(province?.cities);
