@@ -12,7 +12,7 @@ const PatientTableItem: FunctionComponent<Props> = ({ number, patient }) => {
     <tr>
       <td className="mx-auto text-center">{number}</td>
       <td className="px-6">{patient.medical_record_number}</td>
-      <td className="px-6 capitalize">{patient.name}</td>
+      <td className="px-6 uppercase">{patient.name}</td>
       <td className="px-6">{patient.nik}</td>
       <td className="px-6 text-center">{patient.gender}</td>
       <td className="flex flex-row gap-3">
