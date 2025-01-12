@@ -47,9 +47,8 @@ const SidebarMenuItem: FunctionComponent<Props> = ({
 
   return (
     <div
-      className={`flex flex-col hover:bg-gradient-to-r hover:from-[#7e2e9d] hover:to-[#f6abd4] hover:text-white ${
-        isActiveMenu &&
-        "bg-gradient-to-r from-[#7e2e9d] to-[#f6abd4] text-white  rounded-lg"
+      className={`flex flex-col hover:bg-[#1c2674] hover:text-white ${
+        isActiveMenu && "bg-[#1c2674] text-white  rounded-lg"
       }`}
       onClick={onSidebarClick}
     >

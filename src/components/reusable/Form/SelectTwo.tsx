@@ -14,6 +14,7 @@ interface Props {
   isSearchable?: boolean;
   isClearable?: boolean;
   value?: any;
+  defaultValue?: any;
   selectTwoOptions: {
     label: string;
     value: string | number;
@@ -28,6 +29,7 @@ const SelectTwo: FunctionComponent<Props> = ({
   isSearchable = false,
   isClearable,
   value,
+  defaultValue,
   selectTwoOptions,
   ...restProps
 }) => {
@@ -83,7 +85,7 @@ const SelectTwo: FunctionComponent<Props> = ({
         isSearchable={isSearchable}
         isClearable={isClearable}
         isMulti={isMulti}
-        defaultValue={selectedValue}
+        defaultValue={selectedValue ?? defaultValue}
         required={isRequired}
         onChange={(e: any) => {
           // Ambil hanya nilai value jika multi-select, jika single-select, ambil langsung value

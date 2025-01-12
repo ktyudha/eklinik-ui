@@ -1,11 +1,11 @@
 const TAB_ITEMS = [
   {
-    label: "Grup Pertanyaan",
-    value: "menu-setting-medical-record",
-  },
-  {
     label: "Pertanyaan",
     value: "submenu-setting-medical-record",
+  },
+  {
+    label: "Grup Pertanyaan",
+    value: "menu-setting-medical-record",
   },
   {
     label: "Klasifikasi",

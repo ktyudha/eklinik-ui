@@ -22,7 +22,8 @@ export default function useUpdatePatient(patientId: string) {
       province_id,
       sub_district_id,
       city_id,
-      village,
+      village_id,
+      additional_address,
     } = payload;
 
     try {
@@ -45,7 +46,8 @@ export default function useUpdatePatient(patientId: string) {
         province_id,
         sub_district_id,
         city_id,
-        village,
+        village_id,
+        additional_address,
         _method: "PUT",
       });
 

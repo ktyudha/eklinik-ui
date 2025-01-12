@@ -18,10 +18,11 @@ export interface Patient {
   marital_status: string;
   job: string;
   gender: string;
-  village: string;
+  additional_address: string;
   province: Province;
   city: City;
   sub_district: SubDistrict;
+  village: Village;
 }
 
 export interface Pagination {
@@ -52,6 +53,12 @@ export interface City {
 export interface SubDistrict {
   id: string;
   name: string;
+}
+
+export interface Village {
+  id: string;
+  name: string;
+  postal_code: string;
 }
 
 export interface Link {

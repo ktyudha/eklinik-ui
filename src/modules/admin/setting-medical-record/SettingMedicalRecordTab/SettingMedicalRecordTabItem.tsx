@@ -26,8 +26,8 @@ const SettingMedicalRecordTabItem: FunctionComponent<Props> = ({
         className={clsx([
           "inline-block w-full px-4 py-1 active focus:outline-none text-lg rounded-xl md:rounded-full lg:rounded-full cursor-pointer",
           isActive
-            ? "bg-gradient-to-r from-[#7e2e9d] to-[#f6abd4] text-white border-2 border-white"
-            : "bg-[#7e2e9d] text-white",
+            ? "bg-[#1c2674]  text-white border-2 border-white"
+            : "bg-[#1c2674] text-white",
         ])}
         aria-current="page"
         onClick={() => setActiveMedicalRecordTab(value)}

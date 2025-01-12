@@ -5,6 +5,7 @@ import useMapInputOptions from "@/hooks/useMapInputOptions";
 import Modal from "@/components/reusable/Modal";
 import Input from "@/components/reusable/Form/Input";
 import Select from "@/components/reusable/Form/Select";
+import Textarea from "@/components/reusable/Form/Textarea";
 import Spinner from "@/components/reusable/Spinner";
 import {
   religionOptions,
@@ -19,6 +20,7 @@ import { IUpdatePatientPayload } from "@/services/admin/patient/interfaces/updat
 import useGetAllProvince from "@/services/global/region/province/hooks/useGetAllProvince";
 import useGetProvince from "@/services/global/region/province/hooks/useGetProvince";
 import useGetCity from "@/services/global/region/city/hooks/useGetCity";
+import useGetSubDistrict from "@/services/global/region/sub-district/hooks/useGetSubDistrict";
 
 interface Props {
   patient: Patient;
@@ -40,27 +42,37 @@ const EditPatientModal: FunctionComponent<Props> = ({
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedSubDistrict, setSelectedSubDistrict] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
 
   const { provinces } = useGetAllProvince();
   const { province } = useGetProvince(
     selectedProvince || patient.province.id || ""
   );
   const { city } = useGetCity(selectedCity);
+  const { sub_district } = useGetSubDistrict(selectedSubDistrict || "");
 
   const provinceOptions = useMapInputOptions(provinces);
   const cityOptions = useMapInputOptions(province?.cities);
   const subDistrictOptions = useMapInputOptions(city?.sub_districts);
+  const villageOptions = useMapInputOptions(sub_district?.villages);
 
   useEffect(() => {
     setSelectedCity("");
     setSelectedSubDistrict("");
+    setSelectedVillage("");
   }, [selectedProvince]);
+
+  useEffect(() => {
+    setSelectedSubDistrict("");
+    setSelectedVillage("");
+  }, [selectedCity]);
 
   useEffect(() => {
     setSelectedProvince(patient.province.id);
     setSelectedCity(patient.city.id);
     setSelectedSubDistrict(patient.sub_district.id);
-  }, [patient.city, patient.province, patient.sub_district]);
+    setSelectedVillage(patient.village.id);
+  }, [patient.city, patient.province, patient.sub_district, patient.village]);
 
   const methods = useForm<FormFields>({ mode: "onChange" });
   const { isSubmitting } = methods.formState;
@@ -70,9 +82,11 @@ const EditPatientModal: FunctionComponent<Props> = ({
   const onSubmit: SubmitHandler<FormFields> = async (state) => {
     const payload = {
       ...state,
+      username: typeof state.name === "string" ? state.name.split(" ")[0] : "",
       province_id: selectedProvince,
       city_id: selectedCity,
       sub_district_id: selectedSubDistrict,
+      village_id: selectedVillage,
     };
 
     const { error, response } = await updatePatient(payload);
@@ -100,15 +114,15 @@ const EditPatientModal: FunctionComponent<Props> = ({
           <div className="flex gap-5 mb-3">
             <div className="flex-1">
               <div className="flex flex-col gap-3 mb-3">
-                <Input
-                  label="Nama"
-                  type="text"
-                  placeholder="Nama Lengkap"
-                  name="name"
-                  defaultValue={patient.name}
-                  isRequired
-                />
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+                  <Input
+                    label="Nama"
+                    type="text"
+                    placeholder="Nama Lengkap"
+                    name="name"
+                    defaultValue={patient.name}
+                    isRequired
+                  />
                   <Input
                     label="NIK"
                     type="text"
@@ -118,14 +132,14 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     isRequired
                   />
 
-                  <Input
+                  {/* <Input
                     label="Username"
                     type="text"
                     placeholder="Username"
                     name="username"
                     defaultValue={patient.username}
                     isRequired
-                  />
+                  /> */}
                   <Input
                     label="Tempat Lahir"
                     type="text"
@@ -143,8 +157,8 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     isRequired
                   />
                 </div>
-                <hr className="mt-6 mb-3" />
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+                <hr className="mt-3 mb-1" />
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2">
                   <Input
                     label="E-mail"
                     type="email"
@@ -199,8 +213,8 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     selectOptions={maritalStatusOptions}
                   />
                 </div>
-                <hr className="mt-6 mb-3" />
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+                <hr className="mt-3 mb-1" />
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2">
                   <div className="flex flex-col">
                     <label
                       htmlFor={"province_id"}
@@ -283,14 +297,39 @@ const EditPatientModal: FunctionComponent<Props> = ({
                       ))}
                     </select>
                   </div>
-
-                  <Input
-                    label="Desa"
-                    type="text"
-                    placeholder="Nama Desa"
-                    name="village"
-                    defaultValue={patient.village}
-                    isRequired
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor={"village_id"}
+                      className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
+                    >
+                      Desa <div className="text-red-500">*</div>
+                    </label>
+                    <select
+                      className={`flex gap-1 border-2 py-2 px-3 rounded-lg outline-none bg-white text-md font-normal`}
+                      required
+                      onChange={(e) => setSelectedVillage(e.target.value)}
+                    >
+                      <option value="" selected>
+                        Pilih Desa
+                      </option>
+                      {villageOptions.map((village) => (
+                        <option
+                          key={`select-item-${village.value}`}
+                          value={village.value}
+                          selected={village.value === patient.village.id}
+                        >
+                          {village.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2">
+                  <Textarea
+                    label="Alamat Tambahan"
+                    placeholder=""
+                    name="additional_address"
+                    defaultValue={patient.additional_address}
                   />
                 </div>
               </div>
@@ -309,8 +348,8 @@ const EditPatientModal: FunctionComponent<Props> = ({
               type="submit"
               className={`w-full rounded-lg py-2 font-medium text-base text-white ${
                 !isValid || isSubmitting
-                  ? "bg-[#f9d1e8] cursor-not-allowed focus:outline-none disabled:opacity-100"
-                  : "bg-[#f28ec2] hover:bg-[#e64e99]"
+                  ? "bg-[#9fe194] cursor-not-allowed focus:outline-none disabled:opacity-100"
+                  : "bg-[#4bb43a] hover:bg-[#379029]"
               }`}
               disabled={!isValid || isSubmitting}
             >
