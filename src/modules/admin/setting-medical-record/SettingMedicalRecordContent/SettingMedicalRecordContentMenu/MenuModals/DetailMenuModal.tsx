@@ -63,15 +63,15 @@ const DetailMedicineCategoryModal: FunctionComponent<Props> = ({
             >
               Klasifikasi Grup
             </label>
-            <div className="flex max-w-xs truncate gap-3">
+            <div>
               {menu.classifications?.map((classification, idx) => {
                 return (
-                  <span
+                  <button
                     key={idx}
-                    className="border border-[#7e2e9d] text-[#7e2e9d] px-1.5 py-0.5 rounded hover:bg-[#7e2e9d] hover:text-white cursor-pointer transition-colors ease-in-out duration-300"
+                    className="border border-[#7e2e9d] text-[#7e2e9d] mr-2 mb-2  px-1.5 py-0.5 rounded hover:bg-[#7e2e9d] hover:text-white cursor-pointer transition-colors ease-in-out duration-300"
                   >
                     {classification.name}
-                  </span>
+                  </button>
                 );
               })}
             </div>
@@ -84,15 +84,15 @@ const DetailMedicineCategoryModal: FunctionComponent<Props> = ({
             >
               Pertanyaan
             </label>
-            <div className="flex max-w-xs truncate gap-3">
+            <div>
               {menu.submenus?.map((submenu, idx) => {
                 return (
-                  <span
+                  <button
                     key={idx}
-                    className="border border-[#7e2e9d] text-[#7e2e9d] px-1.5 py-0.5 rounded hover:bg-[#7e2e9d] hover:text-white cursor-pointer transition-colors ease-in-out duration-300"
+                    className="border border-[#7e2e9d] mr-2 mb-2 text-[#7e2e9d] px-1.5 py-0.5 rounded hover:bg-[#7e2e9d] hover:text-white cursor-pointer transition-colors ease-in-out duration-300"
                   >
                     {submenu.name}
-                  </span>
+                  </button>
                 );
               })}
             </div>
