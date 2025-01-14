@@ -6,20 +6,13 @@ import Input from "@/components/reusable/Form/Input";
 import Textarea from "@/components/reusable/Form/Textarea";
 import Select from "@/components/reusable/Form/Select";
 import Spinner from "@/components/reusable/Spinner";
-// import {
-//   religionOptions,
-//   maritalStatusOptions,
-//   genderOptions,
-//   educationOptions,
-//   jobOptions,
-// } from "./create-or-update-patient.constant";\
 import {
-  RELIGION,
-  MARITAL_STATUS,
-  GENDER,
-  EDUCATION,
-  JOB,
-} from "@/constant/utils";
+  religionOptions,
+  maritalStatusOptions,
+  genderOptions,
+  educationOptions,
+  jobOptions,
+} from "./create-or-update-patient.constant";
 import useCreatePatient from "@/services/admin/patient/hooks/useCreatePatient";
 import { ICreatePatientPayload } from "@/services/admin/patient/interfaces/create-patient.types";
 import useGetAllProvince from "@/services/global/region/province/hooks/useGetAllProvince";
@@ -36,16 +29,15 @@ interface Props {
 type FormFields = ICreatePatientPayload;
 
 const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
-  const methods = useForm<FormFields>({ mode: "onChange" });
-  const { isSubmitting } = methods.formState;
-  const isValid = methods.formState.isValid;
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedSubDistrict, setSelectedSubDistrict] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
 
   const { provinces } = useGetAllProvince();
-  const { province } = useGetProvince(methods.getValues("province_id") || "");
-  const { city } = useGetCity(methods.getValues("city_id") || "");
-  const { sub_district } = useGetSubDistrict(
-    methods.getValues("sub_district_id") || ""
-  );
+  const { province } = useGetProvince(selectedProvince || "");
+  const { city } = useGetCity(selectedCity || "");
+  const { sub_district } = useGetSubDistrict(selectedSubDistrict || "");
 
   const provinceOptions = useMapInputOptions(provinces);
   const cityOptions = useMapInputOptions(province?.cities);
@@ -53,28 +45,29 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
   const villageOptions = useMapInputOptions(sub_district?.villages);
 
   useEffect(() => {
-    methods.setValue("city_id", "");
-    methods.setValue("sub_district_id", "");
-    methods.setValue("village_id", "");
-  }, [methods.getValues("province_id")]);
+    setSelectedCity("");
+    setSelectedSubDistrict("");
+    setSelectedVillage("");
+  }, [selectedProvince]);
 
   useEffect(() => {
-    methods.setValue("sub_district_id", "");
-    methods.setValue("village_id", "");
-  }, [methods.watch("city_id")]);
+    setSelectedSubDistrict("");
+    setSelectedVillage("");
+  }, [selectedCity]);
 
-  useEffect(() => {
-    methods.watch("province_id");
-    methods.watch("city_id");
-    methods.watch("sub_district_id");
-    methods.watch("village_id");
-  }, [methods]);
+  const methods = useForm<FormFields>({ mode: "onChange" });
+  const { isSubmitting } = methods.formState;
+  const isValid = methods.formState.isValid;
 
   const { createPatient } = useCreatePatient();
   const onSubmit: SubmitHandler<FormFields> = async (state) => {
     const payload = {
       ...state,
       username: typeof state.name === "string" ? state.name.split(" ")[0] : "",
+      province_id: selectedProvince,
+      city_id: selectedCity,
+      sub_district_id: selectedSubDistrict,
+      village_id: selectedVillage,
     };
 
     const { error, response } = await createPatient(payload);
@@ -163,64 +156,38 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
               label="Agama"
               name="religion"
               isRequired
-              selectOptions={RELIGION}
+              selectOptions={religionOptions}
             />
 
             <Select
               label="Jenis Kelamin"
               name="gender"
               isRequired
-              selectOptions={GENDER}
+              selectOptions={genderOptions}
             />
             <Select
               label="Pendidikan"
               name="education"
               isRequired
-              selectOptions={EDUCATION}
+              selectOptions={educationOptions}
             />
             <Select
               label="Pekerjaan"
               name="job"
               isRequired
-              selectOptions={JOB}
+              selectOptions={jobOptions}
             />
 
             <Select
               label="Status Perkawinan"
               name="marital_status"
               isRequired
-              selectOptions={MARITAL_STATUS}
+              selectOptions={maritalStatusOptions}
             />
           </div>
           <hr className="mt-6 mb-3" />
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 my-4">
-            <Select
-              label="Provinsi"
-              name="province_id"
-              isRequired
-              selectOptions={provinceOptions}
-            />
-            <Select
-              label="Kabupaten/Kota"
-              name="city_id"
-              isRequired
-              selectOptions={cityOptions}
-            />
-
-            <Select
-              label="Kecamatan"
-              name="sub_district_id"
-              isRequired
-              selectOptions={subDistrictOptions}
-            />
-
-            <Select
-              label="Desa"
-              name="village_id"
-              isRequired
-              selectOptions={villageOptions}
-            />
-            {/* <div className="flex flex-col">
+            <div className="flex flex-col">
               <label
                 htmlFor={"province_id"}
                 className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
@@ -239,9 +206,9 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
                   <option value={province.value}>{province.label}</option>
                 ))}
               </select>
-            </div> */}
+            </div>
 
-            {/* <div className="flex flex-col">
+            <div className="flex flex-col">
               <label
                 htmlFor={"city_id"}
                 className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
@@ -304,7 +271,7 @@ const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
                   <option value={village.value}>{village.label}</option>
                 ))}
               </select>
-            </div> */}
+            </div>
           </div>
           <div className="grid grid-cols-2">
             <Textarea

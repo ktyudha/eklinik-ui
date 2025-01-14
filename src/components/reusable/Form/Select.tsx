@@ -71,7 +71,7 @@ const Select: FunctionComponent<Props> = ({
         defaultValue={defaultValue ?? undefined}
         required={isRequired}
         disabled={isDisabled}
-        onChange={onChange}
+        // onChange={onChange}
       >
         <option value="" selected>
           Pilih {label}

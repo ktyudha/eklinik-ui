@@ -3,7 +3,7 @@ import useAdminStore from "@/modules/admin/_store/useAdminStore";
 import SettingMedicalRecordHeader from "./SettingMedicalRecordHeader";
 import SettingMedicalRecordTab from "./SettingMedicalRecordTab";
 import SettingMedicalRecordContentMenu from "./SettingMedicalRecordContent/SettingMedicalRecordContentMenu";
-import SettingMedicalRecordContentSubMenu from "./SettingMedicalRecordContent/SettingMedicalRecordContentSubMenu";
+import SettingMedicalRecordContentSubMenu from "./SettingMedicalRecordContent/SettingMedicalRecordContentSubMenu/home";
 import SettingMedicalRecordContentClassification from "./SettingMedicalRecordContent/SettingMedicalRecordContentClassification";
 
 const SettingMedicalRecord: FunctionComponent = () => {

@@ -1,15 +1,15 @@
 import { FunctionComponent, useState } from "react";
 import { UilTrashAlt, UilEye, UilEdit } from "@iconscout/react-unicons";
-import { SubMenu } from "@/services/admin/menu/interfaces/get-all-sub-menu.types";
-import DeleteSubMenuModal from "../MenuModals/DeleteSubMenuModal";
-import DetailSubMenuModal from "../MenuModals/DetailSubMenuModal";
-import EditSubMenuModal from "../MenuModals/EditSubMenuModal";
+import { Patient } from "@/services/admin/patient/interfaces/get-all-patient.types";
+import DeletePatientModal from "../PatientModals/DeletePatientModal";
+import DetailPatientModal from "../PatientModals/DetailPatientModal";
+import EditPatientModal from "../PatientModals/EditPatientModal";
 
 interface Props {
-  sub_menu: SubMenu;
+  patient: Patient;
 }
 
-const SubMenuTableItemMenu: FunctionComponent<Props> = ({ sub_menu }) => {
+const MedicalRecordTableItemMenu: FunctionComponent<Props> = ({ patient }) => {
   const [openDetailModal, setOpenDetailModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
@@ -17,20 +17,20 @@ const SubMenuTableItemMenu: FunctionComponent<Props> = ({ sub_menu }) => {
   return (
     <>
       {/* Modals */}
-      <DetailSubMenuModal
-        id={sub_menu.id}
-        sub_menu={sub_menu}
+      <DetailPatientModal
+        id={patient.id}
+        patient={patient}
         onOpen={openDetailModal}
         onClose={() => setOpenDetailModal(false)}
       />
-      <DeleteSubMenuModal
-        id={sub_menu.id}
-        name={sub_menu.name}
+      <DeletePatientModal
+        id={patient.id}
+        name={patient.name}
         onOpen={openDeleteModal}
         onClose={() => setOpenDeleteModal(false)}
       />
-      <EditSubMenuModal
-        sub_menu={sub_menu}
+      <EditPatientModal
+        patient={patient}
         onOpen={openEditModal}
         onClose={() => setOpenEditModal(false)}
       />
@@ -68,4 +68,4 @@ const SubMenuTableItemMenu: FunctionComponent<Props> = ({ sub_menu }) => {
   );
 };
 
-export default SubMenuTableItemMenu;
+export default MedicalRecordTableItemMenu;

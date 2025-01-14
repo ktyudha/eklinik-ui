@@ -1,16 +1,16 @@
 export const religionOptions = [
   { label: "Islam", value: "islam" },
-  { label: "Protestan", value: "protestan" },
+  { label: "Kristen", value: "kristen" },
   { label: "Katolik", value: "katolik" },
   { label: "Hindu", value: "hindu" },
-  { label: "Buddha", value: "buddha" },
+  { label: "Budha", value: "budha" },
   { label: "Khonghucu", value: "khonghucu" },
 ];
 
 export const maritalStatusOptions = [
-  { label: "Menikah", value: "married" },
   { label: "Belum Menikah", value: "single" },
-  { label: "Cerai", value: "divorced" },
+  { label: "Menikah", value: "menikah" },
+  { label: "Janda/Duda", value: "janda/duda" },
 ];
 
 export const genderOptions = [

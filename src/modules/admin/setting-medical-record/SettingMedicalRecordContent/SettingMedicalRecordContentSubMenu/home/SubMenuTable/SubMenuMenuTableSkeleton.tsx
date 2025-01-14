@@ -18,6 +18,9 @@ const SubMenuTableSkeleton: FunctionComponent = () => {
           <td className="text-center">
             <Skeleton width={50} height={20} />
           </td>
+          <td className="text-center">
+            <Skeleton width={50} height={20} />
+          </td>
         </tr>
       ))}
     </>
