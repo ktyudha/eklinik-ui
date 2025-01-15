@@ -4,3 +4,6 @@ export { default as PatientPage } from "./PatientPage";
 export { default as MedicineCategoryPage } from "./Medicine/MedicineCategoryPage";
 export { default as MedicinePage } from "./Medicine/MedicinePage";
 export { default as SettingMedicalRecordPage } from "./SettingPage/SettingMedicalRecordPage";
+export { default as SettingSubMenuCreatePage } from "./SettingPage/SubMenu/SettingSubMenuCreatePage";
+export { default as MedicalRecordPage } from "./MedicalRecordPage";
+export { default as MedicalRecordCreatePage } from "./MedicalRecordPage/MedicalRecordCreatePage";

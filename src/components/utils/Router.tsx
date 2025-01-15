@@ -58,9 +58,18 @@ export default function GetBrowserRoutes() {
           path: "settings/medical-record",
           element: <Admin.SettingMedicalRecordPage />,
         },
+        {
+          path: "settings/medical-record/sub-menu/create",
+          element: <Admin.SettingSubMenuCreatePage />,
+        },
         { path: "patient", element: <Admin.PatientPage /> },
         { path: "medicine/medicines", element: <Admin.MedicinePage /> },
         { path: "medicine/category", element: <Admin.MedicineCategoryPage /> },
+        { path: "medical-record", element: <Admin.MedicalRecordPage /> },
+        {
+          path: "medical-record/create",
+          element: <Admin.MedicalRecordCreatePage />,
+        },
       ],
     },
   ];

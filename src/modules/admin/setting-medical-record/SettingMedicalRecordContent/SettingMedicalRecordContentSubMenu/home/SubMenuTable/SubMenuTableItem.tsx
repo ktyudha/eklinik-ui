@@ -11,7 +11,9 @@ const SubMenuTableItem: FunctionComponent<Props> = ({ number, sub_menu }) => {
   return (
     <tr>
       <td className="mx-auto text-center">{number}</td>
-      <td className="px-6 text-nowrap">{sub_menu.name}</td>
+      <td className="px-6 text-nowrap">
+        <div dangerouslySetInnerHTML={{ __html: sub_menu.name }} />
+      </td>
       <td className="px-6 capitalize text-nowrap mx-auto text-center">
         {sub_menu.is_active ? (
           <span className="rounded-full bg-[#00dfcb] text-white px-3 py-1">

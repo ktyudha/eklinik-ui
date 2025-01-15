@@ -1,9 +1,9 @@
 import { FunctionComponent, useState } from "react";
 import { UilTrashAlt, UilEye, UilEdit } from "@iconscout/react-unicons";
 import { SubMenu } from "@/services/admin/menu/interfaces/get-all-sub-menu.types";
-import DeleteSubMenuModal from "../MenuModals/DeleteSubMenuModal";
-import DetailSubMenuModal from "../MenuModals/DetailSubMenuModal";
-import EditSubMenuModal from "../MenuModals/EditSubMenuModal";
+import DeleteSubMenuModal from "../../SubMenuModals/DeleteSubMenuModal";
+import DetailSubMenuModal from "../../SubMenuModals/DetailSubMenuModal";
+import EditSubMenuModal from "../../SubMenuModals/EditSubMenuModal";
 
 interface Props {
   sub_menu: SubMenu;

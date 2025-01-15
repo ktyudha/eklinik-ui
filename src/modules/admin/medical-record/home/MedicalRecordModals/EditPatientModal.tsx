@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 import useMapInputOptions from "@/hooks/useMapInputOptions";
@@ -7,20 +7,13 @@ import Input from "@/components/reusable/Form/Input";
 import Select from "@/components/reusable/Form/Select";
 import Textarea from "@/components/reusable/Form/Textarea";
 import Spinner from "@/components/reusable/Spinner";
-// import {
-//   religionOptions,
-//   maritalStatusOptions,
-//   genderOptions,
-//   educationOptions,
-//   jobOptions,
-// } from "./create-or-update-patient.constant";
 import {
-  RELIGION,
-  MARITAL_STATUS,
-  GENDER,
-  EDUCATION,
-  JOB,
-} from "@/constant/utils";
+  religionOptions,
+  maritalStatusOptions,
+  genderOptions,
+  educationOptions,
+  jobOptions,
+} from "./create-or-update-patient.constant";
 import useUpdatePatient from "@/services/admin/patient/hooks/useUpdatePatient";
 import { Patient } from "@/services/admin/patient/interfaces/get-all-patient.types";
 import { IUpdatePatientPayload } from "@/services/admin/patient/interfaces/update-patient.types";
@@ -42,18 +35,23 @@ const EditPatientModal: FunctionComponent<Props> = ({
   onOpen,
   onClose,
 }) => {
-  const methods = useForm<FormFields>({ mode: "onChange" });
-  const { isSubmitting } = methods.formState;
-  const isValid = methods.formState.isValid;
-
   const formattedBirtDate = patient.birth_date
     ? new Date(patient.birth_date).toISOString().split("T")[0]
     : "";
 
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedSubDistrict, setSelectedSubDistrict] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
+
   const { provinces } = useGetAllProvince();
-  const { province } = useGetProvince(methods.watch("province_id"));
-  const { city } = useGetCity(methods.watch("city_id"));
-  const { sub_district } = useGetSubDistrict(methods.watch("sub_district_id"));
+  const { province } = useGetProvince(
+    selectedProvince || patient.province.id || ""
+  );
+  const { city } = useGetCity(selectedCity || patient.city.id || "");
+  const { sub_district } = useGetSubDistrict(
+    selectedSubDistrict || patient.sub_district.id || ""
+  );
 
   const provinceOptions = useMapInputOptions(provinces);
   const cityOptions = useMapInputOptions(province?.cities);
@@ -61,41 +59,36 @@ const EditPatientModal: FunctionComponent<Props> = ({
   const villageOptions = useMapInputOptions(sub_district?.villages);
 
   useEffect(() => {
-    methods.setValue("city_id", "");
-    methods.setValue("sub_district_id", "");
-    methods.setValue("village_id", "");
-  }, [methods.watch("province_id")]);
+    setSelectedCity("");
+    setSelectedSubDistrict("");
+    setSelectedVillage("");
+  }, [selectedProvince]);
 
   useEffect(() => {
-    methods.setValue("sub_district_id", "");
-    methods.setValue("village_id", "");
-  }, [methods.watch("city_id")]);
-
-  // useEffect(() => {
-  //   methods.setValue("province_id", patient.province.id);
-  //   methods.setValue("city_id", patient.city.id);
-  //   methods.setValue("sub_district_id", patient.sub_district.id);
-  //   methods.setValue("village_id", patient.village.id);
-  // }, [patient.province, patient.city, patient.sub_district, patient.village]);
+    setSelectedSubDistrict("");
+    setSelectedVillage("");
+  }, [selectedCity]);
 
   useEffect(() => {
-    methods.watch("province_id");
-    methods.watch("city_id");
-    methods.watch("sub_district_id");
-    methods.watch("village_id");
-  }, [methods]);
-  // useEffect(() => {
-  //   setSelectedProvince(patient.province.id);
-  //   setSelectedCity(patient.city.id);
-  //   setSelectedSubDistrict(patient.sub_district.id);
-  //   setSelectedVillage(patient.village.id);
-  // }, [patient.city, patient.province, patient.sub_district, patient.village]);
+    setSelectedProvince(patient.province.id);
+    setSelectedCity(patient.city.id);
+    setSelectedSubDistrict(patient.sub_district.id);
+    setSelectedVillage(patient.village.id);
+  }, [patient.city, patient.province, patient.sub_district, patient.village]);
+
+  const methods = useForm<FormFields>({ mode: "onChange" });
+  const { isSubmitting } = methods.formState;
+  const isValid = methods.formState.isValid;
 
   const { updatePatient } = useUpdatePatient(patient.id);
   const onSubmit: SubmitHandler<FormFields> = async (state) => {
     const payload = {
       ...state,
       username: typeof state.name === "string" ? state.name.split(" ")[0] : "",
+      province_id: selectedProvince,
+      city_id: selectedCity,
+      sub_district_id: selectedSubDistrict,
+      village_id: selectedVillage,
     };
 
     const { error, response } = await updatePatient(payload);
@@ -189,7 +182,7 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     name="religion"
                     isRequired
                     defaultValue={patient.religion}
-                    selectOptions={RELIGION}
+                    selectOptions={religionOptions}
                   />
 
                   <Select
@@ -197,21 +190,21 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     name="gender"
                     isRequired
                     defaultValue={patient.gender}
-                    selectOptions={GENDER}
+                    selectOptions={genderOptions}
                   />
                   <Select
                     label="Pendidikan"
                     name="education"
                     isRequired
                     defaultValue={patient.education}
-                    selectOptions={EDUCATION}
+                    selectOptions={educationOptions}
                   />
                   <Select
                     label="Pekerjaan"
                     name="job"
                     isRequired
                     defaultValue={patient.job}
-                    selectOptions={JOB}
+                    selectOptions={jobOptions}
                   />
 
                   <Select
@@ -219,42 +212,12 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     name="marital_status"
                     isRequired
                     defaultValue={patient.marital_status}
-                    selectOptions={MARITAL_STATUS}
+                    selectOptions={maritalStatusOptions}
                   />
                 </div>
                 <hr className="mt-3 mb-1" />
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2">
-                  <Select
-                    label="Provinsi"
-                    name="province_id"
-                    isRequired
-                    selectOptions={provinceOptions}
-                    value={patient.province.id}
-                  />
-                  <Select
-                    label="Kabupaten/Kota"
-                    name="city_id"
-                    isRequired
-                    selectOptions={cityOptions}
-                    value={patient.city.id}
-                  />
-
-                  <Select
-                    label="Kecamatan"
-                    name="sub_district_id"
-                    isRequired
-                    selectOptions={subDistrictOptions}
-                    value={patient.sub_district.id}
-                  />
-
-                  <Select
-                    label="Desa"
-                    name="village_id"
-                    isRequired
-                    selectOptions={villageOptions}
-                    value={patient.village.id}
-                  />
-                  {/* <div className="flex flex-col">
+                  <div className="flex flex-col">
                     <label
                       htmlFor={"province_id"}
                       className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
@@ -361,7 +324,7 @@ const EditPatientModal: FunctionComponent<Props> = ({
                         </option>
                       ))}
                     </select>
-                  </div> */}
+                  </div>
                 </div>
                 <div className="grid grid-cols-2">
                   <Textarea
