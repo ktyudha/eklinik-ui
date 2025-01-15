@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import { UilPlus } from "@iconscout/react-unicons";
 // import CreatePatientModal from "../PatientModals/CreatePatientModal";
 import { useNavigate } from "react-router-dom";

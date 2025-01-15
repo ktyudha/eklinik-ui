@@ -1,18 +1,18 @@
 import axiosInstance from "@/lib/axios-instance";
 import useRevalidateMutation from "@/lib/swr/useRevalidateMutation";
 
-export default function useDeleteMedicine() {
+export default function useDeleteMedical() {
   const revalidateMutationsByKey = useRevalidateMutation();
 
-  const deleteMedicine = async (medicineId: string) => {
+  const deleteMedical = async (medicalId: string) => {
     try {
       const res = await axiosInstance({
         withToken: true,
         tokenType: "admin",
-      }).delete(`/admin/medicines/${medicineId}`);
+      }).delete(`/admin/medical/${medicalId}`);
 
       if (res.status === 200) {
-        revalidateMutationsByKey(/^\/admin\/medicines/);
+        revalidateMutationsByKey(/^\/admin\/medical/);
       }
 
       return { response: res, error: null };
@@ -24,5 +24,5 @@ export default function useDeleteMedicine() {
     }
   };
 
-  return { deleteMedicine };
+  return { deleteMedical };
 }
