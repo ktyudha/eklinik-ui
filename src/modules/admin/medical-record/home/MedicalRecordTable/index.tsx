@@ -5,10 +5,10 @@ import TableWrapper from "@/components/reusable/Table/TableWrapper";
 import TableHead from "@/components/reusable/Table/TableHead";
 import TableBody from "@/components/reusable/Table/TableBody";
 import TableNotFound from "@/components/reusable/Table/TableNotFound";
-import PatientTableSkeleton from "./PatientTableSkeleton";
+import MedicalRecordTableSkeleton from "./MedicalRecordTableSkeleton";
 import TablePagination from "@/components/reusable/Table/TablePagination";
 import MedicalRecordTableItem from "./MedicalRecordTableItem";
-import PatientTableHeader from "./MedicalRecordTableHeader";
+import MedicalRecordTableHeader from "./MedicalRecordTableHeader";
 
 import useGetAllMedical from "@/services/admin/medical/hooks/useGetAllMedical";
 const MedicalRecordTable: FunctionComponent = () => {
@@ -32,7 +32,7 @@ const MedicalRecordTable: FunctionComponent = () => {
 
   return (
     <div>
-      <PatientTableHeader setNameCallback={(e) => setName(e)} />
+      <MedicalRecordTableHeader setNameCallback={(e) => setName(e)} />
       <div className="flex flex-col">
         <TableWrapper>
           <TableHead>
@@ -69,7 +69,7 @@ const MedicalRecordTable: FunctionComponent = () => {
           </TableHead>
           <TableBody>
             {loading || !medicals ? (
-              <PatientTableSkeleton />
+              <MedicalRecordTableSkeleton />
             ) : isEmpty(medicals) ? (
               <TableNotFound />
             ) : (

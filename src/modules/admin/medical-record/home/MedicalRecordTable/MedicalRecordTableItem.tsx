@@ -1,6 +1,8 @@
 import { FunctionComponent } from "react";
+import { format as dateFormat } from "date-fns";
+import { id as localeId } from "date-fns/locale";
 import { Medical } from "@/services/admin/medical/interfaces/get-all-medical.types";
-// import PatientTableItemMenu from "./MedicalRecordTableItemMenu";
+import MedicalRecordTableItemMenu from "./MedicalRecordTableItemMenu";
 
 interface Props {
   number: number;
@@ -11,13 +13,22 @@ const MedicalRecordTableItem: FunctionComponent<Props> = ({
   number,
   medical,
 }) => {
+  const formattedCheckupDate = medical.checkup_date
+    ? dateFormat(new Date(medical.checkup_date), "eeee, dd MMMM yyyy H:mm:ss", {
+        locale: localeId,
+      })
+    : "";
   return (
     <tr>
       <td className="mx-auto text-center">{number}</td>
-      <td className="px-6">{medical.patient.medical_record_number}</td>
+      <td className="px-6">{medical.patient.mrn}</td>
       <td className="px-6 uppercase">{medical.patient.name}</td>
-      <td className="px-6">{medical.checkup_date}</td>
-      <td className="px-6 text-center">{medical.classification_id}</td>
+      <td className="px-6">{formattedCheckupDate}</td>
+      <td className="px-6 ">
+        <span className="rounded-full border border-[#4bb43a] text-[#4bb43a] hover:bg-[#4bb43a] hover:text-white cursor-pointer ease-in-out duration-300 px-3 py-1">
+          {medical.classification.name}
+        </span>
+      </td>
       <td className="flex flex-row gap-3">
         {/* <label
           htmlFor={`patient-modal-${number}`}
@@ -44,7 +55,7 @@ const MedicalRecordTableItem: FunctionComponent<Props> = ({
           <UilTrashAlt size="15" />
           <span className="text-xs">Hapus</span>
         </button> */}
-        {/* <PatientTableItemMenu patient={patient} /> */}
+        <MedicalRecordTableItemMenu medical={medical} />
       </td>
     </tr>
   );

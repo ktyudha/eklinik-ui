@@ -6,52 +6,19 @@ export interface IGetAllMedicalResponse {
 export interface Medical {
   id: string;
   checkup_date: string;
-  classification_id: string;
+  classification: Classification;
   patient: Patient;
   // submenu: string[];
 }
 
 export interface Patient {
   id: string;
-  medical_record_number: string;
-  name: string;
-  username: string;
-  email: string;
-  phone_number: string;
-  birth_place: string;
-  birth_date: string;
-  nik: string;
-  religion: string;
-  education: string;
-  marital_status: string;
-  job: string;
-  gender: string;
-  additional_address: string;
-  province: Province;
-  city: City;
-  sub_district: SubDistrict;
-  village: Village;
-}
-
-export interface Province {
-  id: string;
+  mrn: string;
   name: string;
 }
-
-export interface City {
+export interface Classification {
   id: string;
   name: string;
-}
-
-export interface SubDistrict {
-  id: string;
-  name: string;
-}
-
-export interface Village {
-  id: string;
-  name: string;
-  postal_code: string;
 }
 
 export interface Pagination {

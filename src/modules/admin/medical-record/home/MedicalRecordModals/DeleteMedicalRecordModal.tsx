@@ -10,7 +10,7 @@ interface Props {
   onClose: () => void;
 }
 
-const DeletePatientModal: FunctionComponent<Props> = ({
+const DeleteMedicalRecordModal: FunctionComponent<Props> = ({
   id,
   name,
   onOpen,
@@ -24,11 +24,11 @@ const DeletePatientModal: FunctionComponent<Props> = ({
     const { error, response } = await deletePatient(id);
     if (error || response) {
       if (error) {
-        toast.error("Gagal Menghapus Patient", {
+        toast.error("Gagal Menghapus Rekam Medis", {
           position: toast.POSITION.TOP_CENTER,
         });
       } else {
-        toast.success("Sukses Menghapus Patient", {
+        toast.success("Sukses Menghapus Rekam Medis", {
           position: toast.POSITION.TOP_CENTER,
         });
 
@@ -41,13 +41,13 @@ const DeletePatientModal: FunctionComponent<Props> = ({
   return (
     <Modal
       onOpen={onOpen}
-      title="Modal Hapus Patient"
+      title="Hapus Rekam Medis"
       modalSize="sm"
       onClose={onClose}
     >
       <div className="flex flex-col items-center gap-3">
         <div className="font-base w-[200px] text-center mr-4">
-          Anda yakin menghapus Patient
+          Anda yakin menghapus Rekam Medis
           <span className="font-semibold capitalize"> {name}</span> ?
         </div>
       </div>
@@ -77,4 +77,4 @@ const DeletePatientModal: FunctionComponent<Props> = ({
   );
 };
 
-export default DeletePatientModal;
+export default DeleteMedicalRecordModal;

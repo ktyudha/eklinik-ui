@@ -26,7 +26,6 @@ export default function useGetAllMedical() {
 
   const { data, error } = useSWR(`/admin/medical?${qs}`, fetcher);
 
-  console.log(data);
   const onSetName = useCallback((newName: string) => {
     setName(newName);
   }, []);
