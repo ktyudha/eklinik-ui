@@ -1,12 +1,14 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
+import dynamicImport from "vite-plugin-dynamic-import";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [dynamicImport(), react()],
   resolve: {
     alias: [
+      { find: "@", replacement: resolve(__dirname, "src") },
       {
         find: "@components",
         replacement: resolve(__dirname, "src/components"),

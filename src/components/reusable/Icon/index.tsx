@@ -17,11 +17,13 @@ const Icon: FunctionComponent<IconProps> = ({
   const [icon, setIcon] = useState(null);
 
   useEffect(() => {
-    import(/* @vite-ignore */ `/src/assets/icons/${name}.svg`).then(
-      (module) => {
+    import(`@/assets/icons/${name}.svg`)
+      .then((module) => {
         setIcon(() => module.default);
-      }
-    );
+      })
+      .catch((error) =>
+        console.error(`Failed to dynamically import icon: ${name}`, error)
+      );
   }, [name]);
 
   if (!icon) return <div>...</div>;
