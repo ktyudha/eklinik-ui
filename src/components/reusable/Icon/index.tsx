@@ -17,11 +17,9 @@ const Icon: FunctionComponent<IconProps> = ({
   const [icon, setIcon] = useState(null);
 
   useEffect(() => {
-    import(/* @vite-ignore */ `/src/assets/icons/${name}.svg`).then(
-      (module) => {
-        setIcon(() => module.default);
-      }
-    );
+    import(`@/assets/icons/${name}.svg`).then((module) => {
+      setIcon(() => module.default);
+    });
   }, [name]);
 
   if (!icon) return <div>...</div>;
