@@ -6,12 +6,17 @@ import createAuthGlobalSlice, {
   type AuthGlobalState,
 } from "./slices/auth-global.slice";
 
-type BoundSliceTypes = { default: null } & AdvancedToolsState & AuthGlobalState;
+import createLandingSlice, { type LandingState } from "./slices/landing.slice";
+
+type BoundSliceTypes = { default: null } & AdvancedToolsState &
+  AuthGlobalState &
+  LandingState;
 
 const useGlobalStore = create<BoundSliceTypes>()((...setter) => ({
   default: null,
   ...createAdvancedToolsSlice(...setter),
   ...createAuthGlobalSlice(...setter),
+  ...createLandingSlice(...setter),
 }));
 
 export default useGlobalStore;
