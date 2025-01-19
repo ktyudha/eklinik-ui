@@ -18,10 +18,10 @@ const LandingLayout: FunctionComponent = () => {
       {/* assets */}
       {/* <LandingHelmet /> */}
 
-      <div className="">
-        <LandingNavbar />
+      <LandingNavbar />
+      <main>
         <Outlet />
-      </div>
+      </main>
 
       {/* <div className="scroll-top">
         <svg
@@ -36,7 +36,7 @@ const LandingLayout: FunctionComponent = () => {
 
       {/* </div> */}
 
-      <div className="group fixed bottom-5 right-5 flex items-end justify-end w-56">
+      {/* <div className="group fixed bottom-5 right-5 flex items-end justify-end w-56 z-50">
         <a
           href="https://www.linkedin.com/in/ktyudha"
           target="_blank"
@@ -52,7 +52,7 @@ const LandingLayout: FunctionComponent = () => {
           </svg>
           Let's Chat!
         </a>
-      </div>
+      </div> */}
     </HelmetProvider>
   );
 };

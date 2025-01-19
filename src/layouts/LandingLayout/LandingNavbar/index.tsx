@@ -10,8 +10,8 @@ const LandingNavbar: FunctionComponent = () => {
   // const navigate = useNavigate();
 
   return (
-    <header className="main-header fixed top-0 w-full">
-      <nav className="bg-[#1c2674] border-gray-20 z-50 text-white flex justify-center py-2.5 md:gap-9 gap-4">
+    <header className="main-header sticky top-0 w-full z-30">
+      <nav className="bg-[#1c2674] border-gray-20 text-white flex justify-center py-2.5 md:gap-9 gap-4">
         <a
           href="https://api.whatsapp.com/send/?phone=6285745635740&text=Halo Klinik, Saya ingin konsultasi.&app_sent=0"
           target="_blank"
@@ -131,7 +131,7 @@ const LandingNavbar: FunctionComponent = () => {
               <input
                 type="text"
                 id="search-navbar"
-                className="block w-md p-2 pe-10 text-sm text-gray-900 rounded-lg bg-gray-100 focus:outline-none"
+                className="block w-md p-2 pe-10 text-sm text-gray-900 rounded-lg bg-gray-100 focus:outline-none placeholder:text-slate-600"
                 placeholder="Cari di Klinik"
               />
 
@@ -192,7 +192,7 @@ const LandingNavbar: FunctionComponent = () => {
               <li>
                 <a
                   href="#"
-                  className="block py-2 px-3 text-gray-900 hover:border-b hover:border-b-[#4bb43a] md:bg-transparent md:p-0"
+                  className="block py-2 px-3 text-gray-600 hover:border-b hover:border-b-[#4bb43a] md:bg-transparent md:p-0"
                 >
                   Antrian
                 </a>
@@ -200,7 +200,7 @@ const LandingNavbar: FunctionComponent = () => {
               <li>
                 <a
                   href="#"
-                  className="block py-2 px-3 text-gray-900 hover:border-b hover:border-b-[#4bb43a] md:bg-transparent md:p-0"
+                  className="block py-2 px-3 text-gray-600 hover:border-b hover:border-b-[#4bb43a] md:bg-transparent md:p-0"
                 >
                   Layanan Kesehatan
                 </a>
@@ -208,7 +208,7 @@ const LandingNavbar: FunctionComponent = () => {
               <li>
                 <a
                   href="#"
-                  className="block py-2 px-3 text-gray-900 hover:border-b hover:border-b-[#4bb43a] md:bg-transparent md:p-0"
+                  className="block py-2 px-3 text-gray-600 hover:border-b hover:border-b-[#4bb43a] md:bg-transparent md:p-0"
                 >
                   Pusat Informasi
                 </a>
