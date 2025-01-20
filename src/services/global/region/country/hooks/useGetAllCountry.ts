@@ -5,13 +5,7 @@ import Cookies from "js-cookie";
 import { IGetAllCountryResponse } from "../interfaces/get-all-country.types";
 
 export default function useGetAllCountry() {
-  const tokenType = Cookies.get("token-student")
-    ? "student"
-    : Cookies.get("token-school")
-    ? "school"
-    : Cookies.get("token-agency")
-    ? "agency"
-    : "admin";
+  const tokenType = Cookies.get("token-patient") ? "patient" : "admin";
 
   const fetcher: Fetcher<IGetAllCountryResponse, string> = (url) =>
     axiosInstance({ withToken: true, tokenType })

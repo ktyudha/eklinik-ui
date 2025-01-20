@@ -14,16 +14,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { shallow } from "zustand/shallow";
 
 const UserMiddleware: FunctionComponent<PropsWithChildren> = ({ children }) => {
-  const {
-    user,
-    userRole,
-    userCreatedAt,
-    userUpdatedAt,
-    setUser,
-    setUserRole,
-    setUserCreatedAt,
-    setUserUpdatedAt,
-  } = useGlobalStore(
+  const { user, userRole, setUser, setUserRole } = useGlobalStore(
     (state) => ({
       user: state.user,
       userRole: state.userRole,
@@ -31,16 +22,11 @@ const UserMiddleware: FunctionComponent<PropsWithChildren> = ({ children }) => {
       userUpdatedAt: state.userUpdatedAt,
       setUser: state.setUser,
       setUserRole: state.setUserRole,
-      setUserCreatedAt: state.setUserCreatedAt,
-      setUserUpdatedAt: state.setUserUpdatedAt,
     }),
     shallow
   );
   const [mounted, setMounted] = useState(false);
-  const cookie =
-    Cookies.get("token-school") ||
-    Cookies.get("token-agency") ||
-    Cookies.get("token-sub-agency");
+  const cookie = Cookies.get("token-patient");
   const ignoreRefetch = useRef(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -49,15 +35,9 @@ const UserMiddleware: FunctionComponent<PropsWithChildren> = ({ children }) => {
     const { data, error, status } = await useGetMe();
     if (!error && status === 200 && data) {
       setUserRole(data.role);
-      if (
-        data.role === "school" ||
-        data.role === "sub-agency" ||
-        data.role === "agency"
-      ) {
+      if (data.role === "patient") {
         setUser(data?.user);
       }
-      setUserCreatedAt(data.created_at);
-      setUserUpdatedAt(data.updated_at);
     } else {
       navigate("/login", { replace: true });
     }
@@ -70,16 +50,8 @@ const UserMiddleware: FunctionComponent<PropsWithChildren> = ({ children }) => {
       getUserData();
     } else if (cookie && user) {
       if (pathname === "/login") {
-        if (userRole === "school") {
-          navigate("/school/dashboard");
-        } else if (userRole === "agency") {
-          navigate("/agency/dashboard");
-        } else {
-          navigate("/sub-agency/dashboard");
-        }
-      } else {
-        if (userRole === "school" && userCreatedAt === userUpdatedAt) {
-          navigate("/school/profile/change-password");
+        if (userRole === "patient") {
+          navigate("/history");
         }
       }
       setMounted(true);

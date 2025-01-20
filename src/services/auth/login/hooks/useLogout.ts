@@ -2,11 +2,7 @@ import axiosInstance from "@/lib/axios-instance";
 import Cookies from "js-cookie";
 
 export const useLogout = async () => {
-  const tokenType = Cookies.get("token-school")
-    ? "school"
-    : Cookies.get("token-agency")
-      ? "agency"
-      : "sub-agency";
+  const tokenType = Cookies.get("token-patient") ? "patient" : "admin";
 
   try {
     const { data } = await axiosInstance({ withToken: true, tokenType }).post(
