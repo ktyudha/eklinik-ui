@@ -1,19 +1,22 @@
-const navbarMenus = [
+import { UilListOl, UilUser, UilHistory } from "@iconscout/react-unicons";
+
+export const navbarMenus = [
   {
-    name: "Experience",
+    name: "Antrian",
     isDropdown: false,
-    url: "/faq",
+    icon: UilListOl,
+    url: "/queue",
   },
   {
-    name: "Home",
+    name: "Riwayat",
     isDropdown: false,
-    url: "/",
+    icon: UilHistory,
+    url: "/history",
   },
   {
-    name: "Portofolio",
+    name: "Akun",
     isDropdown: false,
-    url: "/regulasi",
+    icon: UilUser,
+    url: "/account",
   },
 ];
-
-export default navbarMenus;

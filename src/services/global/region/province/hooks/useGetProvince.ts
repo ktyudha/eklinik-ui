@@ -5,13 +5,7 @@ import Cookies from "js-cookie";
 import { IGetProvinceResponse } from "../interfaces/get-province.types";
 
 export default function useGetProvince(prvinceId: string) {
-  const tokenType = Cookies.get("token-student")
-    ? "student"
-    : Cookies.get("token-school")
-    ? "school"
-    : Cookies.get("token-agency")
-    ? "agency"
-    : "admin";
+  const tokenType = Cookies.get("token-patient") ? "patient" : "admin";
 
   const fetcher: Fetcher<IGetProvinceResponse, string> = (url) =>
     axiosInstance({ withToken: true, tokenType })

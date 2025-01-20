@@ -1,13 +1,13 @@
 import { FunctionComponent } from "react";
 // import ToggleThemeNavbar from "./ToggleThemeNavbar";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { NavLink } from "react-router-dom";
 import Logo from "@/assets/logo/siloam.png";
 import Icon from "@/components/reusable/Icon";
 import LandingNavbarMobile from "./LandingNavbarMobile";
 
 const LandingNavbar: FunctionComponent = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <header className="main-header sticky top-0 w-full z-30">
@@ -39,15 +39,15 @@ const LandingNavbar: FunctionComponent = () => {
 
       <nav className="bg-white border-b border-gray-200 z-50">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-3">
-          <a
-            href=""
+          <button
             className="flex items-center space-x-3 rtl:space-x-reverse"
+            onClick={() => navigate("/")}
           >
             <img src={Logo} className="md:h-12 h-8" alt="Flowbite Logo" />
             {/* <span className="self-center text-2xl font-semibold whitespace-nowrap ">
               Klinik Pintar
             </span> */}
-          </a>
+          </button>
           <div className="flex md:order-2">
             <label
               htmlFor="modal_search"

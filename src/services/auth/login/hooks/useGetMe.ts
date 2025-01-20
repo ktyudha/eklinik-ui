@@ -3,11 +3,7 @@ import Cookies from "js-cookie";
 import { IMeResponse } from "../interfaces/login.types";
 
 export const useGetMe = async () => {
-  const tokenType = Cookies.get("token-school")
-    ? "school"
-    : Cookies.get("token-agency")
-      ? "agency"
-      : "sub-agency";
+  const tokenType = Cookies.get("token-patient") ? "patient" : "admin";
 
   try {
     const { data, status } = await axiosInstance({

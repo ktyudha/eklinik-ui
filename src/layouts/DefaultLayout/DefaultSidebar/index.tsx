@@ -8,8 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 // import logoTracer from "@/assets/images/logo-tracer.png";
 import useGlobalStore from "@/store/useStore";
 import sidebarMenus from "./sidebar-menu.constant";
-import sidebarAgencyMenus from "./sidebar-agency-menu.constant";
-import sidebarSubAgencyMenus from "./sidebar-sub-agency-menu.constant";
+
 import SidebarItem from "./SidebarItem";
 
 const DefaultSidebar: FunctionComponent = () => {
@@ -20,14 +19,8 @@ const DefaultSidebar: FunctionComponent = () => {
   }));
 
   const menuList = useMemo(() => {
-    if (userRole === "agency") {
-      return sidebarAgencyMenus;
-    } else if (userRole === "sub-agency") {
-      return sidebarSubAgencyMenus;
-    } else {
-      return sidebarMenus;
-    }
-  }, [userRole, sidebarAgencyMenus, sidebarMenus]);
+    return sidebarMenus;
+  }, [userRole, sidebarMenus]);
 
   const { pathname } = useLocation();
   const pathnameSegments = pathname.split("/").slice(1);

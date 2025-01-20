@@ -19,7 +19,7 @@ const HeroSection: FunctionComponent = () => {
   }));
   return (
     <section
-      className={`min-w-full md:min-h-screen md:bg-hero-desktop md:bg-center md:bg-cover md:bg-no-repeat relative bg-base-200 pb-10`}
+      className={`min-w-full min-h-screen md:bg-hero-desktop md:bg-center md:bg-cover md:bg-no-repeat md:relative bg-base-200 `}
       id="home"
     >
       <div className="relative md:hidden display">
@@ -80,7 +80,7 @@ const HeroSection: FunctionComponent = () => {
           </div> */}
         </div>
 
-        <div className="grid grid-cols-4 md:gap-4 gap-6 mt-6 md:absolute bottom-10 w-full md:mb-0">
+        <div className="md:grid grid-cols-4 md:gap-4 gap-6 mt-6 md:absolute bottom-10 w-full md:mb-0 hidden">
           <div className="md:bg-white text-center rounded-lg md:p-6 cursor-pointer">
             <a className="md:flex md:justify-between text-center my-auto">
               <div className="md:flex">

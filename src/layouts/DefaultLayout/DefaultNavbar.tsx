@@ -86,14 +86,8 @@ const DefaultNavbar: FunctionComponent = () => {
     const { data, error } = await useLogout();
     if (data || error) {
       if (data) {
-        if (userRole === "school") {
-          Cookies.remove("token-school");
-          // location.replace(`${config.BASE_STUDENT_URL}/login`)
-        } else if (userRole === "agency") {
-          Cookies.remove("token-agency");
-          // location.replace(`${config.BASE_STUDENT_URL}/login`)
-        } else if (userRole === "sub-agency") {
-          Cookies.remove("token-sub-agency");
+        if (userRole === "patient") {
+          Cookies.remove("token-patient");
           // location.replace(`${config.BASE_STUDENT_URL}/login`)
         }
         navigate("/login", { replace: true });

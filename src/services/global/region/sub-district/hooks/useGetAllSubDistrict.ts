@@ -5,13 +5,7 @@ import Cookies from "js-cookie";
 import { IGetAllSubDistrictResponse } from "../interfaces/get-all-sub-district.types";
 
 export default function useGetAllSubDistrict() {
-  const tokenType = Cookies.get("token-student")
-    ? "student"
-    : Cookies.get("token-school")
-    ? "school"
-    : Cookies.get("token-agency")
-    ? "agency"
-    : "admin";
+  const tokenType = Cookies.get("token-patient") ? "patient" : "admin";
 
   const fetcher: Fetcher<IGetAllSubDistrictResponse, string> = (url) =>
     axiosInstance({ withToken: true, tokenType })

@@ -4,15 +4,12 @@ import Cookies from "js-cookie";
 
 type AxiosInstanceParams = {
   withToken: boolean;
-  tokenType?: "admin" | "agency" | "sub-agency" | "school" | "student";
+  tokenType?: "admin" | "patient";
 };
 
 const mapToken = new Map([
   ["admin", "token"],
-  ["agency", "token-agency"],
-  ["sub-agency", "token-sub-agency"],
-  ["school", "token-school"],
-  ["student", "token-student"],
+  ["patient", "token-patient"],
 ]);
 
 export default function axiosInstance(

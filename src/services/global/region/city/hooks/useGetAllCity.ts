@@ -5,13 +5,7 @@ import Cookies from "js-cookie";
 import { IGetAllCityResponse } from "../interfaces/get-all-city.types";
 
 export default function useGetAllCity() {
-  const tokenType = Cookies.get("token-student")
-    ? "student"
-    : Cookies.get("token-school")
-    ? "school"
-    : Cookies.get("token-agency")
-    ? "agency"
-    : "admin";
+    const tokenType = Cookies.get("token-patient") ? "patient" : "admin";
 
   const fetcher: Fetcher<IGetAllCityResponse, string> = (url) =>
     axiosInstance({ withToken: true, tokenType })
