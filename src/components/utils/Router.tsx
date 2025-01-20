@@ -5,7 +5,7 @@ import * as Admin from "@/pages/admin";
 
 // Middleware
 import AdminMiddleware from "./middlewares/AdminMiddleware";
-// import UserMiddleware from "./middlewares/UserMiddleware";
+import UserMiddleware from "./middlewares/UserMiddleware";
 
 // Layout
 const LandingLayout = lazy(() => import("@/layouts/LandingLayout"));
@@ -13,24 +13,30 @@ const DefaultLayout = lazy(() => import("@/layouts/DefaultLayout"));
 
 // Auth
 const LoginAdminPage = lazy(() => import("@/pages/auth/AdminLoginPage"));
+const LoginPage = lazy(() => import("@/pages/auth/LoginPage"));
 
 export default function GetBrowserRoutes() {
   return [
     {
       path: "/",
       element: <LandingLayout />,
-      children: [{ index: true, element: <Landing.LandingPage /> }],
+      children: [
+        { index: true, element: <Landing.LandingPage /> },
+        { path: "account", element: <Landing.LandingAccountPage /> },
+        { path: "history", element: <Landing.LandingHistoryPage /> },
+        { path: "queue", element: <Landing.LandingQueuePage /> },
+      ],
     },
 
     // Patient Login
-    // {
-    //   path: "/login",
-    //   element: (
-    //     <UserMiddleware>
-    //       <LoginPage />
-    //     </UserMiddleware>
-    //   ),
-    // },
+    {
+      path: "/login",
+      element: (
+        <UserMiddleware>
+          <LoginPage />
+        </UserMiddleware>
+      ),
+    },
 
     // Admin Login
     {

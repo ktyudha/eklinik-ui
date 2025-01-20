@@ -5,6 +5,7 @@ import LandingNavbar from "./LandingNavbar";
 // import LandingNavbarMobile from "./LandingNavbar/LandingNavbarMobile";
 // import LandingHelmet from "./LandingHelmet";
 import jquery from "jquery";
+import LandingBottombar from "./LandingBottombar";
 
 const LandingLayout: FunctionComponent = () => {
   (window as any).$ = (window as any).jQuery = jquery;
@@ -22,6 +23,7 @@ const LandingLayout: FunctionComponent = () => {
       <main>
         <Outlet />
       </main>
+      <LandingBottombar />
 
       {/* <div className="scroll-top">
         <svg

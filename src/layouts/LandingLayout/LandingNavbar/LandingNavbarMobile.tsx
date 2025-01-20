@@ -1,8 +1,10 @@
 import { FunctionComponent } from "react";
+import { useNavigate } from "react-router-dom";
 // import { NavLink } from "react-router-dom";
 import Logo from "@/assets/logo/siloam.png";
 
 const LandingNavbarMobile: FunctionComponent = () => {
+  const navigate = useNavigate();
   return (
     <div className="drawer-side top-9">
       <label
@@ -14,15 +16,16 @@ const LandingNavbarMobile: FunctionComponent = () => {
         {/* Sidebar content here */}
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="flex justify-between">
-          <a
-            href=""
+          <button
+            type="button"
             className="flex items-center space-x-3 rtl:space-x-reverse"
+            onClick={() => navigate("/")}
           >
             <img src={Logo} className="md:h-12 h-8" alt="Flowbite Logo" />
             {/* <span className="self-center text-2xl font-semibold whitespace-nowrap ">
               Klinik Pintar
             </span> */}
-          </a>
+          </button>
           <div className="drawer-content text-end">
             <label
               htmlFor="my-drawer"
