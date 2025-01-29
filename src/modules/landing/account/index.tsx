@@ -23,7 +23,7 @@ const LandingAccount: FunctionComponent = () => {
           </div>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 md:text-base text-sm">
           <div className="grid md:grid-cols-4 grid-cols-2 gap-x-4 gap-y-3 mx-4 md:px-4">
             <div className="w-full">
               <div className="text-gray-600">NRM</div>

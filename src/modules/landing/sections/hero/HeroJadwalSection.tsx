@@ -24,7 +24,11 @@ const HeroJadwalSection: FunctionComponent = () => {
   return (
     <>
       <p className="text-sm my-3">
-        {currentDateTime} - <span className="font-bold">BUKA</span>
+        {currentDateTime && (
+          <>
+            {currentDateTime} - <span className="font-bold">BUKA</span>
+          </>
+        )}
       </p>
       {/* <span className="text-gray-500 text-xs">Jadwal Praktik Klinik</span> */}
       <div className="overflow-x-auto">
