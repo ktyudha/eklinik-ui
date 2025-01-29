@@ -74,7 +74,7 @@ const LandingNavbarMobile: FunctionComponent = () => {
           />
         </div>
         <li className="border-b pb-2">
-          <a className="flex justify-between">
+          <a href="/queue" className="flex justify-between">
             Antrian
             <svg
               xmlns="http://www.w3.org/2000/svg"

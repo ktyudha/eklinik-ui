@@ -9,7 +9,7 @@ const LandingAccount: FunctionComponent = () => {
 
   return (
     <>
-      <section className="md:mx-auto bg-white min-h-screen  max-w-screen-xl">
+      <section className="md:mx-auto bg-white min-h-screen  max-w-screen-xl pb-24">
         <div className="justify-center mx-auto text-center bg-white pt-10">
           <span className="text-4xl font-medium bg-base-200 rounded-full text-gray-500 p-4">
             {user?.name.slice(0, 2).toUpperCase()}
