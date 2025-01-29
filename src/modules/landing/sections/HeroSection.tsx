@@ -19,7 +19,7 @@ const HeroSection: FunctionComponent = () => {
   }));
   return (
     <section
-      className={`min-w-full min-h-screen md:bg-hero-desktop md:bg-center md:bg-cover md:bg-no-repeat md:relative bg-base-200 `}
+      className={`min-w-full min-h-screen md:bg-hero-desktop md:bg-center md:bg-cover md:bg-no-repeat md:relative bg-base-200`}
       id="home"
     >
       <div className="relative md:hidden display">
@@ -27,57 +27,23 @@ const HeroSection: FunctionComponent = () => {
         <div className="absolute bottom-0 left-0 w-full h-[10vh] bg-gradient-to-t from-base-200"></div>
       </div>
 
-      <div className="max-w-screen-xl mx-auto md:min-h-[85vh]  md:px-0 px-4 md:relative ">
+      <div className="max-w-screen-xl mx-auto md:min-h-[85vh] md:px-0 px-4 md:relative pb-24">
         <div className="md:pt-10 pt-4 md:mb-10 mb-4">
           <h1 className="md:text-base text-sm text-gray-400 font-medium md:mb-0 mb-1">
-            Selamat Datang di Klinik Pintar
+            Selamat Datang di Klinik Pintars
           </h1>
           <p className="md:text-5xl text-2xl text-gray-700 md:leading-[62px]">
             Yang berarti, <br /> segera kembali.
           </p>
         </div>
 
-        <div className="bg-white p-6 max-w-sm rounded-lg drop-shadow-xl">
+        <div className="bg-white p-6 max-w-sm rounded-lg drop-shadow-xl ">
           <HeroFilterSection />
           {activeHeroTab === "jadwal" ? (
             <HeroJadwalSection />
           ) : (
             <HeroLokasiSection />
           )}
-          {/* <div className="flex gap-2 mb-4">
-            <h3 className="text-gray-400 font-normal mr-2 my-auto">Temukan</h3>
-            <div className="grid grid-cols-2 w-full gap-2">
-              <button className="bg-[#4bb43a] text-white py-1.5 rounded-full my-auto w-full">
-                Jadwal
-              </button>
-              <button className="border border-[#4bb43a] text-[#4bb43a] hover:bg-[#4bb43a] hover:text-white py-1.5 rounded-full my-auto">
-                Lokasi
-              </button>
-            </div>
-          </div> */}
-          {/* <div className="overflow-x-auto">
-            <table className="table table-xs">
-              <thead>
-                <tr>
-                  <th>Hari</th>
-                  <th>Waktu</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Senin, 20 Januari 2025</td>
-                  <td>
-                    <p>05:00-07:00 WIB</p>
-                    <p>16:00-20:00 WIB</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Selasa, 21 Januari 2025</td>
-                  <td>Libur</td>
-                </tr>
-              </tbody>
-            </table>
-          </div> */}
         </div>
 
         <div className="md:grid grid-cols-4 md:gap-4 gap-6 mt-6 md:absolute bottom-10 w-full md:mb-0 hidden">
