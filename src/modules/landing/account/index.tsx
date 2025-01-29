@@ -81,37 +81,7 @@ const LandingAccount: FunctionComponent = () => {
               <div className="text-gray-600">Pekerjaan</div>
               <div className="bg-gray-50 px-2 py-1 rounded-md">{user?.job}</div>
             </div>
-            <div className="w-full">
-              <div className="text-gray-600">Provinsi</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {user?.province?.name}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Kabupaten/Kota</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {user?.city?.name}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Kecamatan</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {user?.sub_district?.name}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Desa</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {user?.village?.name}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Kode Pos</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {user?.village?.postal_code}
-              </div>
-            </div>
-            {user?.additional_address && (
+            {user?.additional_address ? (
               <div className="col-span-2">
                 <div className="text-gray-600">Alamat</div>
                 <div className="bg-gray-50 px-2 py-1 rounded-md">
@@ -121,6 +91,39 @@ const LandingAccount: FunctionComponent = () => {
                   {user?.village?.postal_code}
                 </div>
               </div>
+            ) : (
+              <>
+                <div className="w-full">
+                  <div className="text-gray-600">Provinsi</div>
+                  <div className="bg-gray-50 px-2 py-1 rounded-md">
+                    {user?.province?.name}
+                  </div>
+                </div>
+                <div className="w-full">
+                  <div className="text-gray-600">Kabupaten/Kota</div>
+                  <div className="bg-gray-50 px-2 py-1 rounded-md">
+                    {user?.city?.name}
+                  </div>
+                </div>
+                <div className="w-full">
+                  <div className="text-gray-600">Kecamatan</div>
+                  <div className="bg-gray-50 px-2 py-1 rounded-md">
+                    {user?.sub_district?.name}
+                  </div>
+                </div>
+                <div className="w-full">
+                  <div className="text-gray-600">Desa</div>
+                  <div className="bg-gray-50 px-2 py-1 rounded-md">
+                    {user?.village?.name}
+                  </div>
+                </div>
+                <div className="w-full">
+                  <div className="text-gray-600">Kode Pos</div>
+                  <div className="bg-gray-50 px-2 py-1 rounded-md">
+                    {user?.village?.postal_code}
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </div>
