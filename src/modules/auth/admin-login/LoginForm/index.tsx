@@ -67,11 +67,6 @@ const AdminLoginForm: FunctionComponent = () => {
       <div
         className={`flex flex-col gap-8 items-center justify-center h-[700px] xs:h-[700px] sm:h-[700px] md:h-screen lg:h-screen  px-5`}
       >
-        {/* logo */}
-        <div className="img-wrapper">
-          {/* <img src={Logo} alt="logo" className="w-48" /> */}
-        </div>
-
         {/* form */}
         <div className="flex flex-col w-full sm:w-[400px] md:w-[400px] lg:w-[400px] ">
           <div className="items-center justify-center bg-base-200 rounded-b-lg">

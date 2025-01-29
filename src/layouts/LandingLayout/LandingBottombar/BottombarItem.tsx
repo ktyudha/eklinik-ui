@@ -17,7 +17,7 @@ const BottombarItem: FunctionComponent<Props> = ({ icon: Icon, name, url }) => {
       className={`${isActiveMenu ? "active" : ""}`}
       onClick={() => navigate(url)}
     >
-      <Icon size={25} loading={"lazy"} />
+      <Icon size={20} loading={"lazy"} />
       <span className="btm-nav-label">{name}</span>
     </button>
   );

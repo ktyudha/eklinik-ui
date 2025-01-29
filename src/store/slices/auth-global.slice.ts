@@ -6,6 +6,8 @@ export declare interface AuthGlobalState {
   userRole: "admin" | "patient";
   userCreatedAt: string;
   userUpdatedAt: string;
+  isLoggedIn: boolean;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
   setUser: (user: User) => void;
   setUserRole: (role: "admin" | "patient") => void;
   setUserCreatedAt: (value: string) => void;
@@ -14,10 +16,11 @@ export declare interface AuthGlobalState {
 
 const createAuthGlobalSlice: StateCreator<AuthGlobalState> = (set) => ({
   user: null,
-  student: null,
   userRole: "patient",
   userCreatedAt: "",
   userUpdatedAt: "",
+  isLoggedIn: false,
+  setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn }),
   setUser: (user) => set({ user }),
   setUserRole: (userRole) => set({ userRole }),
   setUserCreatedAt: (userCreatedAt) => set({ userCreatedAt }),

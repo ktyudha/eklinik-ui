@@ -25,19 +25,22 @@ const UserMiddleware: FunctionComponent<PropsWithChildren> = ({ children }) => {
     }),
     shallow
   );
+
   const [mounted, setMounted] = useState(false);
   const cookie = Cookies.get("token-patient");
   const ignoreRefetch = useRef(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const setIsLoggedIn = useGlobalStore((state) => state.setIsLoggedIn);
+
+  const isLoggedIn = !!cookie;
+  setIsLoggedIn(!!isLoggedIn);
 
   const getUserData = useCallback(async () => {
     const { data, error, status } = await useGetMe();
     if (!error && status === 200 && data) {
       setUserRole(data.role);
-      if (data.role === "patient") {
-        setUser(data?.user);
-      }
+      setUser(data?.user);
     } else {
       navigate("/login", { replace: true });
     }
@@ -51,17 +54,13 @@ const UserMiddleware: FunctionComponent<PropsWithChildren> = ({ children }) => {
     } else if (cookie && user) {
       if (pathname === "/login") {
         if (userRole === "patient") {
-          navigate("/history");
+          navigate("/account");
         }
       }
       setMounted(true);
     } else if (!cookie) {
-      if (
-        pathname !== "/login" &&
-        pathname !== "/admin/login" &&
-        pathname !== "/alumni/login"
-      ) {
-        navigate("/alumni/login");
+      if (pathname !== "/login" && pathname !== "/admin/login") {
+        navigate("/login");
       }
       setMounted(true);
     }
