@@ -1,14 +1,47 @@
 import { FunctionComponent } from "react";
 // import ToggleThemeNavbar from "./ToggleThemeNavbar";
 import { useNavigate } from "react-router-dom";
-// import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import { useLogout } from "@/services/auth/login/hooks/useLogout";
+import useGlobalStore from "@/store/useStore";
 import Logo from "@/assets/logo/siloam.png";
 import Icon from "@/components/reusable/Icon";
 import LandingNavbarMobile from "./LandingNavbarMobile";
 
 const LandingNavbar: FunctionComponent = () => {
   const navigate = useNavigate();
+  // const { isLoggedIn, setIsLoggedIn } = useGlobalStore(
+  //   (state) => state.isLoggedIn,
+  //   state.setIsLoggedIn
+  // );
 
+  const { userRole, isLoggedIn, setIsLoggedIn } = useGlobalStore((state) => ({
+    userRole: state.userRole,
+    isLoggedIn: state.isLoggedIn,
+    setIsLoggedIn: state.setIsLoggedIn,
+  }));
+
+  const onHandleLogout = async () => {
+    const { data, error } = await useLogout();
+    if (data || error) {
+      if (data) {
+        if (userRole === "patient") {
+          Cookies.remove("token-patient");
+          setIsLoggedIn(false);
+          // location.replace(`${config.BASE_STUDENT_URL}/login`)
+        }
+        navigate("/", { replace: true });
+      } else {
+        toast.error("Logout Gagal", {
+          position: toast.POSITION.TOP_CENTER,
+          data: {
+            text: error,
+          },
+        });
+      }
+    }
+  };
   return (
     <header className="main-header sticky top-0 w-full z-30">
       <nav className="bg-[#1c2674] border-gray-20 text-white flex justify-center py-2.5 md:gap-9 gap-4">
@@ -25,16 +58,32 @@ const LandingNavbar: FunctionComponent = () => {
           Hubungi Kami
         </a>
         <hr className="h-[16px] my-auto border" />
-        <button
-          type="button"
-          className="font-semibold md:text-sm text-xs flex gap-2"
-        >
-          <Icon
-            name="arrow-left"
-            className="bg-yellow-300 rounded-full my-auto"
-          />
-          Masuk/Daftar
-        </button>
+        {isLoggedIn ? (
+          <button
+            onClick={() => onHandleLogout()}
+            className="font-semibold md:text-sm text-xs flex gap-2"
+          >
+            <Icon
+              name="arrow-left"
+              className="bg-red-500 rounded-full my-auto rotate-180"
+            />
+            Keluar
+          </button>
+        ) : (
+          <>
+            <button
+              onClick={() => navigate("/login")}
+              type="button"
+              className="font-semibold md:text-sm text-xs flex gap-2"
+            >
+              <Icon
+                name="arrow-left"
+                className="bg-yellow-300 rounded-full my-auto"
+              />
+              Masuk/Daftar
+            </button>
+          </>
+        )}
       </nav>
 
       <nav className="bg-white border-b border-gray-200 z-50">

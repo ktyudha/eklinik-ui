@@ -11,27 +11,23 @@ export interface User {
   id: string;
   role: string;
   name: string;
-  npsn: string | null;
-  grade: Grade | null;
-  education_type: string | null;
-  education_status: string | null;
   username: string;
   email: string;
-  sp_code: string;
+  medical_record_number: string;
+  nik: string;
+  religion: string;
+  birth_date: string;
+  birth_place: string;
+  gender: string;
+  marital_status: string;
+  education: string;
+  job: string;
+  phone_number: string;
   province: Province | null;
   city: City | null;
   sub_district: SubDistrict | null;
-  village: string | null;
-  address: string | null;
-  principal_name: string | null;
-  account_type: string;
-  grades: Grade[];
-  cities: City[];
-}
-
-interface Grade {
-  id: string;
-  name: string;
+  village: Village | null;
+  additional_address: string | null;
 }
 
 interface Province {
@@ -47,4 +43,10 @@ interface City {
 interface SubDistrict {
   id: string;
   name: string;
+}
+
+interface Village {
+  id: string;
+  name: string;
+  postal_code: string;
 }

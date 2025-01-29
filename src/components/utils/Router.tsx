@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import * as Landing from "@/pages/landing";
 import * as Admin from "@/pages/admin";
 
@@ -22,9 +22,28 @@ export default function GetBrowserRoutes() {
       element: <LandingLayout />,
       children: [
         { index: true, element: <Landing.LandingPage /> },
-        { path: "account", element: <Landing.LandingAccountPage /> },
-        { path: "history", element: <Landing.LandingHistoryPage /> },
-        { path: "queue", element: <Landing.LandingQueuePage /> },
+        {
+          element: (
+            <UserMiddleware>
+              <Outlet /> {/* Pastikan ada Outlet untuk merender anak-anak */}
+            </UserMiddleware>
+          ), // Middleware diterapkan ke halaman lainnya
+          children: [
+            { path: "account", element: <Landing.LandingAccountPage /> },
+            { path: "history", element: <Landing.LandingHistoryPage /> },
+            { path: "queue", element: <Landing.LandingQueuePage /> },
+          ],
+        },
+        // { path: "account", element: <Landing.LandingAccountPage /> },
+        // {
+        //   path: "history",
+        //   element: (
+        //     <UserMiddleware>
+        //       <Landing.LandingHistoryPage />
+        //     </UserMiddleware>
+        //   ),
+        // },
+        // { path: "queue", element: <Landing.LandingQueuePage /> },
       ],
     },
 
