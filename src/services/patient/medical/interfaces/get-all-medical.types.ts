@@ -11,6 +11,7 @@ export interface Medical {
   // submenu: string[];
 }
 
+
 export interface Patient {
   id: string;
   mrn: string;

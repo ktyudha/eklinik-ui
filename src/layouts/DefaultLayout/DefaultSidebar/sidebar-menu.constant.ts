@@ -1,20 +1,10 @@
-// import homeIcon from '@/assets/icons/home.svg'
-// import usersIcon from '@/assets/icons/users.svg'
-// import homeIcon from "@/assets/icons/home.svg";
-// import usersIcon from "@/assets/icons/users.svg";
-// import otherIcon from "@/assets/icons/other.svg";
-// import universityIcon from "@/assets/icons/university.svg";
-// import chartIcon from "@/assets/icons/chart-pie-alt.svg";
-// import progressIcon from '@/assets/icons/chart-line.svg'
+
 import {
   UilAccessibleIconAlt,
   UilSetting,
   UilSilence,
-  UilBed,
   UilMedkit,
   UilCapsule,
-  UilInvoice,
-  UilFileMedicalAlt,
   UilSchedule,
   UilClinicMedical,
 } from "@iconscout/react-unicons";
@@ -85,30 +75,30 @@ const sidebarMenus = [
       },
     ],
   },
-  {
-    icon: UilBed,
-    name: "Rawat Inap",
-    isDropdown: true,
-    url: "/admin/surveys",
-    hasSubmenu: true,
-    submenuLinks: [
-      {
-        subUrl: "/admin/surveys/academic-year",
-        label: "Booking",
-        forceShow: true,
-      },
-      {
-        subUrl: "/admin/surveys/academic-year",
-        label: "Rgistrasi",
-        forceShow: true,
-      },
-      {
-        subUrl: "/admin/surveys/academic-year",
-        label: "Antrian",
-        forceShow: true,
-      },
-    ],
-  },
+  // {
+  //   icon: UilBed,
+  //   name: "Rawat Inap",
+  //   isDropdown: true,
+  //   url: "/admin/surveys",
+  //   hasSubmenu: true,
+  //   submenuLinks: [
+  //     {
+  //       subUrl: "/admin/surveys/academic-year",
+  //       label: "Booking",
+  //       forceShow: true,
+  //     },
+  //     {
+  //       subUrl: "/admin/surveys/academic-year",
+  //       label: "Rgistrasi",
+  //       forceShow: true,
+  //     },
+  //     {
+  //       subUrl: "/admin/surveys/academic-year",
+  //       label: "Antrian",
+  //       forceShow: true,
+  //     },
+  //   ],
+  // },
   {
     icon: UilMedkit,
     name: "Rekam Medis",
@@ -139,36 +129,36 @@ const sidebarMenus = [
       },
     ],
   },
-  {
-    icon: UilInvoice,
-    name: "Pembayaran",
-    isDropdown: false,
-    url: "/admin/invoice",
-  },
-  {
-    icon: UilFileMedicalAlt,
-    name: "Laporan",
-    isDropdown: true,
-    url: "/admin/surveys",
-    hasSubmenu: true,
-    submenuLinks: [
-      {
-        subUrl: "/admin/surveys/academic-year",
-        label: "Booking",
-        forceShow: true,
-      },
-      {
-        subUrl: "/admin/surveys/academic-year",
-        label: "Rgistrasi",
-        forceShow: true,
-      },
-      {
-        subUrl: "/admin/surveys/academic-year",
-        label: "Antrian",
-        forceShow: true,
-      },
-    ],
-  },
+  // {
+  //   icon: UilInvoice,
+  //   name: "Pembayaran",
+  //   isDropdown: false,
+  //   url: "/admin/invoice",
+  // },
+  // {
+  //   icon: UilFileMedicalAlt,
+  //   name: "Laporan",
+  //   isDropdown: true,
+  //   url: "/admin/surveys",
+  //   hasSubmenu: true,
+  //   submenuLinks: [
+  //     {
+  //       subUrl: "/admin/surveys/academic-year",
+  //       label: "Booking",
+  //       forceShow: true,
+  //     },
+  //     {
+  //       subUrl: "/admin/surveys/academic-year",
+  //       label: "Rgistrasi",
+  //       forceShow: true,
+  //     },
+  //     {
+  //       subUrl: "/admin/surveys/academic-year",
+  //       label: "Antrian",
+  //       forceShow: true,
+  //     },
+  //   ],
+  // },
 ];
 
 export default sidebarMenus;
