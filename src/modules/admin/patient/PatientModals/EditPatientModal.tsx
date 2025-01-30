@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 import useMapInputOptions from "@/hooks/useMapInputOptions";
@@ -50,10 +50,17 @@ const EditPatientModal: FunctionComponent<Props> = ({
     ? new Date(patient.birth_date).toISOString().split("T")[0]
     : "";
 
+  const [SelectedProvince, setSelectedProvince] = useState(patient.province.id);
+  const [SelectedCity, setSelectedCity] = useState(patient.city.id);
+  const [SelectedSubDistrict, setSelectedSubDistrict] = useState(
+    patient.sub_district.id
+  );
+  const [SelectedVillage, setSelectedVillage] = useState(patient.village.id);
+
   const { provinces } = useGetAllProvince();
-  const { province } = useGetProvince(methods.watch("province_id"));
-  const { city } = useGetCity(methods.watch("city_id"));
-  const { sub_district } = useGetSubDistrict(methods.watch("sub_district_id"));
+  const { province } = useGetProvince(SelectedProvince);
+  const { city } = useGetCity(SelectedCity);
+  const { sub_district } = useGetSubDistrict(SelectedSubDistrict);
 
   const provinceOptions = useMapInputOptions(provinces);
   const cityOptions = useMapInputOptions(province?.cities);
@@ -61,35 +68,40 @@ const EditPatientModal: FunctionComponent<Props> = ({
   const villageOptions = useMapInputOptions(sub_district?.villages);
 
   useEffect(() => {
-    methods.setValue("city_id", "");
-    methods.setValue("sub_district_id", "");
-    methods.setValue("village_id", "");
+    const provinceId = methods.getValues("province_id");
+
+    if (provinceId && provinceId !== SelectedProvince) {
+      setSelectedProvince(provinceId);
+      setSelectedCity("");
+      setSelectedSubDistrict("");
+      setSelectedVillage("");
+    } else {
+      setSelectedProvince(patient.province.id);
+    }
   }, [methods.watch("province_id")]);
 
   useEffect(() => {
-    methods.setValue("sub_district_id", "");
-    methods.setValue("village_id", "");
+    const cityId = methods.getValues("city_id");
+
+    if (cityId && cityId !== SelectedCity) {
+      setSelectedCity(cityId);
+      setSelectedSubDistrict("");
+      setSelectedVillage("");
+    } else {
+      setSelectedCity(patient.city.id);
+    }
   }, [methods.watch("city_id")]);
 
-  // useEffect(() => {
-  //   methods.setValue("province_id", patient.province.id);
-  //   methods.setValue("city_id", patient.city.id);
-  //   methods.setValue("sub_district_id", patient.sub_district.id);
-  //   methods.setValue("village_id", patient.village.id);
-  // }, [patient.province, patient.city, patient.sub_district, patient.village]);
-
   useEffect(() => {
-    methods.watch("province_id");
-    methods.watch("city_id");
-    methods.watch("sub_district_id");
-    methods.watch("village_id");
-  }, [methods]);
-  // useEffect(() => {
-  //   setSelectedProvince(patient.province.id);
-  //   setSelectedCity(patient.city.id);
-  //   setSelectedSubDistrict(patient.sub_district.id);
-  //   setSelectedVillage(patient.village.id);
-  // }, [patient.city, patient.province, patient.sub_district, patient.village]);
+    const subDistrictId = methods.getValues("sub_district_id");
+
+    if (subDistrictId && subDistrictId !== SelectedSubDistrict) {
+      setSelectedSubDistrict(subDistrictId);
+      setSelectedVillage("");
+    } else {
+      setSelectedSubDistrict(patient.sub_district.id);
+    }
+  }, [methods.watch("sub_district_id")]);
 
   const { updatePatient } = useUpdatePatient(patient.id);
   const onSubmit: SubmitHandler<FormFields> = async (state) => {
@@ -229,14 +241,14 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     name="province_id"
                     isRequired
                     selectOptions={provinceOptions}
-                    value={patient.province.id}
+                    defaultValue={SelectedProvince}
                   />
                   <Select
                     label="Kabupaten/Kota"
                     name="city_id"
                     isRequired
                     selectOptions={cityOptions}
-                    value={patient.city.id}
+                    defaultValue={SelectedCity}
                   />
 
                   <Select
@@ -244,7 +256,7 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     name="sub_district_id"
                     isRequired
                     selectOptions={subDistrictOptions}
-                    value={patient.sub_district.id}
+                    defaultValue={SelectedSubDistrict}
                   />
 
                   <Select
@@ -252,7 +264,7 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     name="village_id"
                     isRequired
                     selectOptions={villageOptions}
-                    value={patient.village.id}
+                    defaultValue={SelectedVillage}
                   />
                   {/* <div className="flex flex-col">
                     <label
