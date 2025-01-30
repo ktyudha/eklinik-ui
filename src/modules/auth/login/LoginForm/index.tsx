@@ -52,7 +52,7 @@ const LoginForm: FunctionComponent = () => {
 
         <div className="text-center mx-6">
           <h3 className="text-[#020617] font-bold text-[32px] leading-8 mb-2">
-            Masuk/Daftar
+            Masuk Pasien
           </h3>
           <p className="text-base text-[#334155] font-normal">
             Masuk Akun dengan Username dan Kata Sandi
