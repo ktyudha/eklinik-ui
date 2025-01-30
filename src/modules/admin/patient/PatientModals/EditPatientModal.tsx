@@ -241,14 +241,14 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     name="province_id"
                     isRequired
                     selectOptions={provinceOptions}
-                    defaultValue={SelectedProvince}
+                    defaultValue={patient.province.id}
                   />
                   <Select
                     label="Kabupaten/Kota"
                     name="city_id"
                     isRequired
                     selectOptions={cityOptions}
-                    defaultValue={SelectedCity}
+                    defaultValue={patient.city.id}
                   />
 
                   <Select
@@ -256,7 +256,7 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     name="sub_district_id"
                     isRequired
                     selectOptions={subDistrictOptions}
-                    defaultValue={SelectedSubDistrict}
+                    defaultValue={patient.sub_district.id}
                   />
 
                   <Select
@@ -264,7 +264,7 @@ const EditPatientModal: FunctionComponent<Props> = ({
                     name="village_id"
                     isRequired
                     selectOptions={villageOptions}
-                    defaultValue={SelectedVillage}
+                    defaultValue={patient.village.id || SelectedVillage}
                   />
                   {/* <div className="flex flex-col">
                     <label
