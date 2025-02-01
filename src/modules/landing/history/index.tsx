@@ -7,10 +7,10 @@ const LandingHistory: FunctionComponent = () => {
   const { medicals } = useGetAllMedical();
   return (
     <>
-      <section className="md:mx-auto bg-white max-w-screen-xl">
+      <section className="md:mx-auto bg-white max-w-screen-xl min-h-[80vh]">
         <div className="mx-4 md:px-4 pt-4">
           {isEmpty(medicals) ? (
-            <div className="flex flex-col items-center justify-center gap-3 h-full">
+            <div className="flex flex-col items-center justify-center gap-3 min-h-[80vh]">
               <img src={EmptyIcon} alt="Icon" className="md:w-36 w-20" />
               <h1 className="font-semibold md:text-lg text-base">
                 Tidak Ada Data
