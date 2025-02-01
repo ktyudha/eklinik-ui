@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { useLogout } from "@/services/auth/login/hooks/useLogout";
 import useGlobalStore from "@/store/useStore";
-import Logo from "@/assets/logo/siloam.png";
+import Logo from "@/assets/logo/logo-bidan-susenowati.svg";
 import Icon from "@/components/reusable/Icon";
 import LandingNavbarMobile from "./LandingNavbarMobile";
 
@@ -55,7 +55,7 @@ const LandingNavbar: FunctionComponent = () => {
         </a>
         <a href="" className="font-semibold md:text-sm text-xs flex gap-2">
           <Icon name="hubungi-kami" />
-          Hubungi Kami
+          Saran
         </a>
         <hr className="h-[16px] my-auto border" />
         {isLoggedIn ? (

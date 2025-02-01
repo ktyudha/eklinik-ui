@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
-import Logo from "@/assets/logo/siloam.png";
+import Logo from "@/assets/logo/logo-bidan-susenowati.svg";
 import useGlobalStore from "@/store/useStore";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/reusable/Form/Input";
 import Spinner from "@/components/reusable/Spinner";
@@ -45,10 +45,10 @@ const LoginForm: FunctionComponent = () => {
     <div className="w-full min-h-screen max-w-full md:flex justify-center mx-auto bg-[#F1F5F9]">
       {/* <Icon name="spiral-3d" size={359}></Icon> */}
       <div className="h-4/5 md:h-fit bg-white w-full md:max-w-sm rounded-t-[20px] md:rounded-b-[20px] absolute top-[20%]">
-        <NavLink to="/" className="flex pt-[43px] mx-auto justify-center mb-6">
+        <a href="/" className="flex pt-[43px] mx-auto justify-center mb-6">
           <img src={Logo} alt="logo-edubook" className="mr-3  h-[38px]" />
           {/* <span className="font-bold text-2xl my-auto">Edubook</span> */}
-        </NavLink>
+        </a>
 
         <div className="text-center mx-6">
           <h3 className="text-[#020617] font-bold text-[32px] leading-8 mb-2">

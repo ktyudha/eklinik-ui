@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
 // import { NavLink } from "react-router-dom";
-import Logo from "@/assets/logo/siloam.png";
+import Logo from "@/assets/logo/logo-bidan-susenowati.svg";
 
 const LandingNavbarMobile: FunctionComponent = () => {
   const navigate = useNavigate();
