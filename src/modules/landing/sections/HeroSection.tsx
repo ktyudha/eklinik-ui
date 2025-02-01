@@ -30,7 +30,7 @@ const HeroSection: FunctionComponent = () => {
       <div className="max-w-screen-xl mx-auto md:min-h-[85vh] md:px-0 px-4 md:relative pb-24">
         <div className="md:pt-10 pt-4 md:mb-10 mb-4">
           <h1 className="md:text-base text-sm text-gray-400 font-medium md:mb-0 mb-1">
-            Selamat Datang di Klinik Pintars
+            Selamat Datang di Bidan Susenowati
           </h1>
           <p className="md:text-5xl text-2xl text-gray-700 md:leading-[62px]">
             Yang berarti, <br /> segera kembali.
