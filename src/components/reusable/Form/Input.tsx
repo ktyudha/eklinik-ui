@@ -105,7 +105,7 @@ const Input: FunctionComponent<Props> = ({
             onClick={onSwitchPasswordType}
             className="flex items-center justify-center ml-2 -mr-px"
           >
-            <span className="flex items-center bg-base-200 rounded whitespace-no-wrap text-gray-600">
+            <span className="flex items-center bg-white rounded whitespace-no-wrap text-gray-600">
               {isPasswordShow ? (
                 <UilEyeSlash size="20" />
               ) : (
