@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 //   UilArrowCircleRight,
 // } from "@iconscout/react-unicons";
 // import iconTracer from "@/assets/images/icon-tracer.png";
-// import logoTracer from "@/assets/images/logo-tracer.png";
+import Logo from "@/assets/logo/logo-bidan-susenowati.svg";
 import useGlobalStore from "@/store/useStore";
 import sidebarMenus from "./sidebar-menu.constant";
 
@@ -38,7 +38,7 @@ const DefaultSidebar: FunctionComponent = () => {
   }, [user, pathnameSegments]);
 
   return (
-    <div className="drawer-side  z-20 mt-16 lg:mt-0">
+    <div className="drawer-side  z-20 mt-[66px] lg:mt-0">
       <label
         htmlFor="my-drawer-2"
         aria-label="close sidebar"
@@ -47,10 +47,10 @@ const DefaultSidebar: FunctionComponent = () => {
       <ul className="menu pt-2 w-80 bg-base-100 min-h-full text-base-content">
         {/* Sidebar content here */}
         <a
-          href="/"
+          href="/admin/dashboard"
           className="mt-3 mb-6 font-semibold text-xl hidden lg:block mx-auto"
         >
-          Eklinik
+          <img src={Logo} alt="logo-bidan-susenowati" className="max-w-64" />
         </a>
 
         <li className="gap-1">
