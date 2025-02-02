@@ -55,7 +55,7 @@ const Select: FunctionComponent<Props> = ({
       )}
       <select
         {...restProps}
-        className={`flex gap-1 border-2 py-2 px-3 rounded-lg outline-none bg-white ${fontSizeLabel} ${fontWeightLabel} ${
+        className={`flex gap-1 border-2 py-2 px-3 rounded-lg outline-none bg-white ${textTransform} ${fontSizeLabel} ${fontWeightLabel} ${
           isDisabled && "bg-gray-100"
         }`}
         name={name}

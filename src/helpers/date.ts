@@ -31,3 +31,28 @@ export function formattedDateTime2(date: string): string {
 
   return `${weekday}, ${day} ${month} ${year} ${time} WIB`;
 }
+
+export function formatDateToDDMMYYYY(dateString: string) {
+  const date = new Date(dateString);
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
+
+// export function formatToInputDate(dateString: string): string {
+//   const date = new Date(dateString);{ locale: id }
+//   const year = date.getFullYear();
+//   const month = (date.getMonth() + 1).toString().padStart(2, '0');
+//   const day = date.getDate().toString().padStart(2, '0');
+//   const hours = date.getHours().toString().padStart(2, '0');
+//   const minutes = date.getMinutes().toString().padStart(2, '0');
+
+//   return `${year}-${month}-${day}T${hours}:${minutes}`;
+// }
+
+export function formatToInputDate(date: string) {
+  return format(new Date(date), "yyyy-MM-dd'T'HH:mm", { locale: id });
+}

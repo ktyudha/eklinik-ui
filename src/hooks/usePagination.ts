@@ -21,6 +21,7 @@ export default function usePagination(maxPageNum: number) {
 
   return {
     currentPage: pageNum,
+    setPageNum,
     goNextPage,
     goPrevPage,
     resetPage,
