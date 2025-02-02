@@ -2,6 +2,7 @@ import { FunctionComponent, useState, useEffect } from "react";
 import clsx from "clsx";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
 // import Avatar from "@assets/icons/avatar.png";
+import Logo from "@/assets/logo/logo-bidan-susenowati-white.svg";
 import Spinner from "@/components/reusable/Spinner";
 import useGlobalStore from "@/store/useStore";
 import Cookies from "js-cookie";
@@ -131,7 +132,9 @@ const DefaultNavbar: FunctionComponent = () => {
             </svg>
           </label>
         </div>
-        <a className="btn btn-ghost text-xl lg:hidden">Eklinik</a>
+        <a href="/admin/dashboard" className="btn btn-ghost text-xl lg:hidden">
+          <img src={Logo} alt="logo-bidan-susenowati" className="max-w-40" />
+        </a>
       </div>
 
       <div className="flex-none">
