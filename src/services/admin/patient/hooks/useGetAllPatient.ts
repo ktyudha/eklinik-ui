@@ -5,7 +5,7 @@ import { IGetAllPatientResponse } from "../interfaces/get-all-patient.types";
 import { useCallback, useState } from "react";
 import querystring from "query-string";
 
-export default function useGetRecapDomesticDepartment() {
+export default function useGetAllPatient() {
   const [name, setName] = useState("");
   const [pageNum, setPageNum] = useState(1);
   const [pageLimit, setPageLimit] = useState(10);

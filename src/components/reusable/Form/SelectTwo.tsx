@@ -15,6 +15,7 @@ interface Props {
   isClearable?: boolean;
   value?: any;
   defaultValue?: any;
+  textTransform?: string;
   selectTwoOptions: {
     label: string;
     value: string | number;
@@ -31,6 +32,7 @@ const SelectTwo: FunctionComponent<Props> = ({
   value,
   defaultValue,
   selectTwoOptions,
+  textTransform,
   ...restProps
 }) => {
   const { register, unregister, setValue } = useFormContext();
@@ -87,13 +89,17 @@ const SelectTwo: FunctionComponent<Props> = ({
         isMulti={isMulti}
         defaultValue={selectedValue ?? defaultValue}
         required={isRequired}
+        classNames={{
+          option: () => textTransform ?? "capitalize",
+          singleValue: () => textTransform ?? "capitalize",
+        }}
         onChange={(e: any) => {
           // Ambil hanya nilai value jika multi-select, jika single-select, ambil langsung value
           const selectedValues = isMulti
             ? e.map((item: any) => item.value)
             : e
-            ? [e.value]
-            : [];
+            ? e.value
+            : null;
           setSelectedValue(selectedValues);
           setValue(name, selectedValues);
         }}

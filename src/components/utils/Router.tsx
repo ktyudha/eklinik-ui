@@ -25,25 +25,15 @@ export default function GetBrowserRoutes() {
         {
           element: (
             <UserMiddleware>
-              <Outlet /> {/* Pastikan ada Outlet untuk merender anak-anak */}
+              <Outlet />
             </UserMiddleware>
-          ), // Middleware diterapkan ke halaman lainnya
+          ),
           children: [
             { path: "account", element: <Landing.LandingAccountPage /> },
             { path: "history", element: <Landing.LandingHistoryPage /> },
             { path: "queue", element: <Landing.LandingQueuePage /> },
           ],
         },
-        // { path: "account", element: <Landing.LandingAccountPage /> },
-        // {
-        //   path: "history",
-        //   element: (
-        //     <UserMiddleware>
-        //       <Landing.LandingHistoryPage />
-        //     </UserMiddleware>
-        //   ),
-        // },
-        // { path: "queue", element: <Landing.LandingQueuePage /> },
       ],
     },
 
@@ -94,6 +84,18 @@ export default function GetBrowserRoutes() {
         {
           path: "medical-record/create",
           element: <Admin.MedicalRecordCreatePage />,
+        },
+        {
+          path: "outpatient/appointments",
+          element: <Admin.QueuePage />,
+        },
+        {
+          path: "outpatient/appointments/create",
+          element: <Admin.CreateQueuePage />,
+        },
+        {
+          path: "outpatient/appointments/edit/:id",
+          element: <Admin.UpdateQueuePage />,
         },
       ],
     },

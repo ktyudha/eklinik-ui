@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 
 export interface Props {
   goNextPage: () => void;
   goPrevPage: () => void;
   setPageLimit?: (limit: number) => void;
   setPageNum?: (limit: number) => void;
+  setCurrentPage?: (limit: number) => void;
   perPage?: number;
   total?: number;
   pageLimit?: number;
@@ -21,12 +22,22 @@ const TablePagination: FunctionComponent<Props> = ({
   pageLimit,
   setPageLimit,
   setPageNum,
+  setCurrentPage,
   currentPage,
   lastPage,
 }) => {
+  useEffect(() => {
+    if (setCurrentPage) {
+      setCurrentPage(Number(currentPage));
+    }
+  }, [currentPage]);
+
   const pageNumbers = [];
-  for (let i = 1; i <= Math.floor(lastPage / 3); i++) {
-    pageNumbers.push(i);
+  // for (let i = 1; i <= Math.floor(lastPage / 3); i++) {
+  //   pageNumbers.push(i);
+  // }
+  if (Math.floor((lastPage % 5) / 4)) {
+    pageNumbers.push(1);
   }
 
   let i = 1;
@@ -46,7 +57,7 @@ const TablePagination: FunctionComponent<Props> = ({
   () => setPageNum;
 
   return (
-    <div className="flex flex-wrap items-center justify-between w-full gap-2 md:gap-0">
+    <div className="flex flex-wrap items-center justify-between w-full gap-2 md:gap-0 mt-4">
       <div className="flex items-center gap-2">
         <h3 className="text-sm font-medium leading-4 md:text-base">
           Data ditampilkan {perPage} dari {total} data
@@ -93,7 +104,12 @@ const TablePagination: FunctionComponent<Props> = ({
                     ? "bg-[#4bb43a] text-white"
                     : "bg-[#EFF6FF] hover:bg-[#4bb43a] text-[#4bb43a] hover:text-white"
                 }`}
-                onClick={() => (setPageNum ? setPageNum(pageNumber) : null)}
+                onClick={() => {
+                  setPageNum ? setPageNum(pageNumber) : null;
+                  if (setCurrentPage) {
+                    setCurrentPage(pageNumber);
+                  }
+                }}
               >
                 {pageNumber}
               </button>
@@ -126,7 +142,7 @@ const TablePagination: FunctionComponent<Props> = ({
             className={`${
               currentPage === lastPage
                 ? "bg-[#F1F5F9] text-[#94A3B8] cursor-not-allowed"
-                : "bg-[#EFF6FF] hover:bg-[#f28ec2] text-[#f28ec2] hover:text-white cursor-pointer"
+                : "bg-[#EFF6FF] hover:bg-[#4bb43a] text-[#4bb43a] hover:text-white cursor-pointer"
             } relative inline-flex items-center px-4 py-2 text-sm font-semibold leading-5 rounded-lg transition duration-150 ease-in-out focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10`}
             onClick={goNextPage}
             disabled={currentPage === lastPage}

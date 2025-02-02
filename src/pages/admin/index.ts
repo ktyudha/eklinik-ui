@@ -7,3 +7,6 @@ export { default as SettingMedicalRecordPage } from "./SettingPage/SettingMedica
 export { default as SettingSubMenuCreatePage } from "./SettingPage/SubMenu/SettingSubMenuCreatePage";
 export { default as MedicalRecordPage } from "./MedicalRecordPage";
 export { default as MedicalRecordCreatePage } from "./MedicalRecordPage/MedicalRecordCreatePage";
+export { default as QueuePage } from "./QueuePage";
+export { default as CreateQueuePage } from "./QueuePage/CreateQueuePage";
+export { default as UpdateQueuePage } from "./QueuePage/UpdateQueuePage";

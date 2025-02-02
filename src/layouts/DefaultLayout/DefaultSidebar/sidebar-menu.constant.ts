@@ -55,21 +55,21 @@ const sidebarMenus = [
     icon: UilAccessibleIconAlt,
     name: "Rawat Jalan",
     isDropdown: true,
-    url: "/admin/surveys",
+    url: "/admin/outpatient",
     hasSubmenu: true,
     submenuLinks: [
+      // {
+      //   subUrl: "/admin/surveys/academic-year",
+      //   label: "Booking",
+      //   forceShow: true,
+      // },
+      // {
+      //   subUrl: "/admin/surveys/academic-year",
+      //   label: "Rgistrasi",
+      //   forceShow: true,
+      // },
       {
-        subUrl: "/admin/surveys/academic-year",
-        label: "Booking",
-        forceShow: true,
-      },
-      {
-        subUrl: "/admin/surveys/academic-year",
-        label: "Rgistrasi",
-        forceShow: true,
-      },
-      {
-        subUrl: "/admin/surveys/academic-year",
+        subUrl: "/admin/outpatient/appointments",
         label: "Antrian",
         forceShow: true,
       },
@@ -122,11 +122,11 @@ const sidebarMenus = [
         label: "Obat",
         forceShow: true,
       },
-      {
-        subUrl: "/admin/medicine/recipes",
-        label: "Resep",
-        forceShow: true,
-      },
+      // {
+      //   subUrl: "/admin/medicine/recipes",
+      //   label: "Resep",
+      //   forceShow: true,
+      // },
     ],
   },
   // {
