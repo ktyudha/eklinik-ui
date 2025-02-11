@@ -16,7 +16,7 @@ const MenuTableHeader: FunctionComponent<Props> = ({ setNameCallback }) => {
         <div>
           <h1 className="font-medium text-lg">Grup Pertanyaan</h1>
         </div>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex md:w-auto w-full flex-wrap items-center gap-3">
           <div className="w-full lg:w-60 md:w-60">
             <input
               className="border-2 rounded-lg px-2 py-1.5 font-normal text-md w-full focus:outline-none"
