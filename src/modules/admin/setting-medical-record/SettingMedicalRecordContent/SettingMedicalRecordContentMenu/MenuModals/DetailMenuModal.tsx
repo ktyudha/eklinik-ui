@@ -91,7 +91,10 @@ const DetailMedicineCategoryModal: FunctionComponent<Props> = ({
                     key={idx}
                     className="border border-[#7e2e9d] mr-2 mb-2 text-[#7e2e9d] px-1.5 py-0.5 rounded hover:bg-[#7e2e9d] hover:text-white cursor-pointer transition-colors ease-in-out duration-300"
                   >
-                    {submenu.name}
+                    <div
+                      contentEditable="true"
+                      dangerouslySetInnerHTML={{ __html: submenu.name }}
+                    ></div>
                   </button>
                 );
               })}

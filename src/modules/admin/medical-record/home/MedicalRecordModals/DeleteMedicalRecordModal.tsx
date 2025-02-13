@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import Modal from "@/components/reusable/Modal";
-import useDeletePatient from "@/services/admin/patient/hooks/useDeletePatient";
+import useDeleteMedical from "@/services/admin/medical/hooks/useDeleteMedical";
 import { toast } from "react-toastify";
 
 interface Props {
@@ -18,10 +18,10 @@ const DeleteMedicalRecordModal: FunctionComponent<Props> = ({
 }) => {
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-  const { deletePatient } = useDeletePatient();
+  const { deleteMedical } = useDeleteMedical();
   const onDelete = async () => {
     setIsSubmit(true);
-    const { error, response } = await deletePatient(id);
+    const { error, response } = await deleteMedical(id);
     if (error || response) {
       if (error) {
         toast.error("Gagal Menghapus Rekam Medis", {

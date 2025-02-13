@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { isEmpty } from "lodash";
 import { toast } from "react-toastify";
 import Spinner from "@/components/reusable/Spinner";
@@ -14,11 +14,17 @@ import { ICreateOrUpdateMedicalPayload } from "@/services/admin/medical/interfac
 import useGetAllClassification from "@/services/admin/classification/hooks/useGetAllClassification";
 import useGetClassification from "@/services/admin/classification/hooks/useGetClassification";
 import useGetAllPatient from "@/services/admin/patient/hooks/useGetAllPatient";
+import useGetMedical from "@/services/admin/medical/hooks/useGetMedical";
 
 type FormFields = ICreateOrUpdateMedicalPayload;
 
 const MedicalRecordCreateContent: FunctionComponent = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { medical } = useGetMedical(id as string);
+  console.log(medical);
+
   const [selectedClassification, setSelectedClassification] = useState<
     string | null
   >(null);
@@ -70,7 +76,6 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
         toast.success("Sukses Menambahkan Pertanyaan", {
           position: toast.POSITION.TOP_CENTER,
         });
-        navigate("/admin/medical-record");
 
         methods.reset();
       }
@@ -82,31 +87,38 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
       <div className="mt-5 rounded-lg p-5 border col-span-12 border-[#E2E8F0] bg-white">
         <FormProvider {...methods}>
           <form className="w-full" onSubmit={methods.handleSubmit(onSubmit)}>
-            <div className="grid md:grid-cols-3 gap-4">
-              <SelectTwo
-                label="Pasien"
-                name="patient_id"
-                isSearchable
-                isRequired
-                selectTwoOptions={patientOptions}
-              />
+            {loading ? (
+              <div>...Loading</div>
+            ) : (
+              <div className="grid md:grid-cols-3 gap-4">
+                <SelectTwo
+                  label="Pasien"
+                  name="patient_id"
+                  isSearchable
+                  isRequired
+                  selectTwoOptions={patientOptions}
+                  defaultValue={medical?.patient.id}
+                />
 
-              <SelectTwo
-                label="Kategori"
-                name="classification_id"
-                isSearchable
-                isRequired
-                selectTwoOptions={menuOptions}
-              />
+                <SelectTwo
+                  label="Kategori"
+                  name="classification_id"
+                  isSearchable
+                  isRequired
+                  selectTwoOptions={menuOptions}
+                  defaultValue={medical?.classification.id}
+                />
 
-              <Input
-                label="Tanggal Pemeriksaan"
-                type="datetime-local"
-                placeholder="xxx"
-                name="checkup_date"
-                isRequired
-              />
-            </div>
+                <Input
+                  label="Tanggal Pemeriksaan"
+                  type="datetime-local"
+                  placeholder="xxx"
+                  name="checkup_date"
+                  isRequired
+                  defaultValue={medical?.checkup_date}
+                />
+              </div>
+            )}
 
             {loading || !classification ? (
               <div className="my-4 mx-auto text-center">

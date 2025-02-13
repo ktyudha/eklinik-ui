@@ -93,6 +93,21 @@ const SelectTwo: FunctionComponent<Props> = ({
           option: () => textTransform ?? "capitalize",
           singleValue: () => textTransform ?? "capitalize",
         }}
+        styles={{
+          control: (base) => ({
+            ...base,
+            minHeight: "8px", // Tambah tinggi input
+            padding: "4px", // Tambah padding atas-bawah
+          }),
+          valueContainer: (base) => ({
+            ...base,
+            padding: "4px", // Tambah ruang dalam elemen
+          }),
+          input: (base) => ({
+            ...base,
+            fontSize: "6px", // Ubah ukuran font jika perlu
+          }),
+        }}
         onChange={(e: any) => {
           // Ambil hanya nilai value jika multi-select, jika single-select, ambil langsung value
           const selectedValues = isMulti

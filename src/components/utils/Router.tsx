@@ -86,6 +86,10 @@ export default function GetBrowserRoutes() {
           element: <Admin.MedicalRecordCreatePage />,
         },
         {
+          path: "medical-record/edit/:id",
+          element: <Admin.MedicalRecordEditPage />,
+        },
+        {
           path: "outpatient/appointments",
           element: <Admin.QueuePage />,
         },

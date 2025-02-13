@@ -1,4 +1,5 @@
 import { FunctionComponent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { UilTrashAlt, UilEye, UilEdit } from "@iconscout/react-unicons";
 import { Medical } from "@/services/admin/medical/interfaces/get-all-medical.types";
 import DeleteMedicalReocordModal from "../MedicalRecordModals/DeleteMedicalRecordModal";
@@ -13,6 +14,7 @@ const MedicalRecordTableItemMenu: FunctionComponent<Props> = ({ medical }) => {
   // const [openDetailModal, setOpenDetailModal] = useState<boolean>(false);
   // const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -48,7 +50,7 @@ const MedicalRecordTableItemMenu: FunctionComponent<Props> = ({ medical }) => {
         <button
           type="button"
           className="flex items-center justify-center gap-1 hover:bg-gray-400 hover:text-white border border-gray-400 text-gray-400 rounded-md w-full p-1"
-          // onClick={() => setOpenEditModal(true)}
+          onClick={() => navigate(`edit/${medical.id}`)}
         >
           {/* <UilEdit size="20" color="#eab308" /> */}
           <UilEdit size="15" />

@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import MedicalRecordCreateHeader from "./MedicalRecordCreateHeader";
 import MedicalRecordCreateContent from "./MedicalRecordCreateContent";
 
-const MedicaleRecordCreate: FunctionComponent = () => {
+const MedicaleRecordEdit: FunctionComponent = () => {
   return (
     <div className="max-w-full px-3">
       <MedicalRecordCreateHeader />
@@ -11,4 +11,4 @@ const MedicaleRecordCreate: FunctionComponent = () => {
   );
 };
 
-export default MedicaleRecordCreate;
+export default MedicaleRecordEdit;
