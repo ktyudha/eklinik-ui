@@ -25,7 +25,7 @@ const MedicalRecordTableItem: FunctionComponent<Props> = ({
       <td className="px-6 uppercase">{medical.patient.name}</td>
       <td className="px-6">{formattedCheckupDate}</td>
       <td className="px-6 ">
-        <span className="rounded-full border border-[#4bb43a] text-[#4bb43a] hover:bg-[#4bb43a] hover:text-white cursor-pointer ease-in-out duration-300 px-3 py-1">
+        <span className="rounded-full border flex text-center border-[#4bb43a] text-[#4bb43a] hover:bg-[#4bb43a] hover:text-white cursor-pointer ease-in-out duration-300 px-3 py-1">
           {medical.classification.name}
         </span>
       </td>
