@@ -73,7 +73,7 @@ const EditSubMenuModal: FunctionComponent<Props> = ({
                   type="text"
                   placeholder="Nama"
                   name="name"
-                  defaultValue={sub_menu.name}
+                  defaultValue={sub_menu.name.replace(/<\/?[^>]+(>|$)/g, "")}
                   isRequired
                 />
                 <Select

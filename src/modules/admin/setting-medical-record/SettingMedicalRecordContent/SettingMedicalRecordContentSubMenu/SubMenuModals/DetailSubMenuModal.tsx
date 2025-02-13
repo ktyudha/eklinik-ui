@@ -35,8 +35,12 @@ const DetailSubMenuModal: FunctionComponent<Props> = ({
             id={`submenu-modal-detail-${id}`}
             className="input input-bordered w-full"
             disabled
-            value={sub_menu.name}
+            value={sub_menu.name.replace(/<\/?[^>]+(>|$)/g, "")}
           />
+          {/* <div
+            dangerouslySetInnerHTML={{ __html: sub_menu.name }}
+            contentEditable={false}
+          ></div> */}
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="form-input">
