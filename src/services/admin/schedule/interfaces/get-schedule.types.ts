@@ -1,9 +1,9 @@
-export interface IGetClassificationResponse {
+export interface IGetScheduleResponse {
   schedule: Schedule;
 }
 
 export interface Schedule {
-  id: string;
+  id: string; 
   day: string;
   start_time: string;
   end_time: string;

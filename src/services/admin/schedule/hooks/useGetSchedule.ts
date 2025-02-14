@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import axiosInstance from "@/lib/axios-instance";
 import useSWR, { type Fetcher } from "swr";
-import { IGetClassificationResponse } from "../interfaces/get-schedule.types";
+import { IGetScheduleResponse } from "../interfaces/get-schedule.types";
 
 export default function useGetSchedule(scheduleId: string) {
 
-  const fetcher: Fetcher<IGetClassificationResponse, string> = (url) =>
+  const fetcher: Fetcher<IGetScheduleResponse, string> = (url) =>
     axiosInstance({ withToken: true, tokenType:'admin' })
       .get(url)
       .then((res) => res.data);

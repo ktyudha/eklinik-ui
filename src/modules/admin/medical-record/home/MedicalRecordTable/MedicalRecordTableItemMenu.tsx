@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UilTrashAlt, UilEye, UilEdit } from "@iconscout/react-unicons";
+import { UilTrashAlt, UilEdit } from "@iconscout/react-unicons";
 import { Medical } from "@/services/admin/medical/interfaces/get-all-medical.types";
 import DeleteMedicalReocordModal from "../MedicalRecordModals/DeleteMedicalRecordModal";
 // import DetailPatientModal from "../PatientModals/DetailPatientModal";

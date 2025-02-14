@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 // import PatientTableItemMenu from "./PatientTableItemMenu";
-import { Schedule } from "@/services/admin/schedule/interfaces/get-schedule.types";
+import { Schedule } from "@/services/global/schedule/interfaces/get-all-schedules.types";
 
 interface Props {
   number: number;
@@ -12,7 +12,7 @@ const ScheduleTableItem: FunctionComponent<Props> = ({ number, schedule }) => {
     <tr>
       <td className="mx-auto text-center">{number}</td>
       <td className="px-6">{schedule.day}</td>
-      <td className="px-6 uppercase text-center  text-nowrap">
+      <td className="px-6 uppercase text-center flex text-nowrap">
         {schedule.start_time} - {schedule.end_time} WIB
       </td>
       <td className="px-6 capitalize text-nowrap mx-auto text-center">
