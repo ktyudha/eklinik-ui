@@ -50,8 +50,8 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
       classification?.menus.flatMap((menu) =>
         menu.submenus.map((submenu) => ({
           id: submenu.id,
-          value:
-            state.submenu?.find((item) => item.id === submenu.id)?.value || "", // Ambil nilai input berdasarkan ID submenu
+          name: submenu.name,
+          value: (state as Record<string, any>)[submenu.id] || "",
         }))
       ) || [];
 
@@ -61,13 +61,11 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
     });
     if (error || response) {
       if (error) {
-        console.log(state);
-        console.log(error);
-        toast.error("Gagal Menambahkan Pertanyaan", {
+        toast.error("Gagal Menambahkan Rekam Medis", {
           position: toast.POSITION.TOP_CENTER,
         });
       } else {
-        toast.success("Sukses Menambahkan Pertanyaan", {
+        toast.success("Sukses Menambahkan Rekam Medis", {
           position: toast.POSITION.TOP_CENTER,
         });
         navigate("/admin/medical-record");

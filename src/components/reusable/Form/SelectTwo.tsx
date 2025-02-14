@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 
 export interface OptionValue {
   label: string;
-  value: string;
+  value: string | number;
 }
 interface Props {
   label?: string;
@@ -44,6 +44,13 @@ const SelectTwo: FunctionComponent<Props> = ({
       setValue(name, value); // Sinkronkan nilai awal dengan react-hook-form
     }
   }, [value, name, setValue]);
+
+  useEffect(() => {
+    if (!selectedValue && defaultValue) {
+      setSelectedValue(defaultValue);
+      setValue(name, defaultValue.value); // Pastikan juga react-hook-form mendapatkan nilai awal
+    }
+  }, [defaultValue, selectedValue, setValue, name]);
 
   useEffect(
     () => () => {

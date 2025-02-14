@@ -7,7 +7,7 @@ export interface Medical {
   checkup_date: string;
   classification: Classification;
   patient: Patient;
-  // submenu: string[];
+  submenu: { id: string; name: string; value:string}[];
 }
 
 export interface Patient {
