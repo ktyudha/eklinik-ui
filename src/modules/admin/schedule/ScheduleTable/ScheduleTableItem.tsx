@@ -18,11 +18,11 @@ const ScheduleTableItem: FunctionComponent<Props> = ({ number, schedule }) => {
       <td className="px-6 capitalize text-nowrap mx-auto text-center">
         {schedule.is_active ? (
           <span className="rounded-full bg-[#00dfcb] text-white px-3 py-1">
-            Active
+            Buka
           </span>
         ) : (
           <span className="rounded-full bg-[#762a26] text-white px-3 py-1">
-            Disable
+            Libur
           </span>
         )}
       </td>
