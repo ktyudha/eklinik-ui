@@ -11,3 +11,5 @@ export { default as MedicalRecordEditPage } from "./MedicalRecordPage/MedicalRec
 export { default as QueuePage } from "./QueuePage";
 export { default as CreateQueuePage } from "./QueuePage/CreateQueuePage";
 export { default as UpdateQueuePage } from "./QueuePage/UpdateQueuePage";
+export { default as SchedulePage } from "./SchedulePage";
+

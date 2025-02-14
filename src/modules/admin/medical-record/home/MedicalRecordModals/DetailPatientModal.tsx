@@ -222,7 +222,6 @@ const PatientModal: FunctionComponent<Props> = ({
               }\n${patient.additional_address ?? ""}`}
             />
           </div>
-          
         </div>
         {/* <hr className="mt-4 mb-1" /> */}
         {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4"> */}

@@ -3,12 +3,13 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { isEmpty } from "lodash";
 import { toast } from "react-toastify";
-import Spinner from "@/components/reusable/Spinner";
 import { BeatLoader } from "react-spinners";
+import { formatToInputDate } from "@/helpers/date";
+import Spinner from "@/components/reusable/Spinner";
 import Input from "@/components/reusable/Form/Input";
 import SelectTwo from "@/components/reusable/Form/SelectTwo";
 import useMapInputOptions from "@/hooks/useMapInputOptions";
-import useCreateMedical from "@/services/admin/medical/hooks/useCreateMedical";
+import useUpdateMedical from "@/services/admin/medical/hooks/useUpdateMedical";
 import { ICreateOrUpdateMedicalPayload } from "@/services/admin/medical/interfaces/create-or-update-medical.types";
 
 import useGetAllClassification from "@/services/admin/classification/hooks/useGetAllClassification";
@@ -22,9 +23,7 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { medical } = useGetMedical(id as string);
-  console.log(medical);
-
+  const { medical, loading: LoadingMedical } = useGetMedical(id as string);
   const [selectedClassification, setSelectedClassification] = useState<
     string | null
   >(null);
@@ -36,7 +35,7 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
   );
 
   const patientOptions = useMapInputOptions(patients);
-  const menuOptions = useMapInputOptions(classifications);
+  const classificationOptions = useMapInputOptions(classifications);
 
   const methods = useForm<FormFields>({ mode: "onChange" });
 
@@ -50,32 +49,38 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
     }
   }, [methods.watch("classification_id")]);
 
-  const { createMedical } = useCreateMedical();
+  useEffect(() => {
+    setSelectedClassification(medical?.classification.id as string);
+  }, [medical]);
+
+  const { updateMedical } = useUpdateMedical(id as string);
+
   const onSubmit: SubmitHandler<FormFields> = async (state) => {
     const submenuData =
       classification?.menus.flatMap((menu) =>
         menu.submenus.map((submenu) => ({
           id: submenu.id,
-          value:
-            state.submenu?.find((item) => item.id === submenu.id)?.value || "", // Ambil nilai input berdasarkan ID submenu
+          name: submenu.name,
+          value: (state as Record<string, any>)[submenu.id] || "",
         }))
       ) || [];
 
-    const { error, response } = await createMedical({
+    const { error, response } = await updateMedical({
       ...state,
       submenu: submenuData,
     });
     if (error || response) {
       if (error) {
-        console.log(state);
         console.log(error);
-        toast.error("Gagal Menambahkan Pertanyaan", {
+        console.log(state);
+        toast.error("Gagal Mengubah Rekam Medis", {
           position: toast.POSITION.TOP_CENTER,
         });
       } else {
-        toast.success("Sukses Menambahkan Pertanyaan", {
+        toast.success("Sukses Mengubah Rekam Medis", {
           position: toast.POSITION.TOP_CENTER,
         });
+        navigate("/admin/medical-record");
 
         methods.reset();
       }
@@ -87,7 +92,7 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
       <div className="mt-5 rounded-lg p-5 border col-span-12 border-[#E2E8F0] bg-white">
         <FormProvider {...methods}>
           <form className="w-full" onSubmit={methods.handleSubmit(onSubmit)}>
-            {loading ? (
+            {LoadingMedical ? (
               <div>...Loading</div>
             ) : (
               <div className="grid md:grid-cols-3 gap-4">
@@ -97,7 +102,9 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
                   isSearchable
                   isRequired
                   selectTwoOptions={patientOptions}
-                  defaultValue={medical?.patient.id}
+                  defaultValue={patientOptions.find(
+                    (opt) => opt.value === medical?.patient.id
+                  )}
                 />
 
                 <SelectTwo
@@ -105,8 +112,10 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
                   name="classification_id"
                   isSearchable
                   isRequired
-                  selectTwoOptions={menuOptions}
-                  defaultValue={medical?.classification.id}
+                  selectTwoOptions={classificationOptions}
+                  defaultValue={classificationOptions.find(
+                    (opt) => opt.value === medical?.classification.id
+                  )}
                 />
 
                 <Input
@@ -115,7 +124,9 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
                   placeholder="xxx"
                   name="checkup_date"
                   isRequired
-                  defaultValue={medical?.checkup_date}
+                  defaultValue={formatToInputDate(
+                    medical?.checkup_date as string
+                  )}
                 />
               </div>
             )}
@@ -124,9 +135,7 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
               <div className="my-4 mx-auto text-center">
                 <div className="sweet-loading">
                   <BeatLoader color="#1c2674" />
-                  <h3 className="font-semibold text-lg">
-                    Kategori Belum Dipilih
-                  </h3>
+                  <h3 className="font-semibold text-lg">Loading</h3>
                 </div>
               </div>
             ) : isEmpty(classification) ? (
@@ -145,21 +154,32 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
                         <div className="grid md:grid-cols-2 gap-4">
                           {menu.submenus
                             .filter((submenu) => submenu.is_active)
-                            .map((submenu) => (
-                              <Input
-                                label={submenu.name.replace(
-                                  /<\/?[^>]+(>|$)/g,
-                                  ""
-                                )}
-                                type="text"
-                                placeholder={submenu.name.replace(
-                                  /<\/?[^>]+(>|$)/g,
-                                  ""
-                                )}
-                                name={submenu.id}
-                                isRequired
-                              />
-                            ))}
+                            .map((submenu) => {
+                              const matchedSubmenu = medical?.submenu?.find(
+                                (opt) => opt.id === submenu.id
+                              );
+
+                              return (
+                                <>
+                                  <Input
+                                    label={submenu.name.replace(
+                                      /<\/?[^>]+(>|$)/g,
+                                      ""
+                                    )}
+                                    type="text"
+                                    placeholder={submenu.name.replace(
+                                      /<\/?[^>]+(>|$)/g,
+                                      ""
+                                    )}
+                                    name={submenu.id}
+                                    isRequired
+                                    defaultValue={
+                                      matchedSubmenu ? matchedSubmenu.value : ""
+                                    }
+                                  />
+                                </>
+                              );
+                            })}
                         </div>
                       </div>
                     </>

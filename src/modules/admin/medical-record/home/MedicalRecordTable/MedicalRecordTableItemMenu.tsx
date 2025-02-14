@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UilTrashAlt, UilEye, UilEdit } from "@iconscout/react-unicons";
+import { UilTrashAlt, UilEdit } from "@iconscout/react-unicons";
 import { Medical } from "@/services/admin/medical/interfaces/get-all-medical.types";
 import DeleteMedicalReocordModal from "../MedicalRecordModals/DeleteMedicalRecordModal";
 // import DetailPatientModal from "../PatientModals/DetailPatientModal";
@@ -38,15 +38,15 @@ const MedicalRecordTableItemMenu: FunctionComponent<Props> = ({ medical }) => {
       /> */}
 
       <div className="flex items-center justify-center gap-3">
-        <button
+        {/* <button
           type="button"
           className="flex items-center justify-center gap-1 hover:bg-gray-400 hover:text-white border border-gray-400 text-gray-400 rounded-md w-full p-1"
-          // onClick={() => setOpenDetailModal(true)}
+          onClick={() => setOpenDetailModal(true)}
         >
-          {/* <UilEye size="20" color="#3b82f6" /> */}
+          <UilEye size="20" color="#3b82f6" />
           <UilEye size="15" />
           <span className="text-xs ">Detail</span>
-        </button>
+        </button> */}
         <button
           type="button"
           className="flex items-center justify-center gap-1 hover:bg-gray-400 hover:text-white border border-gray-400 text-gray-400 rounded-md w-full p-1"

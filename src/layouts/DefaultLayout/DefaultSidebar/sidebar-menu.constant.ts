@@ -1,12 +1,13 @@
 
 import {
-  UilAccessibleIconAlt,
+  // UilAccessibleIconAlt,
   UilSetting,
   UilSilence,
   UilMedkit,
   UilCapsule,
   UilSchedule,
   UilClinicMedical,
+  UilListOl
 } from "@iconscout/react-unicons";
 
 const sidebarMenus = [
@@ -31,19 +32,25 @@ const sidebarMenus = [
       },
     ],
   },
+  // {
+  //   icon: UilSchedule,
+  //   name: "Jadwal Bidan",
+  //   isDropdown: true,
+  //   url: "/admin/surveys",
+  //   hasSubmenu: true,
+  //   submenuLinks: [
+  //     {
+  //       subUrl: "/admin/surveys/academic-year",
+  //       label: "Master Tahun Pelajaran",
+  //       forceShow: true,
+  //     },
+  //   ],
+  // },
   {
     icon: UilSchedule,
     name: "Jadwal Bidan",
-    isDropdown: true,
-    url: "/admin/surveys",
-    hasSubmenu: true,
-    submenuLinks: [
-      {
-        subUrl: "/admin/surveys/academic-year",
-        label: "Master Tahun Pelajaran",
-        forceShow: true,
-      },
-    ],
+    isDropdown: false,
+    url: "/admin/schedules",
   },
   {
     icon: UilSilence,
@@ -51,30 +58,30 @@ const sidebarMenus = [
     isDropdown: false,
     url: "/admin/patient",
   },
-  {
-    icon: UilAccessibleIconAlt,
-    name: "Rawat Jalan",
-    isDropdown: true,
-    url: "/admin/outpatient",
-    hasSubmenu: true,
-    submenuLinks: [
-      // {
-      //   subUrl: "/admin/surveys/academic-year",
-      //   label: "Booking",
-      //   forceShow: true,
-      // },
-      // {
-      //   subUrl: "/admin/surveys/academic-year",
-      //   label: "Rgistrasi",
-      //   forceShow: true,
-      // },
-      {
-        subUrl: "/admin/outpatient/appointments",
-        label: "Antrian",
-        forceShow: true,
-      },
-    ],
-  },
+  // {
+  //   icon: UilAccessibleIconAlt,
+  //   name: "Rawat Jalan",
+  //   isDropdown: true,
+  //   url: "/admin/outpatient",
+  //   hasSubmenu: true,
+  //   submenuLinks: [
+  //     {
+  //       subUrl: "/admin/surveys/academic-year",
+  //       label: "Booking",
+  //       forceShow: true,
+  //     },
+  //     {
+  //       subUrl: "/admin/surveys/academic-year",
+  //       label: "Rgistrasi",
+  //       forceShow: true,
+  //     },
+  //     {
+  //       subUrl: "/admin/outpatient/appointments",
+  //       label: "Antrian",
+  //       forceShow: true,
+  //     },
+  //   ],
+  // },
   // {
   //   icon: UilBed,
   //   name: "Rawat Inap",
@@ -99,6 +106,12 @@ const sidebarMenus = [
   //     },
   //   ],
   // },
+  {
+    icon: UilListOl,
+    name: "Antrian",
+    isDropdown: false,
+    url: "/admin/appointments",
+  },
   {
     icon: UilMedkit,
     name: "Rekam Medis",

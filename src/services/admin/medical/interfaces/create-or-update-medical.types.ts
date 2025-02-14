@@ -2,5 +2,5 @@ export interface ICreateOrUpdateMedicalPayload {
   patient_id: string;
   classification_id: string;
   checkup_date: string;
-  submenu: { id: string;  value:string}[];
+  submenu: { id: string; name: string; value:string}[];
 }

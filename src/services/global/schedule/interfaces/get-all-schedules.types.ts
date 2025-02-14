@@ -1,8 +1,9 @@
 export interface IGetAllScheduleResponse {
-  schedules: Schedules[];
+  schedules: Schedule[];
 }
 
-export interface Schedules {
+export interface Schedule {
+  id: string;
     day: string;
     start_time: string;
     end_time: string;
