@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import useGetAllSchedule from "@/services/global/schedules/hooks/useGetAllSchedule";
+import useGetAllSchedule from "@/services/global/schedule/hooks/useGetAllSchedule";
 import { isEmpty } from "lodash";
 
 const HeroJadwalSection: FunctionComponent = () => {

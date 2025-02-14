@@ -48,7 +48,7 @@ const CreateQueueAction: FunctionComponent = () => {
           position: toast.POSITION.TOP_CENTER,
         });
         methods.reset();
-        navigate("/admin/outpatient/appointments");
+        navigate("/admin/appointments");
       }
     }
   };
@@ -98,7 +98,7 @@ const CreateQueueAction: FunctionComponent = () => {
                 <button
                   type="button"
                   className="px-20 py-3 text-base font-medium leading-4 text-white bg-gray-500 rounded-lg hover:bg-gray-600"
-                  onClick={() => navigate("/admin/outpatient/appointments")}
+                  onClick={() => navigate("/admin/appointments")}
                 >
                   Kembali
                 </button>
