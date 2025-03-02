@@ -19,11 +19,11 @@ const LandingLayout: FunctionComponent = () => {
       {/* assets */}
       {/* <LandingHelmet /> */}
 
-      <LandingNavbar />
-      <main>
+      <main className="min-h-dvh">
+        <LandingNavbar />
         <Outlet />
+        <LandingBottombar />
       </main>
-      <LandingBottombar />
 
       {/* <div className="scroll-top">
         <svg
