@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import Spinner from "@/components/reusable/Spinner";
 import { BeatLoader } from "react-spinners";
 import Input from "@/components/reusable/Form/Input";
+import { QUILL_FORMAT, QUILL_MODULE } from "@/constant/quill";
+import ReactQuill from "react-quill";
 import SelectTwo from "@/components/reusable/Form/SelectTwo";
 import useMapInputOptions from "@/hooks/useMapInputOptions";
 import useCreateMedical from "@/services/admin/medical/hooks/useCreateMedical";
@@ -128,24 +130,45 @@ const MedicalRecordCreateContent: FunctionComponent = () => {
                           {menu.name}
                         </h3>
 
-                        <div className="grid md:grid-cols-2 gap-4">
+                        <div className="flex flex-col gap-3 mb-3">
                           {menu.submenus
                             .filter((submenu) => submenu.is_active)
-                            .map((submenu) => (
-                              <Input
-                                label={submenu.name.replace(
-                                  /<\/?[^>]+(>|$)/g,
-                                  ""
-                                )}
-                                type="text"
-                                placeholder={submenu.name.replace(
-                                  /<\/?[^>]+(>|$)/g,
-                                  ""
-                                )}
-                                name={submenu.id}
-                                isRequired
-                              />
-                            ))}
+                            .map((submenu) =>
+                              submenu.type == "input" ? (
+                                <Input
+                                  label={submenu.name.replace(
+                                    /<\/?[^>]+(>|$)/g,
+                                    ""
+                                  )}
+                                  type="text"
+                                  placeholder={submenu.name.replace(
+                                    /<\/?[^>]+(>|$)/g,
+                                    ""
+                                  )}
+                                  name={submenu.id}
+                                  isRequired
+                                />
+                              ) : submenu.type == "textrich" ? (
+                                <div className="flex flex-col">
+                                  <label className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2">
+                                    {submenu.name.replace(
+                                      /<\/?[^>]+(>|$)/g,
+                                      ""
+                                    )}{" "}
+                                    <div className="text-red-500">*</div>
+                                  </label>
+                                  <ReactQuill
+                                    key={submenu.id}
+                                    theme="snow"
+                                    className="border-2 rounded-lg"
+                                    modules={QUILL_MODULE}
+                                    formats={QUILL_FORMAT}
+                                    placeholder="Tulis pertanyaan disini..."
+                                    // onChange={onChangeSubMenuValue}
+                                  />
+                                </div>
+                              ) : null
+                            )}
                         </div>
                       </div>
                     </>
