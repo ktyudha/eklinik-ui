@@ -16,7 +16,7 @@ const SubMenuTableItem: FunctionComponent<Props> = ({ number, sub_menu }) => {
       </td>
       <td className="px-6 capitalize text-nowrap mx-auto text-center">
         {sub_menu.is_active ? (
-          <span className="rounded-full bg-[#00dfcb] text-white px-3 py-1">
+          <span className="inline-flex rounded-full bg-success-50 px-2.5 py-1 text-xs font-medium text-success-600 ring-1 ring-success-100">
             Active
           </span>
         ) : (

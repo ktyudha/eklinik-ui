@@ -1,8 +1,3 @@
-import { FunctionComponent } from "react";
-import MedicalRecordEdit from "@/modules/admin/medical-record/edit";
+import MedicalRecordFormPage from "@/modules/admin/medical-record/MedicalRecordFormPage";
 
-const MedicalRecordEditPage: FunctionComponent = () => {
-  return <MedicalRecordEdit />;
-};
-
-export default MedicalRecordEditPage;
+export default MedicalRecordFormPage;

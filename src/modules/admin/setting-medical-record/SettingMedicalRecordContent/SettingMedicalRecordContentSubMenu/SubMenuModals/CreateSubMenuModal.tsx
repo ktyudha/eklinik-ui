@@ -107,7 +107,7 @@ const CreateSubMenuCategoryModal: FunctionComponent<Props> = ({
               className={`w-full rounded-lg py-2 font-medium text-base text-white ${
                 !isValid || isSubmitting
                   ? "bg-[#9fe194] cursor-not-allowed focus:outline-none disabled:opacity-100"
-                  : "bg-[#4bb43a] hover:bg-[#379029]"
+                  : "bg-primary hover:bg-[#379029]"
               }`}
               disabled={!isValid || isSubmitting}
             >

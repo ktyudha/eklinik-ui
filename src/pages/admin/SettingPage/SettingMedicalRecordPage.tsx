@@ -1,8 +1,3 @@
-import { FunctionComponent } from "react";
-import SettingMedicalRecord from "@/modules/admin/setting-medical-record";
+import FormBuilder from "@/modules/admin/form-builder";
 
-const SettingMedicalRecordPage: FunctionComponent = () => {
-  return <SettingMedicalRecord />;
-};
-
-export default SettingMedicalRecordPage;
+export default FormBuilder;

@@ -10,7 +10,7 @@ const LandingBottombar: FunctionComponent = () => {
   return (
     <div className="btm-nav md:hidden fixed bottom-0">
       {navbarMenus.map((nav) => (
-        <BottombarItem name={nav.name} icon={nav.icon} url={nav.url} />
+        <BottombarItem key={nav.url} name={nav.name} icon={nav.icon} url={nav.url} />
       ))}
 
       {/* <button>

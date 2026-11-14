@@ -2,18 +2,13 @@ import { FunctionComponent } from "react";
 import tab_items from "./tab-item-constant";
 import SettingMedicalRecordTabItem from "./SettingMedicalRecordTabItem";
 
-const SettingMedicalRecordTab: FunctionComponent = () => {
-  return (
-    <ul className="text-sm font-medium text-center text-white rounded-xl md:rounded-full lg:rounded-full shadow sm:flex bg-[#1c2674] p-1">
-      {tab_items.map((tab, idx) => (
-        <SettingMedicalRecordTabItem
-          key={`tab-item-${idx}`}
-          label={tab.label}
-          value={tab.value}
-        />
-      ))}
-    </ul>
-  );
-};
+/** Kontrol segmen: sederhana dan jelas tab mana yang aktif. */
+const SettingMedicalRecordTab: FunctionComponent = () => (
+  <ul className="flex w-full gap-1 rounded-xl bg-gray-100 p-1 sm:w-fit">
+    {tab_items.map((tab, idx) => (
+      <SettingMedicalRecordTabItem key={`tab-item-${idx}`} label={tab.label} value={tab.value} />
+    ))}
+  </ul>
+);
 
 export default SettingMedicalRecordTab;

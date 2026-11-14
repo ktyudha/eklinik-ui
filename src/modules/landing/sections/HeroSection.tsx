@@ -1,245 +1,60 @@
 import { FunctionComponent } from "react";
-// import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import HeroImageMobile from "@assets/images/hero-mobile.png";
 import HeroFilterSection from "./hero/HeroTab/HeroFilterSection";
 import useGlobalStore from "@/store/useStore";
-
-import {
-  UilListOl,
-  UilHospital,
-  UilFileMedicalAlt,
-  UilStethoscopeAlt,
-} from "@iconscout/react-unicons";
+import { UilListOl, UilHospital, UilFileMedicalAlt, UilStethoscopeAlt, UilAngleRight } from "@iconscout/react-unicons";
 import HeroJadwalSection from "./hero/HeroJadwalSection";
 import HeroLokasiSection from "./hero/HeroLokasiSection";
 
+const services = [
+  { icon: UilListOl, label: "Ambil Antrian", hint: "Daftar tanpa menunggu lama", to: "/queue" },
+  { icon: UilStethoscopeAlt, label: "Layanan", hint: "Pemeriksaan & konsultasi", to: "/#home" },
+  { icon: UilFileMedicalAlt, label: "Medical Check Up", hint: "Pantau kesehatan rutin", to: "/#home" },
+  { icon: UilHospital, label: "Persalinan", hint: "Pendampingan bidan profesional", to: "/#home" },
+];
+
 const HeroSection: FunctionComponent = () => {
-  const { activeHeroTab } = useGlobalStore((state) => ({
-    activeHeroTab: state.activeHeroTab,
-  }));
+  const activeHeroTab = useGlobalStore((s) => s.activeHeroTab);
+
   return (
-    <section
-      className={`min-w-full min-h-screen md:bg-hero-desktop md:bg-center md:bg-cover md:bg-no-repeat md:relative bg-base-200`}
-      id="home"
-    >
-      <div className="relative md:hidden display">
-        <img src={HeroImageMobile} className="bg-cover w-full" alt="" />
-        <div className="absolute bottom-0 left-0 w-full h-[10vh] bg-gradient-to-t from-base-200"></div>
+    <section id="home" className="min-w-full min-h-screen bg-base-200 md:bg-hero-desktop md:bg-center md:bg-cover md:bg-no-repeat md:relative">
+      <div className="relative md:hidden">
+        <img src={HeroImageMobile} className="w-full" alt="" />
+        <div className="absolute bottom-0 left-0 w-full h-[10vh] bg-gradient-to-t from-base-200" />
       </div>
 
-      <div className="max-w-screen-xl mx-auto md:min-h-[85vh] md:px-0 px-4 md:relative pb-24">
-        <div className="md:pt-10 pt-4 md:mb-10 mb-4">
-          <h1 className="md:text-base text-sm text-gray-400 font-medium md:mb-0 mb-1">
-            Selamat Datang di Bidan Susenowati
+      <div className="max-w-screen-xl mx-auto px-4 md:px-6 md:min-h-[85vh] md:relative pb-24">
+        <div className="pt-4 md:pt-12 mb-6 md:mb-10">
+          <span className="inline-block rounded-full bg-primary/10 text-primary text-xs md:text-sm font-semibold px-3 py-1">
+            Klinik Bidan Susenowati, S.ST.
+          </span>
+          <h1 className="mt-3 text-3xl md:text-6xl font-bold text-slate-800 leading-tight">
+            Yang berarti,<br /><span className="text-primary">segera kembali.</span>
           </h1>
-          <p className="md:text-5xl text-2xl text-gray-700 md:leading-[62px]">
-            Yang berarti, <br /> segera kembali.
-          </p>
+          <p className="mt-3 max-w-md text-slate-600 md:text-lg">Daftar antrian, lihat jadwal bidan, dan cek riwayat pemeriksaan Anda dari satu tempat.</p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link to="/queue" className="btn btn-primary">Ambil Antrian</Link>
+            <Link to="/history" className="btn btn-outline btn-primary bg-white/70">Riwayat Saya</Link>
+          </div>
         </div>
 
-        <div className="bg-white p-6 max-w-sm rounded-lg drop-shadow-xl ">
+        <div className="surface p-6 max-w-sm">
           <HeroFilterSection />
-          {activeHeroTab === "jadwal" ? (
-            <HeroJadwalSection />
-          ) : (
-            <HeroLokasiSection />
-          )}
+          {activeHeroTab === "jadwal" ? <HeroJadwalSection /> : <HeroLokasiSection />}
         </div>
 
-        <div className="md:grid grid-cols-4 md:gap-4 gap-6 mt-6 md:absolute bottom-10 w-full md:mb-0 hidden">
-          <div className="md:bg-white text-center rounded-lg md:p-6 cursor-pointer">
-            <a className="md:flex md:justify-between text-center my-auto">
-              <div className="md:flex">
-                <div className="md:bg-transparent bg-white md:py-0 py-4 rounded drop-shadow-lg">
-                  <UilListOl
-                    color="#1c2674"
-                    size={35}
-                    className="text-center mx-auto"
-                  />
-                </div>
-                <p className="md:my-auto md:flex gap-x-3 md:text-base text-center mx-auto text-xs md:ml-4 mt-2">
-                  Ambil Antrian
-                </p>
-              </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="bi bi-chevron-right w-4 h-4 text-[#4bb43a] my-auto md:block hidden"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
-            </a>
-          </div>
-          <div className="md:bg-white text-center rounded-lg md:p-6 cursor-pointer">
-            <a className="md:flex md:justify-between text-center my-auto">
-              <div className="md:flex">
-                <div className="md:bg-transparent bg-white md:py-0 py-4 rounded drop-shadow-lg">
-                  <UilStethoscopeAlt
-                    color="#1c2674"
-                    size={35}
-                    className="text-center mx-auto"
-                  />
-                </div>
-                <p className="md:my-auto md:flex gap-x-3 md:text-base text-center mx-auto text-xs md:ml-4 mt-2">
-                  Layanan
-                </p>
-              </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="bi bi-chevron-right w-4 h-4 text-[#4bb43a] my-auto md:block hidden"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
-            </a>
-          </div>
-          <div className="md:bg-white text-center rounded-lg md:p-6 cursor-pointer">
-            <a className="md:flex md:justify-between text-center my-auto">
-              <div className="md:flex">
-                <div className="md:bg-transparent bg-white md:py-0 py-4 rounded drop-shadow-lg">
-                  <UilFileMedicalAlt
-                    color="#1c2674"
-                    size={35}
-                    className="text-center mx-auto"
-                  />
-                </div>
-                <p className="md:my-auto md:flex gap-x-3 md:text-base text-center mx-auto text-xs md:ml-4 mt-2">
-                  Medical <br className="md:hidden block" /> Check Up
-                </p>
-              </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="bi bi-chevron-right w-4 h-4 text-[#4bb43a] my-auto md:block hidden"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
-            </a>
-          </div>
-          <div className="md:bg-white text-center rounded-lg md:p-6 cursor-pointer">
-            <a className="md:flex md:justify-between text-center my-auto">
-              <div className="md:flex">
-                <div className="md:bg-transparent bg-white md:py-0 py-4 rounded drop-shadow-lg">
-                  <UilHospital
-                    color="#1c2674"
-                    size={35}
-                    className="text-center mx-auto"
-                  />
-                </div>
-                <p className="md:my-auto md:flex gap-x-3 md:text-base text-center mx-auto text-xs md:ml-4 mt-2">
-                  Persalinan
-                </p>
-              </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="bi bi-chevron-right w-4 h-4 text-[#4bb43a] my-auto md:block hidden"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
-            </a>
-          </div>
-          {/* <div className="bg-white rounded-lg p-6 cursor-pointer">
-            <a className="flex justify-between my-auto">
-              <span className="my-auto flex gap-3">
-                <UilListOl color="#1c2674" />
-                Layanan Kesehatan
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mt-8 md:absolute md:bottom-10 md:left-6 md:right-6">
+          {services.map(({ icon: Icon, label, hint, to }) => (
+            <Link key={label} to={to} className="group flex items-center gap-3 surface surface-hover p-4 md:p-5">
+              <span className="h-11 w-11 shrink-0 rounded-xl bg-primary/10 text-primary grid place-items-center"><Icon size={26} /></span>
+              <span className="min-w-0 flex-1">
+                <span className="block font-semibold text-sm md:text-base text-slate-800">{label}</span>
+                <span className="hidden md:block text-xs text-slate-500 truncate">{hint}</span>
               </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="bi bi-chevron-right w-4 h-4 text-[#4bb43a] my-auto"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
-            </a>
-          </div>
-          <div className="bg-white rounded-lg p-6 cursor-pointer">
-            <a className="flex justify-between my-auto">
-              <span className="my-auto flex gap-3">
-                <UilListOl color="#1c2674" />
-                Informasi Klinik
-              </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="bi bi-chevron-right w-4 h-4 text-[#4bb43a] my-auto"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
-            </a>
-          </div>
-          <div className="bg-white rounded-lg p-6 cursor-pointer">
-            <a className="flex justify-between my-auto">
-              <span className="my-auto flex gap-3">
-                <UilListOl color="#1c2674" />
-                Informasi Klinik
-              </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="bi bi-chevron-right w-4 h-4 text-[#4bb43a] my-auto"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
-            </a>
-          </div> */}
+              <UilAngleRight size={20} className="hidden md:block text-slate-300 group-hover:text-primary transition-colors" />
+            </Link>
+          ))}
         </div>
       </div>
     </section>

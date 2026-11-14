@@ -24,7 +24,7 @@ export default function useGetAllSubMenu() {
     { skipEmptyString: true, skipNull: true }
   );
 
-  const { data, error } = useSWR(`/admin/sub-menu?${qs}`, fetcher);
+  const { data, error } = useSWR(`/admin/sub-menus?${qs}`, fetcher);
 
   const onSetName = useCallback((newName: string) => {
     setName(newName);

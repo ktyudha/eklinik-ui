@@ -2,7 +2,7 @@ import { FunctionComponent, useState, useEffect } from "react";
 import clsx from "clsx";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
 // import Avatar from "@assets/icons/avatar.png";
-import Logo from "@/assets/logo/logo-bidan-susenowati-white.svg";
+import Logo from "@/assets/logo/logo-bidan-susenowati.svg";
 import Spinner from "@/components/reusable/Spinner";
 import useGlobalStore from "@/store/useStore";
 import Cookies from "js-cookie";
@@ -13,9 +13,10 @@ import { useNavigate } from "react-router-dom";
 // import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 const DefaultNavbar: FunctionComponent = () => {
-  const { user, userRole } = useGlobalStore((state) => ({
+  const { user, userRole, toggleSidebar } = useGlobalStore((state) => ({
     user: state.user,
     userRole: state.userRole,
+    toggleSidebar: state.setIsSidebarExpand,
   }));
   const navigate = useNavigate();
   // const location = useLocation();
@@ -108,7 +109,7 @@ const DefaultNavbar: FunctionComponent = () => {
   // }, [location]);
 
   return (
-    <div className="navbar sticky top-0 bg-[#1c2674] text-white z-10 shadow-md">
+    <div className="navbar sticky top-0 bg-white text-gray-700 z-30 border-b border-gray-200 min-h-16">
       <div className="flex-1">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col items-center justify-center">
@@ -132,6 +133,12 @@ const DefaultNavbar: FunctionComponent = () => {
             </svg>
           </label>
         </div>
+        <button type="button" onClick={() => toggleSidebar(true)} aria-label="Ciutkan atau perluas menu"
+          className="btn btn-ghost btn-square hidden lg:inline-flex">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="h-5 w-5 stroke-current">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h10M4 18h16" />
+          </svg>
+        </button>
         <a href="/admin/dashboard" className="btn btn-ghost text-xl lg:hidden">
           <img src={Logo} alt="logo-bidan-susenowati" className="max-w-40" />
         </a>

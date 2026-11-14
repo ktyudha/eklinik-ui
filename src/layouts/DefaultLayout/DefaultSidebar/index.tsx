@@ -1,76 +1,47 @@
-import { FunctionComponent, useMemo, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-// import {
-//   UilArrowCircleLeft,
-//   UilArrowCircleRight,
-// } from "@iconscout/react-unicons";
-// import iconTracer from "@/assets/images/icon-tracer.png";
+import { FunctionComponent, Fragment } from "react";
+import { useLocation } from "react-router-dom";
+import clsx from "clsx";
 import Logo from "@/assets/logo/logo-bidan-susenowati.svg";
+import LogoCircle from "@/assets/logo/logo-bidan-susenowati-circle.svg";
 import useGlobalStore from "@/store/useStore";
 import sidebarMenus from "./sidebar-menu.constant";
-
 import SidebarItem from "./SidebarItem";
 
 const DefaultSidebar: FunctionComponent = () => {
-  const navigate = useNavigate();
-  const { user, userRole } = useGlobalStore((state) => ({
-    user: state.user,
-    userRole: state.userRole,
-  }));
-
-  const menuList = useMemo(() => {
-    return sidebarMenus;
-  }, [userRole, sidebarMenus]);
-
   const { pathname } = useLocation();
-  const pathnameSegments = pathname.split("/").slice(1);
-
-  useEffect(() => {
-    // Check School Grade
-    {
-      if (
-        pathnameSegments.length > 1 &&
-        pathnameSegments[1] === "alumni-snbp"
-      ) {
-        navigate("/school/dashboard");
-      }
-    }
-  }, [user, pathnameSegments]);
+  const segment = pathname.split("/")[2];
+  const collapsed = !useGlobalStore((s) => s.isSidebarExpand);
+  let lastGroup = "";
 
   return (
-    <div className="drawer-side  z-20 mt-[66px] lg:mt-0">
-      <label
-        htmlFor="my-drawer-2"
-        aria-label="close sidebar"
-        className="drawer-overlay"
-      ></label>
-      <ul className="menu pt-2 w-80 bg-base-100 min-h-full text-base-content">
-        {/* Sidebar content here */}
-        <a
-          href="/admin/dashboard"
-          className="mt-3 mb-6 font-semibold text-xl hidden lg:block mx-auto"
-        >
-          <img src={Logo} alt="logo-bidan-susenowati" className="max-w-64" />
+    <div className="drawer-side z-20 mt-[64px] lg:mt-0">
+      <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay" />
+      <aside style={{ transition: "width .3s cubic-bezier(.4,0,.2,1)" }} className={clsx("flex min-h-full w-72 flex-col overflow-x-hidden border-r border-gray-200 bg-white will-change-[width]", collapsed ? "lg:w-[84px]" : "lg:w-72")}>
+        {/* dua logo saling memudar */}
+        <a href="/admin/dashboard" className="relative hidden h-[88px] shrink-0 items-center justify-center border-b border-gray-100 lg:flex">
+          <img src={Logo} alt="Bidan Susenowati" className={clsx("absolute max-w-52 transition-opacity duration-300", collapsed ? "opacity-0" : "opacity-100")} />
+          <img src={LogoCircle} alt="" className={clsx("absolute h-10 w-10 transition-opacity duration-300", collapsed ? "opacity-100" : "opacity-0")} />
         </a>
 
-        <li className="gap-1">
-          {menuList.map((menu, idx) => {
-            const url = menu.url.split("/").slice(1);
-            const isActiveMenu = pathnameSegments[1] === url[1];
-
+        <nav className="flex-1 space-y-1 overflow-y-auto overflow-x-hidden p-3">
+          {sidebarMenus.map((menu) => {
+            const showGroup = menu.group !== lastGroup;
+            const first = lastGroup === "";
+            lastGroup = menu.group;
             return (
-              <SidebarItem
-                key={`sidebar-item-${idx}`}
-                {...menu}
-                icon={menu.icon}
-                name={menu.name}
-                url={menu.url}
-                isActiveMenu={isActiveMenu}
-              />
+              <Fragment key={menu.url}>
+                {showGroup && (
+                  <div className={clsx("relative transition-all duration-300", first ? "h-6" : "mt-3 h-7")}>
+                    <p className={clsx("absolute inset-x-3 bottom-1 whitespace-nowrap text-[11px] font-semibold uppercase tracking-wider text-gray-400 transition-opacity duration-300", collapsed ? "opacity-0" : "opacity-100")}>{menu.group}</p>
+                    {!first && <span className={clsx("absolute inset-x-3 bottom-2 border-t border-gray-100 transition-opacity duration-300", collapsed ? "opacity-100" : "opacity-0")} />}
+                  </div>
+                )}
+                <SidebarItem {...menu} collapsed={collapsed} isActiveMenu={segment === menu.url.split("/")[2]} />
+              </Fragment>
             );
           })}
-        </li>
-      </ul>
+        </nav>
+      </aside>
     </div>
   );
 };

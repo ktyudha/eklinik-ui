@@ -11,6 +11,8 @@ import {
 
 import GetBrowserRoutes from "./components/utils/Router.tsx";
 import { ToastContainer } from "react-toastify";
+import { SWRConfig } from "swr";
+import TopProgress from "@/components/reusable/TopProgress";
 import * as Sentry from "@sentry/react";
 
 // import Loader from "@/components/reusable/Loader.tsx";
@@ -48,8 +50,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <ToastContainer />
-    {/* <Suspense fallback={<Loader />}> */}
-    <RouterProvider router={router} />
-    {/* </Suspense> */}
+    <TopProgress />
+    {/* Data lama tetap tampil saat memuat ulang (tanpa berkedip), tidak refetch tiap pindah tab */}
+    <SWRConfig value={{ keepPreviousData: true, revalidateOnFocus: false, dedupingInterval: 2000 }}>
+      <RouterProvider router={router} />
+    </SWRConfig>
   </StrictMode>
 );

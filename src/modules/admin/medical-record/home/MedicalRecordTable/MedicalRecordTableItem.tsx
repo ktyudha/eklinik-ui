@@ -25,14 +25,14 @@ const MedicalRecordTableItem: FunctionComponent<Props> = ({
       <td className="px-6 uppercase">{medical.patient.name}</td>
       <td className="px-6">{formattedCheckupDate}</td>
       <td className="px-6 ">
-        <span className="rounded-full border  text-center border-[#4bb43a] text-[#4bb43a] hover:bg-[#4bb43a] hover:text-white cursor-pointer ease-in-out duration-300 px-3 py-1">
+        <span className="rounded-full border  text-center border-[#4bb43a] text-[#4bb43a] hover:bg-primary hover:text-white cursor-pointer ease-in-out duration-300 px-3 py-1">
           {medical.classification.name}
         </span>
       </td>
       <td className="flex flex-row gap-3">
         {/* <label
           htmlFor={`patient-modal-${number}`}
-          className="flex items-center justify-center gap-1 hover:bg-gray-400 hover:text-white border border-gray-400 text-gray-400 rounded-md w-full p-1"
+          className="flex items-center justify-center gap-1 rounded-lg px-2.5 py-1.5 text-gray-600 transition-colors hover:bg-gray-100"
         >
           <UilEye size="15" />
           <span className="text-xs ">Detail</span>
@@ -42,7 +42,7 @@ const MedicalRecordTableItem: FunctionComponent<Props> = ({
 
         <button
           type="button"
-          className="flex items-center justify-center gap-1 hover:bg-gray-400 hover:text-white border border-gray-400 text-gray-400 rounded-md w-full p-1"
+          className="flex items-center justify-center gap-1 rounded-lg px-2.5 py-1.5 text-gray-600 transition-colors hover:bg-gray-100"
         >
           <UilPen size="15" />
           <span className="text-xs">Ubah</span>
@@ -50,7 +50,7 @@ const MedicalRecordTableItem: FunctionComponent<Props> = ({
 
         <button
           type="button"
-          className="flex items-center justify-center gap-1 hover:bg-red-400 hover:text-white border border-red-400 text-red-400 rounded-md w-full p-1"
+          className="flex items-center justify-center gap-1 rounded-lg px-2.5 py-1.5 text-error-600 transition-colors hover:bg-error-50"
         >
           <UilTrashAlt size="15" />
           <span className="text-xs">Hapus</span>

@@ -34,7 +34,7 @@ const QueueTableItemMenu: FunctionComponent<Props> = ({ appointment }) => {
       <div className="flex items-center justify-center gap-3">
         {/* <button
           type="button"
-          className="flex items-center justify-center gap-1 hover:bg-gray-400 hover:text-white border border-gray-400 text-gray-400 rounded-md w-full p-1"
+          className="flex items-center justify-center gap-1 rounded-lg px-2.5 py-1.5 text-gray-600 transition-colors hover:bg-gray-100"
           onClick={() => setOpenDetailModal(true)}
         >
           <UilEye size="15" />
@@ -42,7 +42,7 @@ const QueueTableItemMenu: FunctionComponent<Props> = ({ appointment }) => {
         </button> */}
         <button
           type="button"
-          className="flex items-center justify-center gap-1 hover:bg-gray-400 hover:text-white border border-gray-400 text-gray-400 rounded-md w-full p-1"
+          className="flex items-center justify-center gap-1 rounded-lg px-2.5 py-1.5 text-gray-600 transition-colors hover:bg-gray-100"
           onClick={() => navigate("edit/" + appointment.id)}
         >
           {/* <UilEdit size="20" color="#eab308" /> */}
@@ -51,7 +51,7 @@ const QueueTableItemMenu: FunctionComponent<Props> = ({ appointment }) => {
         </button>
         <button
           type="button"
-          className="flex items-center justify-center gap-1 hover:bg-red-400 hover:text-white border border-red-400 text-red-400 rounded-md w-full p-1"
+          className="flex items-center justify-center gap-1 rounded-lg px-2.5 py-1.5 text-error-600 transition-colors hover:bg-error-50"
           onClick={() => setOpenDeleteModal(true)}
         >
           {/* <UilTrashAlt size="20" color="#ef4444" /> */}

@@ -148,7 +148,7 @@ const UpdateQueueAction: FunctionComponent = () => {
                       className={`rounded-lg px-20 py-3 font-medium text-base leading-4 text-white ${
                         !isValid || isSubmitting
                           ? "bg-[#9fe194] cursor-not-allowed focus:outline-none disabled:opacity-100"
-                          : "bg-[#4bb43a] hover:bg-[#379029]"
+                          : "bg-primary hover:bg-[#379029]"
                       }`}
                       disabled={!isValid || isSubmitting}
                     >

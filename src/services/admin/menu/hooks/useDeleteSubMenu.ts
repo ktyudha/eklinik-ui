@@ -9,10 +9,10 @@ export default function useDeleteSubMenu() {
       const res = await axiosInstance({
         withToken: true,
         tokenType: "admin",
-      }).delete(`/admin/sub-menu/${subMenuId}`);
+      }).delete(`/admin/sub-menus/${subMenuId}`);
 
       if (res.status === 200) {
-        revalidateMutationsByKey(/^\/admin\/sub-menu/);
+        revalidateMutationsByKey(/^\/admin\/sub-menus/);
       }
 
       return { response: res, error: null };

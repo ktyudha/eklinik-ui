@@ -70,107 +70,46 @@ const LandingQueue: FunctionComponent = () => {
   }, [queue]);
 
   return (
-    <>
-      <section className="md:mx-auto bg-white max-w-md">
-        <div className="mx-4 md:px-4 pt-4">
-          {loading ? (
-            <QueueSkeleton />
+    <section className="mx-auto min-h-[80vh] max-w-md px-4 py-8">
+      {loading ? (
+        <QueueSkeleton />
+      ) : (
+        <>
+          <div className="rounded-3xl bg-gradient-to-br from-brand-700 via-brand-600 to-sky-500 p-8 text-center text-white shadow-lift">
+            <p className="text-xs font-medium uppercase tracking-wider text-white/80">Nomor antrian saat ini</p>
+            <p className="mt-2 text-6xl font-bold tracking-wider">{queue_number_now || "0"}</p>
+          </div>
+
+          {queueData ? (
+            <div className="surface mt-4 p-6 text-center">
+              <p className="text-xs uppercase tracking-wider text-gray-400">Nomor antrian Anda</p>
+              <p className="mt-1 text-6xl font-bold tracking-wider text-brand-600">{queueData?.queue_number}</p>
+              <dl className="mt-6 space-y-3 border-t border-gray-100 pt-5 text-left text-sm">
+                <div className="flex justify-between gap-4"><dt className="text-gray-400">Pasien</dt><dd className="font-medium text-gray-800">{queueData?.patient.name}</dd></div>
+                <div className="flex justify-between gap-4"><dt className="text-gray-400">Waktu</dt><dd className="font-medium text-gray-800">{formattedDateTime2(queueData?.queue_date)}</dd></div>
+                <div className="flex justify-between gap-4"><dt className="text-gray-400">Keluhan</dt><dd className="text-right font-medium text-gray-800">{queueData?.description}</dd></div>
+              </dl>
+              <button type="button" className="btn btn-outline mt-6 w-full border-error-500 text-error-600 hover:bg-error-50" onClick={cancelQueue} disabled={loadingCancel}>
+                {loadingCancel ? <Spinner /> : "Batalkan antrian"}
+              </button>
+            </div>
           ) : (
-            <>
-              <div className="relative text-center bg-[#4bb43a] text-white py-8 mb-4 rounded-xl before:content-[''] after:content-[''] before:w-6 before:h-6 after:w-6 after:h-6 before:bg-white after:bg-white before:rounded-full after:rounded-full before:absolute after:absolute before:top-1/2 after:top-1/2 before:-left-3 after:-right-3 before:-translate-y-1/2 after:-translate-y-1/2">
-                <h5 className="uppercase text-sm">Nomor Antrian Saat Ini</h5>
-                {/* <div className="relative flex items-center justify-center w-full">
-                   
-                    <button className="absolute left-24 bg-[#e4f8e0] shadow text-white p-1.5 rounded-full my-auto">
-                      <UilRefresh size="20" color="#6eca5e" />
-                    </button> */}
-
-                <span className="text-4xl font-semibold tracking-wider text-center">
-                  {queue_number_now || "0"}
-                </span>
-                {/* </div> */}
-              </div>
-
-              {queueData ? (
-                <div className="relative text-center bg-gray-100 py-8 rounded-xl before:content-[''] after:content-[''] before:w-6 before:h-6 after:w-6 after:h-6 before:bg-white after:bg-white before:rounded-full after:rounded-full before:absolute after:absolute before:bottom-[22.5%] after:bottom-[22.5%] before:-left-3 after:-right-3 before:-translate-y-[20%] after:-translate-y-[20%]">
-                  <div className="mb-4">
-                    <label className="uppercase text-sm text-[#4bb43a]">
-                      Pasien
-                    </label>
-                    <h5 className="uppercase text-lg font-semibold">
-                      {queueData?.patient.name}
-                    </h5>
-                    <span className="text-sm font-medium tracking-wider">
-                      {formattedDateTime2(queueData?.queue_date)}
-                    </span>
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="uppercase text-sm text-[#4bb43a]">
-                      Keluhan
-                    </label>
-                    <h5 className="capitalize text-lg font-semibold">
-                      {queueData?.description}
-                    </h5>
-                  </div>
-
-                  <div className="mb-8">
-                    <label className="uppercase text-sm text-[#4bb43a]">
-                      Nomor Antrian
-                    </label>
-                    <p className="text-6xl font-bold tracking-wider">
-                      {queueData?.queue_number}
-                    </p>
-                  </div>
-
-                  <div className="mx-8 flex">
-                    <button
-                      type="button"
-                      className="bg-red-500 text-white w-full py-3 rounded-lg text-base"
-                      onClick={cancelQueue}
-                      disabled={loadingCancel}
-                    >
-                      <span>{loadingCancel ? <Spinner /> : "Batalkan"}</span>
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div className="mt-6">
-                  <FormProvider {...methods}>
-                    <form
-                      className="w-full"
-                      onSubmit={methods.handleSubmit(onSubmit)}
-                    >
-                      <Textarea
-                        label="Keluhan"
-                        placeholder="Tulis keluhan Anda secara singkat"
-                        name="description"
-                        isRequired
-                      />
-
-                      <button
-                        type="submit"
-                        className={clsx([
-                          "block w-full py-4 mt-4 rounded-lg font-semibold mb-2 cursor-pointer",
-                          isValid
-                            ? "bg-[#1c2674] hover:bg-[#1c2674] text-white"
-                            : "bg-neutral-200 text-neutral-400",
-                        ])}
-                        disabled={isSubmitting || !isValid}
-                      >
-                        <span>
-                          {isSubmitting ? <Spinner /> : "Ambil Antrian"}
-                        </span>
-                      </button>
-                    </form>
-                  </FormProvider>
-                </div>
-              )}
-            </>
+            <div className="surface mt-4 p-6">
+              <h2 className="text-lg font-bold text-gray-900">Ambil antrian</h2>
+              <p className="mb-4 text-sm text-gray-500">Ceritakan keluhan Anda secara singkat.</p>
+              <FormProvider {...methods}>
+                <form className="w-full" onSubmit={methods.handleSubmit(onSubmit)}>
+                  <Textarea label="Keluhan" placeholder="Mis. Kontrol kehamilan" name="description" isRequired />
+                  <button type="submit" className={clsx("btn btn-primary mt-4 h-12 w-full text-base", !isValid && "opacity-60")} disabled={isSubmitting || !isValid}>
+                    {isSubmitting ? <Spinner /> : "Ambil antrian"}
+                  </button>
+                </form>
+              </FormProvider>
+            </div>
           )}
-        </div>
-      </section>
-    </>
+        </>
+      )}
+    </section>
   );
 };
 

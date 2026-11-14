@@ -21,19 +21,18 @@ const SettingMedicalRecordTabItem: FunctionComponent<Props> = ({
   const isActive = activeMedicalRecordTab === value;
 
   return (
-    <li className="w-full">
-      <div
+    <li className="flex-1 sm:flex-none">
+      <button
+        type="button"
         className={clsx([
-          "inline-block w-full px-4 py-1 active focus:outline-none text-lg rounded-xl md:rounded-full lg:rounded-full cursor-pointer",
-          isActive
-            ? "bg-[#1c2674]  text-white border-2 border-white"
-            : "bg-[#1c2674] text-white",
+          "w-full whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-all",
+          isActive ? "bg-white text-brand-600 shadow-sm" : "text-gray-500 hover:text-gray-800",
         ])}
-        aria-current="page"
+        aria-current={isActive ? "page" : undefined}
         onClick={() => setActiveMedicalRecordTab(value)}
       >
         {label}
-      </div>
+      </button>
     </li>
   );
 };

@@ -6,8 +6,8 @@ export interface Props {
 
 const TableWrapper: FunctionComponent<Props> = ({ children }) => (
   <>
-    <div className="overflow-x-auto">
-      <table className="table rounded-lg bg-base-100">
+    <div className="overflow-x-auto rounded-xl border border-base-300 bg-base-100 shadow-sm">
+      <table className="table">
         {children.map((node) => node)}
       </table>
     </div>

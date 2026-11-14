@@ -10,10 +10,13 @@ export default function useGetClassification(classificationId: string) {
       .get(url)
       .then((res) => res.data);
 
-  const { data, error } = useSWR(`/admin/classifications/${classificationId}`, fetcher);
+  const { data, error } = useSWR(
+    classificationId ? `/admin/classifications/${classificationId}` : null,
+    fetcher
+  );
 
   return {
-    loading: !data && !error,
+    loading: !!classificationId && !data && !error,
     classification: data?.classification,
     error,
   };

@@ -1,342 +1,98 @@
-import { FunctionComponent, useEffect } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import Modal from "@/components/reusable/Modal";
-import Input from "@/components/reusable/Form/Input";
-import Textarea from "@/components/reusable/Form/Textarea";
-import Select from "@/components/reusable/Form/Select";
-import Spinner from "@/components/reusable/Spinner";
-// import {
-//   religionOptions,
-//   maritalStatusOptions,
-//   genderOptions,
-//   educationOptions,
-//   jobOptions,
-// } from "./create-or-update-patient.constant";\
-import {
-  RELIGION,
-  MARITAL_STATUS,
-  GENDER,
-  EDUCATION,
-  JOB,
-} from "@/constant/utils";
-import useCreatePatient from "@/services/admin/patient/hooks/useCreatePatient";
-import { ICreatePatientPayload } from "@/services/admin/patient/interfaces/create-patient.types";
-import useGetAllProvince from "@/services/global/region/province/hooks/useGetAllProvince";
-import useGetProvince from "@/services/global/region/province/hooks/useGetProvince";
-import useGetCity from "@/services/global/region/city/hooks/useGetCity";
-import useMapInputOptions from "@/hooks/useMapInputOptions";
-import useGetSubDistrict from "@/services/global/region/sub-district/hooks/useGetSubDistrict";
+import { FunctionComponent, useEffect, useState } from "react";
+import type { Patient } from "@/services/admin/crud/crud";
+import { adminSend } from "@/lib/admin-api";
+import { RELIGION, MARITAL_STATUS, EDUCATION, JOB } from "@/constant/utils";
+import { FormModal, Field, notify } from "@/modules/admin/_ui";
 
-interface Props {
-  onOpen: boolean;
-  onClose: () => void;
-}
+interface Props { onOpen: boolean; onClose: () => void; patient?: Patient | null }
 
-type FormFields = ICreatePatientPayload;
+const blank = {
+  name: "", gender: "Perempuan", birth_date: "", phone_number: "",
+  nik: "", email: "", birth_place: "", religion: "", marital_status: "", education: "", job: "", additional_address: "",
+};
 
-const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose }) => {
-  const methods = useForm<FormFields>({ mode: "onChange" });
-  const { isSubmitting } = methods.formState;
-  const isValid = methods.formState.isValid;
+const Select: FunctionComponent<{ value: string; onChange: (v: string) => void; options: { label: string; value: string | number }[] }> = ({ value, onChange, options }) => (
+  <select className="select select-bordered w-full" value={value} onChange={(e) => onChange(e.target.value)}>
+    <option value="">Pilih</option>
+    {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+  </select>
+);
 
-  const { provinces } = useGetAllProvince();
-  const { province } = useGetProvince(methods.getValues("province_id") || "");
-  const { city } = useGetCity(methods.getValues("city_id") || "");
-  const { sub_district } = useGetSubDistrict(
-    methods.getValues("sub_district_id") || ""
-  );
-
-  const provinceOptions = useMapInputOptions(provinces);
-  const cityOptions = useMapInputOptions(province?.cities);
-  const subDistrictOptions = useMapInputOptions(city?.sub_districts);
-  const villageOptions = useMapInputOptions(sub_district?.villages);
+/** Form cepat: hanya 4 isian wajib. Data lengkap boleh menyusul. */
+const CreatePatientModal: FunctionComponent<Props> = ({ onOpen, onClose, patient }) => {
+  const [f, setF] = useState(blank);
+  const [more, setMore] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const editing = !!patient;
 
   useEffect(() => {
-    methods.setValue("city_id", "");
-    methods.setValue("sub_district_id", "");
-    methods.setValue("village_id", "");
-  }, [methods.getValues("province_id")]);
+    if (!onOpen) return;
+    if (patient) {
+      setF({
+        name: patient.name ?? "", gender: patient.gender ?? "Perempuan", birth_date: patient.birth_date ? String(patient.birth_date).slice(0, 10) : "",
+        phone_number: patient.phone_number ?? "", nik: patient.nik ?? "", email: patient.email ?? "", birth_place: patient.birth_place ?? "",
+        religion: patient.religion ?? "", marital_status: patient.marital_status ?? "", education: patient.education ?? "", job: patient.job ?? "",
+        additional_address: patient.additional_address ?? "",
+      });
+      setMore(true);
+    } else { setF(blank); setMore(false); }
+  }, [onOpen, patient]);
 
-  useEffect(() => {
-    methods.setValue("sub_district_id", "");
-    methods.setValue("village_id", "");
-  }, [methods.watch("city_id")]);
+  const set = (k: keyof typeof blank) => (v: string) => setF((s) => ({ ...s, [k]: v }));
 
-  useEffect(() => {
-    methods.watch("province_id");
-    methods.watch("city_id");
-    methods.watch("sub_district_id");
-    methods.watch("village_id");
-  }, [methods]);
+  const close = () => { setF(blank); setMore(false); onClose(); };
 
-  const { createPatient } = useCreatePatient();
-  const onSubmit: SubmitHandler<FormFields> = async (state) => {
-    const payload = {
-      ...state,
-      username: typeof state.name === "string" ? state.name.split(" ")[0] : "",
-    };
-
-    const { error, response } = await createPatient(payload);
-    if (error || response) {
-      if (error) {
-        toast.error("Gagal Menambahkan Pasien", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-      } else {
-        toast.success("Sukses Menambahkan Pasien", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-
-        onClose();
-        methods.reset();
-      }
-    }
+  const save = async () => {
+    setBusy(true);
+    // kirim hanya isian yang terisi
+    const body = Object.fromEntries(Object.entries(f).filter(([, v]) => v !== ""));
+    const r = editing
+      ? await adminSend("put", `/admin/patients/${patient!.id}`, { ...f }, "/admin/patients")
+      : await adminSend("post", "/admin/patients", body, "/admin/patients");
+    setBusy(false);
+    if (notify(r, editing ? "Data pasien diperbarui" : "Pasien berhasil ditambahkan")) close();
   };
 
-  if (!onOpen) return null;
-
   return (
-    <Modal
-      onOpen={onOpen}
-      modalSize="lg"
-      title="Tambah Pasien"
-      onClose={onClose}
-    >
-      <FormProvider {...methods}>
-        <form className="w-full" onSubmit={methods.handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
-            <Input
-              label="Nama"
-              type="text"
-              placeholder="Nama Lengkap"
-              name="name"
-              isRequired
-            />
-            <Input
-              label="NIK"
-              type="text"
-              placeholder="xxxxxxxxxxxxxxxx"
-              name="nik"
-              isRequired
-            />
+    <FormModal open={onOpen} title={editing ? "Ubah Pasien" : "Pasien Baru"} onClose={close} onSubmit={save} busy={busy}>
+      <Field label="Nama lengkap">
+        <input className="input input-bordered" required autoFocus placeholder="Mis. Siti Nurhaliza" value={f.name} onChange={(e) => set("name")(e.target.value)} />
+      </Field>
 
-            {/* <Input
-              label="Username"
-              type="text"
-              placeholder="Username"
-              name="username"
-              isRequired
-            /> */}
-            <Input
-              label="Tempat Lahir"
-              type="text"
-              placeholder="Mojokerto"
-              name="birth_place"
-              isRequired
-            />
-            <Input
-              label="Tanggal Lahir"
-              type="date"
-              placeholder="Mojokerto"
-              name="birth_date"
-              isRequired
-            />
+      <div>
+        <span className="label-text mb-1 block font-medium">Jenis kelamin</span>
+        <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-100 p-1">
+          {["Perempuan", "Laki-laki"].map((g) => (
+            <button key={g} type="button" onClick={() => set("gender")(g)}
+              className={`rounded-lg py-2 text-sm font-semibold transition-all ${f.gender === g ? "bg-white text-primary shadow-sm" : "text-slate-500"}`}>{g}</button>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Tanggal lahir"><input type="date" required className="input input-bordered" value={f.birth_date} onChange={(e) => set("birth_date")(e.target.value)} /></Field>
+        <Field label="No. HP"><input type="tel" required inputMode="tel" placeholder="08xxxxxxxxxx" className="input input-bordered" value={f.phone_number} onChange={(e) => set("phone_number")(e.target.value)} /></Field>
+      </div>
+
+      <button type="button" className="text-sm font-semibold text-primary" onClick={() => setMore((m) => !m)}>
+        {more ? "− Sembunyikan data tambahan" : "+ Tambah data lengkap (opsional)"}
+      </button>
+
+      {more && (
+        <div className="space-y-3 rounded-2xl bg-slate-50 p-4">
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="NIK"><input className="input input-bordered" value={f.nik} onChange={(e) => set("nik")(e.target.value)} /></Field>
+            <Field label="Email"><input type="email" className="input input-bordered" value={f.email} onChange={(e) => set("email")(e.target.value)} /></Field>
+            <Field label="Tempat lahir"><input className="input input-bordered" value={f.birth_place} onChange={(e) => set("birth_place")(e.target.value)} /></Field>
+            <Field label="Agama"><Select value={f.religion} onChange={set("religion")} options={RELIGION} /></Field>
+            <Field label="Status pernikahan"><Select value={f.marital_status} onChange={set("marital_status")} options={MARITAL_STATUS} /></Field>
+            <Field label="Pendidikan"><Select value={f.education} onChange={set("education")} options={EDUCATION} /></Field>
           </div>
-          <hr className="mt-6 mb-3" />
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
-            <Input
-              label="E-mail"
-              type="email"
-              placeholder="example@gmail.com"
-              name="email"
-              isRequired
-            />
-            <Input
-              label="Nomor HP"
-              type="text"
-              placeholder="628xxxxxxxx"
-              name="phone_number"
-              isRequired
-            />
-            <Select
-              label="Agama"
-              name="religion"
-              isRequired
-              selectOptions={RELIGION}
-            />
-
-            <Select
-              label="Jenis Kelamin"
-              name="gender"
-              isRequired
-              selectOptions={GENDER}
-            />
-            <Select
-              label="Pendidikan"
-              name="education"
-              isRequired
-              selectOptions={EDUCATION}
-            />
-            <Select
-              label="Pekerjaan"
-              name="job"
-              isRequired
-              selectOptions={JOB}
-            />
-
-            <Select
-              label="Status Perkawinan"
-              name="marital_status"
-              isRequired
-              selectOptions={MARITAL_STATUS}
-            />
-          </div>
-          <hr className="mt-6 mb-3" />
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 my-4">
-            <Select
-              label="Provinsi"
-              name="province_id"
-              isRequired
-              selectOptions={provinceOptions}
-            />
-            <Select
-              label="Kabupaten/Kota"
-              name="city_id"
-              isRequired
-              selectOptions={cityOptions}
-            />
-
-            <Select
-              label="Kecamatan"
-              name="sub_district_id"
-              isRequired
-              selectOptions={subDistrictOptions}
-            />
-
-            <Select
-              label="Desa"
-              name="village_id"
-              isRequired
-              selectOptions={villageOptions}
-            />
-            {/* <div className="flex flex-col">
-              <label
-                htmlFor={"province_id"}
-                className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
-              >
-                Provinsi <div className="text-red-500">*</div>
-              </label>
-              <select
-                className={`flex gap-1 border-2 py-2 px-3 rounded-lg outline-none bg-white text-md font-normal`}
-                required
-                onChange={(e) => setSelectedProvince(e.target.value)}
-              >
-                <option value="" selected>
-                  Pilih Provinsi
-                </option>
-                {provinceOptions.map((province) => (
-                  <option value={province.value}>{province.label}</option>
-                ))}
-              </select>
-            </div> */}
-
-            {/* <div className="flex flex-col">
-              <label
-                htmlFor={"city_id"}
-                className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
-              >
-                Kabupaten/Kota <div className="text-red-500">*</div>
-              </label>
-              <select
-                className={`flex gap-1 border-2 py-2 px-3 rounded-lg outline-none bg-white text-md font-normal`}
-                required
-                onChange={(e) => setSelectedCity(e.target.value)}
-              >
-                <option value="" selected>
-                  Pilih Kabupaten/Kota
-                </option>
-                {cityOptions.map((city) => (
-                  <option value={city.value}>{city.label}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="flex flex-col">
-              <label
-                htmlFor={"city_id"}
-                className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
-              >
-                Kecamatan <div className="text-red-500">*</div>
-              </label>
-              <select
-                className={`flex gap-1 border-2 py-2 px-3 rounded-lg outline-none bg-white text-md font-normal`}
-                required
-                onChange={(e) => setSelectedSubDistrict(e.target.value)}
-              >
-                <option value="" selected>
-                  Pilih Kecamatan
-                </option>
-                {subDistrictOptions.map((sub_district) => (
-                  <option value={sub_district.value}>
-                    {sub_district.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="flex flex-col">
-              <label
-                htmlFor={"village_id"}
-                className="flex gap-1 font-normal text-md leading-4 text-[#1E293B] mb-2"
-              >
-                Desa <div className="text-red-500">*</div>
-              </label>
-              <select
-                className={`flex gap-1 border-2 py-2 px-3 rounded-lg outline-none bg-white text-md font-normal`}
-                required
-                onChange={(e) => setSelectedVillage(e.target.value)}
-              >
-                <option value="" selected>
-                  Pilih Desa
-                </option>
-                {villageOptions.map((village) => (
-                  <option value={village.value}>{village.label}</option>
-                ))}
-              </select>
-            </div> */}
-          </div>
-          <div className="grid grid-cols-2">
-            <Textarea
-              label="Alamat Tambahan"
-              placeholder=""
-              name="additional_address"
-            />
-          </div>
-
-          <div className="w-full mt-6 mb-3 flex gap-5 justify-center">
-            <button
-              type="button"
-              className="w-full bg-gray-500 hover:bg-gray-600 rounded-lg py-2 font-medium text-base text-white"
-              onClick={onClose}
-            >
-              Tutup
-            </button>
-            <button
-              type="submit"
-              className={`w-full rounded-lg py-2 font-medium text-base text-white ${
-                !isValid || isSubmitting
-                  ? "bg-[#9fe194] cursor-not-allowed focus:outline-none disabled:opacity-100"
-                  : "bg-[#4bb43a] hover:bg-[#379029]"
-              }`}
-              disabled={!isValid || isSubmitting}
-            >
-              {!isSubmitting ? "Submit" : <Spinner />}
-            </button>
-          </div>
-        </form>
-      </FormProvider>
-    </Modal>
+          <Field label="Pekerjaan"><Select value={f.job} onChange={set("job")} options={JOB} /></Field>
+          <Field label="Alamat"><textarea className="textarea textarea-bordered" rows={2} value={f.additional_address} onChange={(e) => set("additional_address")(e.target.value)} /></Field>
+        </div>
+      )}
+    </FormModal>
   );
 };
 

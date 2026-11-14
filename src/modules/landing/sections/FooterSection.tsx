@@ -8,7 +8,7 @@ const FooterSection: FunctionComponent = () => {
 
   return (
     <>
-      <footer className="footer footer-center p-4 bg-[#1c2674] text-white hidden md:block">
+      <footer className="footer footer-center p-4 bg-gradient-to-r from-[#1c2674] to-brand-600 text-white hidden md:block">
         <aside>
           <p>© {year} Kurniawan Try Yudha</p>
         </aside>

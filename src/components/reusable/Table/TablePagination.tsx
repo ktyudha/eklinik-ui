@@ -84,7 +84,7 @@ const TablePagination: FunctionComponent<Props> = ({
             className={`${
               currentPage === 1
                 ? "bg-[#F1F5F9] text-[#94A3B8] cursor-not-allowed"
-                : "bg-[#EFF6FF] hover:bg-[#4bb43a] text-[#4bb43a] hover:text-white cursor-pointer"
+                : "bg-[#EFF6FF] hover:bg-primary text-[#4bb43a] hover:text-white cursor-pointer"
             } relative inline-flex items-center px-4 py-2 text-sm font-semibold leading-5 rounded-lg transition duration-150 ease-in-out focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10`}
             onClick={goPrevPage}
             disabled={currentPage === 1}
@@ -101,8 +101,8 @@ const TablePagination: FunctionComponent<Props> = ({
                 type="button"
                 className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold cursor-pointer leading-5 rounded-lg transition duration-150 ease-in-out focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 ${
                   isActive
-                    ? "bg-[#4bb43a] text-white"
-                    : "bg-[#EFF6FF] hover:bg-[#4bb43a] text-[#4bb43a] hover:text-white"
+                    ? "bg-primary text-white"
+                    : "bg-[#EFF6FF] hover:bg-primary text-[#4bb43a] hover:text-white"
                 }`}
                 onClick={() => {
                   setPageNum ? setPageNum(pageNumber) : null;
@@ -142,7 +142,7 @@ const TablePagination: FunctionComponent<Props> = ({
             className={`${
               currentPage === lastPage
                 ? "bg-[#F1F5F9] text-[#94A3B8] cursor-not-allowed"
-                : "bg-[#EFF6FF] hover:bg-[#4bb43a] text-[#4bb43a] hover:text-white cursor-pointer"
+                : "bg-[#EFF6FF] hover:bg-primary text-[#4bb43a] hover:text-white cursor-pointer"
             } relative inline-flex items-center px-4 py-2 text-sm font-semibold leading-5 rounded-lg transition duration-150 ease-in-out focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10`}
             onClick={goNextPage}
             disabled={currentPage === lastPage}

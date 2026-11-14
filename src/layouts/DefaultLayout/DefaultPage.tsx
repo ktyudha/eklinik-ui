@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 // import clsx from "clsx";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 // import { UilUser, UilSignOutAlt } from "@iconscout/react-unicons";
 // import ToggleThemeNavbar from "./ToggleThemeNavbar";
 // import Avatar from "@assets/icons/avatar.png";
@@ -15,6 +15,7 @@ import { Outlet } from "react-router-dom";
 import DefaultNavbar from "./DefaultNavbar";
 
 const DefaultPage: FunctionComponent = () => {
+  const { pathname } = useLocation();
   // const { user, userRole, isSidebarExpand, setIsSidebarExpand } =
   //   useGlobalStore((state) => ({
   //     user: state.user,
@@ -102,8 +103,8 @@ const DefaultPage: FunctionComponent = () => {
   return (
     <div className="drawer-content flex flex-col h-screen">
       <DefaultNavbar />
-      <main className="flex-1 overflow-y-auto px-4 py-8 md:p-12 bg-base-200">
-        <Outlet />
+      <main className="flex-1 overflow-y-auto px-3 py-6 md:p-8 bg-gray-50">
+        <div key={pathname} className="page-enter"><Outlet /></div>
       </main>
     </div>
   );

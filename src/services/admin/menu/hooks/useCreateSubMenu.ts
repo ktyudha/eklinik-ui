@@ -12,7 +12,7 @@ export default function useCreateSubMenu() {
       const res = await axiosInstance({
         withToken: true,
         tokenType: "admin",
-      }).post("/admin/sub-menu", {
+      }).post("/admin/sub-menus", {
         name,
         is_active,
         type,
@@ -20,7 +20,7 @@ export default function useCreateSubMenu() {
       });
 
       if (res.status === 200) {
-        revalidateMutationsByKey(/^\/admin\/sub-menu/);
+        revalidateMutationsByKey(/^\/admin\/sub-menus/);
       }
 
       return { response: res, error: null };

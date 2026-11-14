@@ -29,9 +29,17 @@ export default function axiosInstance(
       : undefined,
     ...instanceSettings,
   });
+  instance.interceptors.request.use((cfg) => {
+    window.dispatchEvent(new CustomEvent("api:start"));
+    return cfg;
+  });
   instance.interceptors.response.use(
-    (resp) => resp,
+    (resp) => {
+      window.dispatchEvent(new CustomEvent("api:end"));
+      return resp;
+    },
     (err) => {
+      window.dispatchEvent(new CustomEvent("api:end"));
       if (err.response.status === 401 && token && param.tokenType) {
         Cookies.remove(mapToken.get(param.tokenType) as string);
       }

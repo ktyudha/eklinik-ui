@@ -2,7 +2,24 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: { sans: ['Outfit', "system-ui", "sans-serif"] },
     extend: {
+      boxShadow: {
+        "theme-xs": "0px 1px 2px 0px rgba(16,24,40,0.05)",
+        "theme-sm": "0px 1px 3px 0px rgba(16,24,40,0.1), 0px 1px 2px 0px rgba(16,24,40,0.06)",
+        "theme-md": "0px 4px 8px -2px rgba(16,24,40,0.1), 0px 2px 4px -2px rgba(16,24,40,0.06)",
+        "theme-lg": "0px 12px 16px -4px rgba(16,24,40,0.08), 0px 4px 6px -2px rgba(16,24,40,0.03)",
+        soft: "0px 1px 2px 0px rgba(16,24,40,0.05)",
+        lift: "0px 10px 24px -8px rgba(79,70,229,0.45)",
+      },
+      colors: {
+        brand: { 25: "#f5f7ff", 50: "#eef2ff", 100: "#e0e7ff", 200: "#c7d2fe", 300: "#a5b4fc", 400: "#818cf8", 500: "#6366f1", 600: "#4f46e5", 700: "#4338ca", 800: "#3730a3", 900: "#312e81", DEFAULT: "#4f46e5", dark: "#4338ca", soft: "#eef2ff" },
+        gray: { 25: "#fcfcfd", 50: "#f9fafb", 100: "#f2f4f7", 200: "#e4e7ec", 300: "#d0d5dd", 400: "#98a2b3", 500: "#667085", 600: "#475467", 700: "#344054", 800: "#1d2939", 900: "#101828" },
+        success: { 50: "#ecfdf3", 100: "#d1fadf", 500: "#12b76a", 600: "#039855" },
+        error: { 50: "#fef3f2", 100: "#fee4e2", 500: "#f04438", 600: "#d92d20" },
+        warning: { 50: "#fffaeb", 100: "#fef0c7", 500: "#f79009", 600: "#dc6803" },
+      },
+      fontSize: { "theme-sm": ["14px", "20px"], "theme-xs": ["12px", "18px"], "theme-xl": ["20px", "30px"] },
       backgroundImage: {
         "hero-mobile": "url('@/assets/images/hero-mobile.png')",
         "hero-desktop": "url('@/assets/images/hero.png')",
@@ -11,6 +28,26 @@ export default {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light"], // Enable only the light theme
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["light"],
+          primary: "#4f46e5",
+          "primary-content": "#ffffff",
+          secondary: "#0ea5e9",
+          accent: "#12b76a",
+          neutral: "#101828",
+          "base-100": "#ffffff",
+          "base-200": "#f9fafb",
+          "base-300": "#e4e7ec",
+          info: "#0284c7",
+          success: "#12b76a",
+          warning: "#f79009",
+          error: "#f04438",
+          "--rounded-box": "1rem",
+          "--rounded-btn": "0.75rem",
+        },
+      },
+    ],
   },
 };

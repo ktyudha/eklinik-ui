@@ -8,3 +8,76 @@
 @import "react-toastify/dist/ReactToastify.css";
 @import "react-loading-skeleton/dist/skeleton.css";
 @import "react-quill/dist/quill.snow.css";
+
+/* ===== Design system (selaras Peternak Web): Outfit, brand oranye, abu netral ===== */
+:root { --ring: 79 70 229; }
+html { font-family: Outfit, system-ui, sans-serif; }
+body { background: #f9fafb; color: #1d2939; -webkit-font-smoothing: antialiased; font-size: 14px; }
+::selection { background: #4f46e5; color: #fff; }
+:focus-visible { outline: 2px solid #a5b4fc; outline-offset: 2px; }
+button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+
+/* Kartu: datar, border halus */
+.surface { background: #fff; border: 1px solid #e4e7ec; border-radius: .75rem; box-shadow: 0 1px 2px rgba(16,24,40,.05); }
+.surface-hover { transition: box-shadow .2s, border-color .2s; }
+.surface-hover:hover { border-color: #a5b4fc; box-shadow: 0 12px 16px -4px rgba(16,24,40,.08), 0 4px 6px -2px rgba(16,24,40,.03); }
+
+/* Tombol */
+.btn { border-radius: .5rem; font-weight: 500; text-transform: none; letter-spacing: 0; transition: all .15s; }
+.btn-primary { background-image: linear-gradient(135deg,#6366f1,#4f46e5); border: 0; color: #fff; box-shadow: 0 1px 2px rgba(16,24,40,.05); }
+.btn-primary:hover { filter: brightness(1.05); box-shadow: 0 8px 20px -6px rgba(79,70,229,.55); }
+.btn-primary:disabled { background-image: none; background: #a5b4fc; color: #fff; box-shadow: none; }
+.btn-outline.btn-primary { background: #fff; background-image: none; color: #475467; border: 1px solid #d0d5dd; }
+.btn-outline.btn-primary:hover { background: #f9fafb; color: #344054; }
+.btn-ghost:hover { background: #f2f4f7; }
+
+/* Form */
+.input, .select, .textarea { background: #fff; border: 1px solid #d0d5dd; border-radius: .75rem; box-shadow: none; font-size: 14px; color: #1d2939; min-height: 2.75rem; padding-left: .875rem; padding-right: .875rem; }
+.input::placeholder, .textarea::placeholder { color: #98a2b3; }
+.input:focus, .select:focus, .textarea:focus, .input:focus-within { background: #fff; border-color: #6366f1; outline: none; box-shadow: 0 0 0 3px rgba(99,102,241,.22); }
+.badge { font-weight: 500; border-radius: 9999px; padding: .15rem .65rem; }
+
+/* Tabel */
+.table thead th { background: #f9fafb; color: #667085; font-size: .75rem; font-weight: 500; text-transform: none; letter-spacing: 0; white-space: nowrap; border-bottom: 1px solid #e4e7ec; }
+.table tbody td { border-bottom: 1px solid #f2f4f7; color: #344054; }
+.table tbody tr:hover { background: #fcfcfd; }
+
+/* Bottom sheet (selaras dhagrafis) */
+.glass-strong { background-color: rgb(255 255 255 / .88); -webkit-backdrop-filter: blur(30px) saturate(180%); backdrop-filter: blur(30px) saturate(180%); border: 1px solid rgb(255 255 255 / .7); box-shadow: 0 20px 50px rgb(16 24 40 / .25), inset 0 1px 0 rgb(255 255 255 / .9); }
+.sheet-backdrop { animation: fade .2s ease-out; }
+.sheet-panel { animation: sheet-up .3s cubic-bezier(.2,.8,.2,1); }
+@media (min-width: 768px) { .sheet-panel { animation: pop .2s ease-out; } }
+@keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.98) } to { opacity: 1; transform: none } }
+@keyframes fade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes sheet-up { from { transform: translateY(100%); opacity: .6 } to { transform: none; opacity: 1 } }
+
+* { scrollbar-width: thin; scrollbar-color: #d0d5dd transparent; }
+
+/* ===== Kehalusan gerak ===== */
+html { scroll-behavior: smooth; }
+.page-enter { animation: pageIn .32s cubic-bezier(.2,.8,.2,1); }
+@keyframes pageIn { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+
+.sheet-backdrop.is-closing { animation: fadeOut .18s ease-in forwards; }
+.sheet-panel.is-closing { animation: sheetDown .18s ease-in forwards; }
+@keyframes fadeOut { to { opacity: 0 } }
+@keyframes sheetDown { to { transform: translateY(24px); opacity: 0 } }
+
+.skeleton-shimmer { background: linear-gradient(90deg, #f2f4f7 25%, #e8ebf1 37%, #f2f4f7 63%); background-size: 400% 100%; animation: shimmer 1.3s ease infinite; }
+@keyframes shimmer { 0% { background-position: 100% 50% } 100% { background-position: 0 50% } }
+
+.btn:active:not(:disabled), button:active:not(:disabled) { transform: scale(.98); }
+.btn, .input, .select, .textarea, a { transition-property: color, background-color, border-color, box-shadow, transform, opacity; transition-duration: .15s; }
+.table tbody tr { transition: background-color .15s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Cetak struk / rekam medis: hanya area .print-area */
+@media print {
+  body * { visibility: hidden !important; }
+  .print-area, .print-area * { visibility: visible !important; }
+  .print-area { position: fixed; left: 0; top: 0; width: 100%; padding: 16px; background: #fff; color: #000; }
+  .no-print { display: none !important; }
+}

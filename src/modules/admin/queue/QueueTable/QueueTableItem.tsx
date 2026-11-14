@@ -17,7 +17,7 @@ const QueueTableItem: FunctionComponent<Props> = ({ number, appointment }) => {
       </td>
       <td className="px-6 uppercase text-center">
         {appointment.status && appointment.status == "finished" ? (
-          <span className="rounded-full bg-[#4bb43a] text-white px-3 py-1">
+          <span className="rounded-full bg-primary text-white px-3 py-1">
             Finished
           </span>
         ) : appointment.status == "cancel" ? (

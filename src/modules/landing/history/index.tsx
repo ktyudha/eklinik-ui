@@ -2,70 +2,39 @@ import { FunctionComponent } from "react";
 import { isEmpty } from "lodash";
 import { formattedDateTime2 } from "@/helpers/date";
 import useGetAllMedical from "@/services/patient/medical/hooks/useGetAllMedical";
-import EmptyIcon from "@/assets/icons/empty.png";
+
 const LandingHistory: FunctionComponent = () => {
   const { medicals } = useGetAllMedical();
+
   return (
-    <>
-      <section className="md:mx-auto bg-white max-w-screen-xl min-h-[80vh]">
-        <div className="mx-4 md:px-4 pt-4">
-          {isEmpty(medicals) ? (
-            <div className="flex flex-col items-center justify-center gap-3 min-h-[80vh]">
-              <img src={EmptyIcon} alt="Icon" className="md:w-36 w-20" />
-              <h1 className="font-semibold md:text-lg text-base">
-                Tidak Ada Data
-              </h1>
-            </div>
-          ) : (
-            medicals?.map((medical) => (
-              <div className="bg-gray-50 rounded-lg px-4 py-3">
-                <div className="flex justify-between mb-2">
-                  <span className="bg-[#4bb43a] text-white rounded-full px-3 text-sm my-auto">
-                    {medical.classification.name}
-                  </span>
-                  <span className="text-xs my-auto">
-                    NRM/{medical.patient.mrn}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <div>
-                    <h3 className="text-xl font-medium mb-2 uppercase">
-                      {medical.patient.name}
-                    </h3>
-                    <p className="text-xs">
-                      {formattedDateTime2(medical.checkup_date)}
-                    </p>
-                  </div>
-                  <div className="mt-auto">
-                    <button
-                      type="button"
-                      className="text-xs font-medium flex gap-6 hover:underline"
-                    >
-                      Lihat Detail
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        className="bi bi-chevron-right w-3 h-3 my-auto text-[#4bb43a]"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1"
-                          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
+    <section className="mx-auto min-h-[80vh] max-w-2xl px-4 py-8">
+      <h1 className="text-2xl font-bold text-gray-900">Riwayat pemeriksaan</h1>
+      <p className="mt-1 text-gray-500">Catatan kunjungan Anda di klinik.</p>
+
+      {isEmpty(medicals) ? (
+        <div className="mt-16 text-center text-gray-400">
+          <p className="text-5xl">🗂️</p>
+          <p className="mt-3 font-medium text-gray-500">Belum ada riwayat</p>
+          <p className="text-sm">Riwayat akan muncul setelah pemeriksaan pertama.</p>
         </div>
-      </section>
-    </>
+      ) : (
+        <ol className="relative mt-8 space-y-4 border-l-2 border-brand-100 pl-6">
+          {medicals?.map((m) => (
+            <li key={m.id} className="relative">
+              <span className="absolute -left-[33px] top-5 h-3 w-3 rounded-full bg-brand-600 ring-4 ring-white" />
+              <div className="surface surface-hover p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700 ring-1 ring-brand-100">{m.classification.name}</span>
+                  <span className="text-xs text-gray-400">No. RM {m.patient.mrn}</span>
+                </div>
+                <p className="mt-3 font-semibold text-gray-900">{m.patient.name}</p>
+                <p className="text-sm text-gray-500">{formattedDateTime2(m.checkup_date)}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
+    </section>
   );
 };
 

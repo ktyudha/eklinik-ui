@@ -2,6 +2,9 @@ import { FunctionComponent } from "react";
 import { UilPlus } from "@iconscout/react-unicons";
 // import CreatePatientModal from "../PatientModals/CreatePatientModal";
 import { useNavigate } from "react-router-dom";
+import { adminFetcher } from "@/lib/admin-api";
+import { downloadCsv } from "@/helpers/export-csv";
+import { toast } from "react-toastify";
 
 interface Props {
   setNameCallback: (param: string) => void;
@@ -12,6 +15,16 @@ const MedicalRecordTableHeader: FunctionComponent<Props> = ({
 }) => {
   // const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+  const exportCsv = async () => {
+    try {
+      const res = await adminFetcher<{ medicals: { checkup_date: string; patient: { mrn: string; name: string }; classification: { name: string } }[] }>(
+        "/admin/medical?page_limit=100"
+      );
+      downloadCsv(`rekam-medis-${new Date().toISOString().slice(0, 10)}.csv`, res.medicals.map((m) => ({
+        Tanggal: String(m.checkup_date).slice(0, 10), "No. RM": m.patient?.mrn, Pasien: m.patient?.name, Klasifikasi: m.classification?.name,
+      })));
+    } catch { toast.error("Gagal mengekspor"); }
+  };
   return (
     <>
       {/* <CreatePatientModal onOpen={open} onClose={() => setOpen(false)} /> */}
@@ -22,14 +35,15 @@ const MedicalRecordTableHeader: FunctionComponent<Props> = ({
         <div className="flex md:w-auto w-full flex-wrap items-center gap-3">
           <div className="w-full lg:w-60 md:w-60">
             <input
-              className="border-2 rounded-lg px-2 py-1.5 font-normal text-md w-full focus:outline-none"
+              className="input input-bordered input-sm h-9 w-full focus:border-primary focus:outline-none"
               type="text"
               placeholder="Cari Pasien..."
               onChange={(e) => setNameCallback(e.target.value)}
             />
           </div>
+          <button className="btn btn-outline btn-sm h-9 w-full lg:w-auto" onClick={exportCsv}>Ekspor CSV</button>
           <button
-            className="bg-[#4bb43a] hover:bg-[#4bb43a] px-3 py-2 rounded-lg text-sm text-white font-semibold transition-all duration-200 ease-in-out flex items-center justify-center gap-1 w-full lg:w-auto md:w-auto"
+            className="bg-primary hover:bg-brand-dark px-3 py-2 rounded-lg text-sm text-white font-semibold transition-all duration-200 ease-in-out flex items-center justify-center gap-1 w-full lg:w-auto md:w-auto"
             onClick={() => navigate("create")}
           >
             <UilPlus size="20" color="white" />

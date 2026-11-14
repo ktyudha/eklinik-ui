@@ -2,134 +2,41 @@ import { FunctionComponent } from "react";
 import useGlobalStore from "@/store/useStore";
 import { formattedDate } from "@/helpers/date";
 
+const Item: FunctionComponent<{ label: string; value?: string | null; wide?: boolean }> = ({ label, value, wide }) => (
+  <div className={wide ? "col-span-2" : ""}>
+    <dt className="text-xs text-gray-400">{label}</dt>
+    <dd className="mt-0.5 font-medium text-gray-800">{value || "-"}</dd>
+  </div>
+);
+
 const LandingAccount: FunctionComponent = () => {
-  const { user } = useGlobalStore((state) => ({
-    user: state.user,
-  }));
+  const user = useGlobalStore((s) => s.user) as any;
+  const address = [user?.additional_address, user?.village?.name, user?.sub_district?.name, user?.city?.name, user?.province?.name].filter(Boolean).join(", ");
 
   return (
-    <>
-      <section className="items-center justify-center min-h-dvh bg-white max-w-screen-xl mx-auto">
-        {/* <section className="md:mx-auto bg-white min-h-screen  max-w-screen-xl pb-24"> */}
-        <div className="justify-center mx-auto text-center bg-white pt-10">
-          <span className="text-4xl font-medium bg-base-200 rounded-full text-gray-500 p-4">
-            {user?.name.slice(0, 2).toUpperCase()}
-          </span>
-
-          <div className="mt-8">
-            <h2 className="text-xl font-semibold text-gray-800 uppercase mb-1">
-              {user?.name}
-            </h2>
-            <p className="text-sm text-gray-600">{user?.email}</p>
-          </div>
+    <section className="mx-auto min-h-[80vh] max-w-2xl px-4 py-8">
+      <div className="surface overflow-hidden">
+        <div className="bg-gradient-to-br from-brand-700 via-brand-600 to-sky-500 px-6 py-8 text-center text-white">
+          <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-white/20 text-xl font-bold ring-4 ring-white/30">{user?.name?.slice(0, 2).toUpperCase()}</span>
+          <h1 className="mt-3 text-xl font-bold">{user?.name}</h1>
+          <p className="text-sm text-white/80">{user?.email || user?.username}</p>
+          {user?.medical_record_number && <span className="mt-3 inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-medium">No. RM {user.medical_record_number}</span>}
         </div>
-
-        <div className="mt-6 md:text-base text-sm">
-          <div className="grid md:grid-cols-4 grid-cols-2 gap-x-4 gap-y-3 mx-4 md:px-4">
-            <div className="w-full">
-              <div className="text-gray-600">NRM</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {user?.medical_record_number}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">NIK</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">{user?.nik}</div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Username</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {user?.username}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Status</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {user?.marital_status}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Tempat Lahir</div>
-              <div className=" bg-gray-50 px-2 py-1 rounded-md">
-                {user?.birth_place}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Tanggal Lahir</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {formattedDate(user?.birth_date as string)}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Jenis Kelamin</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {user?.gender}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Agama</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {user?.religion}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Pendidikan</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">
-                {user?.education}
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="text-gray-600">Pekerjaan</div>
-              <div className="bg-gray-50 px-2 py-1 rounded-md">{user?.job}</div>
-            </div>
-            {user?.additional_address ? (
-              <div className="col-span-2">
-                <div className="text-gray-600">Alamat</div>
-                <div className="bg-gray-50 px-2 py-1 rounded-md">
-                  {user?.additional_address}, <br />
-                  {user?.village?.name}, {user?.sub_district?.name},{" "}
-                  {user?.city?.name}, {user?.province?.name}, Kode Pos {""}
-                  {user?.village?.postal_code}
-                </div>
-              </div>
-            ) : (
-              <>
-                <div className="w-full">
-                  <div className="text-gray-600">Provinsi</div>
-                  <div className="bg-gray-50 px-2 py-1 rounded-md">
-                    {user?.province?.name}
-                  </div>
-                </div>
-                <div className="w-full">
-                  <div className="text-gray-600">Kabupaten/Kota</div>
-                  <div className="bg-gray-50 px-2 py-1 rounded-md">
-                    {user?.city?.name}
-                  </div>
-                </div>
-                <div className="w-full">
-                  <div className="text-gray-600">Kecamatan</div>
-                  <div className="bg-gray-50 px-2 py-1 rounded-md">
-                    {user?.sub_district?.name}
-                  </div>
-                </div>
-                <div className="w-full">
-                  <div className="text-gray-600">Desa</div>
-                  <div className="bg-gray-50 px-2 py-1 rounded-md">
-                    {user?.village?.name}
-                  </div>
-                </div>
-                <div className="w-full">
-                  <div className="text-gray-600">Kode Pos</div>
-                  <div className="bg-gray-50 px-2 py-1 rounded-md">
-                    {user?.village?.postal_code}
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      </section>
-    </>
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-5 p-6 text-sm">
+          <Item label="NIK" value={user?.nik} />
+          <Item label="Username" value={user?.username} />
+          <Item label="Tempat lahir" value={user?.birth_place} />
+          <Item label="Tanggal lahir" value={user?.birth_date ? formattedDate(user.birth_date) : null} />
+          <Item label="Jenis kelamin" value={user?.gender} />
+          <Item label="Agama" value={user?.religion} />
+          <Item label="Status" value={user?.marital_status} />
+          <Item label="Pendidikan" value={user?.education} />
+          <Item label="Pekerjaan" value={user?.job} />
+          <Item label="No. HP" value={user?.phone_number} />
+          <Item label="Alamat" value={address} wide />
+        </dl>
+      </div>
+    </section>
   );
 };
 

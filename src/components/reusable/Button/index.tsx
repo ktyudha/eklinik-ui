@@ -36,7 +36,7 @@ const Button: FunctionComponent<ButtonProps> = ({
   // Variants
   const variantStyles = {
     none: "",
-    primary: "bg-primary-500 text-white hover:bg-blue-700 disabled:bg-blue-700",
+    primary: "bg-primary text-white hover:bg-brand-dark disabled:opacity-60",
     "primary-outline":
       "border border-primary-500 text-primary-500 hover:bg-blue-100",
     success: "bg-success-500 text-white hover:bg-green-600",

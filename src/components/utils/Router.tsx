@@ -89,6 +89,7 @@ export default function GetBrowserRoutes() {
           path: "medical-record/edit/:id",
           element: <Admin.MedicalRecordEditPage />,
         },
+        { path: "medical-record/:id", element: <Admin.MedicalRecordDetailPage /> },
         // {
         //   path: "outpatient/appointments",
         //   element: <Admin.QueuePage />,
@@ -105,15 +106,15 @@ export default function GetBrowserRoutes() {
           path: "appointments",
           element: <Admin.QueuePage />,
         },
-        {
-          path: "appointments/create",
-          element: <Admin.CreateQueuePage />,
-        },
-        {
-          path: "appointments/edit/:id",
-          element: <Admin.UpdateQueuePage />,
-        },
+        { path: "appointments/create", element: <Navigate to="/admin/appointments" replace /> },
+        { path: "appointments/edit/:id", element: <Navigate to="/admin/appointments" replace /> },
         { path: "schedules", element: <Admin.SchedulePage /> },
+        { path: "recipes", element: <Admin.RecipePage /> },
+        { path: "medicine/purchases", element: <Admin.PurchasePage /> },
+        { path: "payments", element: <Admin.PaymentPage /> },
+        { path: "users", element: <Admin.RolePermissionsPage /> },
+
+
       ],
     },
   ];

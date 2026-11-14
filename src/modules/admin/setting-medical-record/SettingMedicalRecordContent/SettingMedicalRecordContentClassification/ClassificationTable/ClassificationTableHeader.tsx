@@ -21,14 +21,14 @@ const ClassificationTableHeader: FunctionComponent<Props> = ({
         <div className="flex md:w-auto w-full flex-wrap items-center gap-3">
           <div className="w-full lg:w-60 md:w-60">
             <input
-              className="border-2 rounded-lg px-2 py-1.5 font-normal text-md w-full focus:outline-none"
+              className="input input-bordered input-sm h-9 w-full focus:border-primary focus:outline-none"
               type="text"
               placeholder="Cari Klasifikasi..."
               onChange={(e) => setNameCallback(e.target.value)}
             />
           </div>
           <button
-            className="bg-[#4bb43a] hover:bg-[#4bb43a] px-3 py-2 rounded-lg text-sm text-white font-semibold transition-all duration-200 ease-in-out flex items-center justify-center gap-1 w-full lg:w-auto md:w-auto"
+            className="bg-primary hover:bg-brand-dark px-3 py-2 rounded-lg text-sm text-white font-semibold transition-all duration-200 ease-in-out flex items-center justify-center gap-1 w-full lg:w-auto md:w-auto"
             onClick={() => setOpen(true)}
           >
             <UilPlus size="20" color="white" />
